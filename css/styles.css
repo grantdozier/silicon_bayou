@@ -243,6 +243,24 @@ body {
     animation-delay: 4s;
 }
 
+.card-4 {
+    top: 15%;
+    right: 15%;
+    animation-delay: 1s;
+}
+
+.card-5 {
+    bottom: 40%;
+    left: 5%;
+    animation-delay: 3s;
+}
+
+.card-6 {
+    bottom: 30%;
+    right: 5%;
+    animation-delay: 5s;
+}
+
 @keyframes float {
     0%, 100% { transform: translateY(0px); }
     50% { transform: translateY(-20px); }
