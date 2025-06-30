@@ -1,6 +1,6 @@
-# AI Solutions Consulting Website
+# Dozier Tech Group Website
 
-A modern, professional website for an AI consulting company built with HTML, CSS, and JavaScript.
+A modern, professional website for Dozier Tech Group built with HTML, CSS, and JavaScript.
 
 ## Features
 
