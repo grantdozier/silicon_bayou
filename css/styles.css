@@ -293,50 +293,50 @@ body {
 }
 
 .card-1 {
-    top: 20%;
-    left: 10%;
+    top: 10%;
+    left: 5%;
     animation-delay: 0s;
 }
 
 .card-2 {
-    top: 50%;
-    right: 20%;
+    top: 65%;
+    right: 30%;
     animation-delay: 2s;
 }
 
 .card-3 {
-    bottom: 20%;
-    left: 20%;
+    bottom: 5%;
+    left: 15%;
     animation-delay: 4s;
 }
 
 .card-4 {
-    top: 15%;
-    right: 15%;
+    top: 5%;
+    right: 5%;
     animation-delay: 1s;
 }
 
 .card-5 {
-    bottom: 40%;
-    left: 5%;
+    bottom: 30%;
+    left: 2%;
     animation-delay: 3s;
 }
 
 .card-6 {
-    bottom: 25%;
-    right: 8%;
+    bottom: 15%;
+    right: 2%;
     animation-delay: 5s;
 }
 
 .card-7 {
     top: 35%;
-    left: 30%;
+    left: 20%;
     animation-delay: 2.5s;
 }
 
 .card-8 {
-    top: 60%;
-    right: 25%;
+    top: 40%;
+    right: 15%;
     animation-delay: 4.5s;
 }
 
