@@ -300,7 +300,7 @@ body {
 
 .card-2 {
     top: 50%;
-    right: 10%;
+    right: 20%;
     animation-delay: 2s;
 }
 
@@ -323,9 +323,21 @@ body {
 }
 
 .card-6 {
-    bottom: 30%;
-    right: 5%;
+    bottom: 25%;
+    right: 8%;
     animation-delay: 5s;
+}
+
+.card-7 {
+    top: 35%;
+    left: 30%;
+    animation-delay: 2.5s;
+}
+
+.card-8 {
+    top: 60%;
+    right: 25%;
+    animation-delay: 4.5s;
 }
 
 @keyframes float {
