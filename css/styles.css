@@ -253,16 +253,13 @@ body {
 /* Hero Visual */
 .hero-visual {
     position: relative;
-    height: 650px;
+    height: 500px;
 }
 
 .hero-graphic {
     position: relative;
     width: 100%;
     height: 100%;
-    max-width: 1400px;
-    margin: 0 auto;
-    overflow: visible;
 }
 
 .floating-card {
@@ -278,7 +275,6 @@ body {
     gap: 1rem;
     animation: float 6s ease-in-out infinite;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    z-index: 5;
 }
 
 .floating-card:hover {
@@ -297,56 +293,56 @@ body {
 }
 
 .card-1 {
-    top: 5%;
-    left: 0%;
+    top: 20%;
+    left: 10%;
     animation-delay: 0s;
 }
 
 .card-2 {
-    bottom: 5%;
-    left: 42%;
+    top: 50%;
+    right: 15%;
     animation-delay: 2s;
 }
 
 .card-3 {
-    bottom: 5%;
-    left: 0%;
+    bottom: 20%;
+    left: 20%;
     animation-delay: 4s;
 }
 
 .card-4 {
-    top: 5%;
-    right: 0%;
+    top: 15%;
+    right: 15%;
     animation-delay: 1s;
 }
 
 .card-5 {
-    bottom: 35%;
-    left: 0%;
+    bottom: 40%;
+    left: 5%;
     animation-delay: 3s;
 }
 
 .card-6 {
-    bottom: 5%;
-    right: 0%;
+    bottom: 25%;
+    right: 10%;
     animation-delay: 5s;
 }
 
 .card-7 {
-    top: 40%;
-    left: 20%;
+    top: 35%;
+    left: 25%;
     animation-delay: 2.5s;
 }
 
 .card-8 {
-    top: 40%;
-    right: 20%;
+    top: 45%;
+    right: 25%;
     animation-delay: 4.5s;
 }
 
 @keyframes float {
     0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-15px); }
+    50% { transform: translateY(-20px); }
 }
 
 /* Section Headers */
