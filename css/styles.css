@@ -174,29 +174,12 @@ body {
     max-width: 600px;
 }
 
-.hero-logo-container {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 2rem;
-}
-
-.hero-logo {
-    width: 180px;
-    height: auto;
-    filter: drop-shadow(0 10px 15px rgba(13, 75, 118, 0.2));
-    transition: transform 0.3s ease;
-}
-
-.hero-logo:hover {
-    transform: translateY(-5px);
-}
-
 .hero-badge {
     display: inline-block;
     background: rgba(13, 75, 118, 0.1);
     color: #0d4b76;
-    font-weight: 600;
     font-size: 0.875rem;
+    font-weight: 600;
     padding: 0.5rem 1rem;
     border-radius: 50px;
     margin-bottom: 1.5rem;
@@ -212,7 +195,7 @@ body {
 }
 
 .gradient-text {
-    background: linear-gradient(135deg, #0d4b76, #1a6ea8);
+    background: linear-gradient(135deg, #0d4b76, #0d4b76);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -247,7 +230,7 @@ body {
 }
 
 .btn-primary {
-    background: linear-gradient(135deg, #0d4b76, #1a6ea8);
+    background: linear-gradient(135deg, #0d4b76, #0d4b76);
     color: white;
     box-shadow: 0 4px 15px rgba(13, 75, 118, 0.3);
     border-radius: 50px;
@@ -389,7 +372,7 @@ body {
     transform: translateX(-50%);
     width: 80px;
     height: 4px;
-    background: linear-gradient(90deg, #0d4b76, #1a6ea8);
+    background: linear-gradient(90deg, #0d4b76, #0d4b76);
     border-radius: 2px;
 }
 
@@ -443,7 +426,7 @@ body {
     left: 0;
     width: 100%;
     height: 5px;
-    background: linear-gradient(90deg, #0d4b76, #1a6ea8);
+    background: linear-gradient(90deg, #0d4b76, #0d4b76);
     transform: scaleX(0);
     transform-origin: left;
     transition: transform 0.3s ease;
@@ -461,7 +444,7 @@ body {
 .service-icon {
     width: 60px;
     height: 60px;
-    background: linear-gradient(135deg, #0d4b76, #1a6ea8);
+    background: linear-gradient(135deg, #0d4b76, #0d4b76);
     border-radius: 12px;
     display: flex;
     align-items: center;
@@ -526,7 +509,7 @@ body {
 .feature-icon {
     width: 80px;
     height: 80px;
-    background: linear-gradient(135deg, #0d4b76, #1a6ea8);
+    background: linear-gradient(135deg, #0d4b76, #0d4b76);
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -639,7 +622,7 @@ body {
 .expertise-icon {
     width: 60px;
     height: 60px;
-    background: linear-gradient(135deg, #0d4b76, #1a6ea8);
+    background: linear-gradient(135deg, #0d4b76, #0d4b76);
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -734,7 +717,7 @@ body {
 .contact-icon {
     width: 50px;
     height: 50px;
-    background: linear-gradient(135deg, #0d4b76, #1a6ea8);
+    background: linear-gradient(135deg, #0d4b76, #0d4b76);
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -800,7 +783,7 @@ body {
 
 /* Footer */
 .footer {
-    background: linear-gradient(135deg, #0a3a5c, #0d4b76);
+    background: linear-gradient(135deg, #0d4b76, #0d4b76);
     color: white;
     padding: 4rem 0 1rem;
     position: relative;
