@@ -114,7 +114,7 @@ if (canvas && hero) {
                     shape.fadeStartTime = Date.now() + (index * 150); // 150ms delay between each
                 }
                 if (Date.now() > shape.fadeStartTime) {
-                    shape.opacity -= 0.005; // Even slower, smoother fade
+                    shape.opacity -= 0.01; // Smooth fade
                 }
             }
             
