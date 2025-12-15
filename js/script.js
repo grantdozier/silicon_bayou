@@ -27,11 +27,40 @@ if (canvas && hero) {
         canvas.height = hero.offsetHeight;
     }
     
+    function isInExclusionZone(x, y) {
+        // Define the center content area to exclude (where text/buttons are)
+        const centerX = canvas.width / 2;
+        const centerY = canvas.height / 2;
+        const exclusionWidth = Math.min(canvas.width * 0.5, 600); // 50% width or 600px max
+        const exclusionHeight = Math.min(canvas.height * 0.7, 500); // 70% height or 500px max
+        
+        return (
+            x > centerX - exclusionWidth / 2 &&
+            x < centerX + exclusionWidth / 2 &&
+            y > centerY - exclusionHeight / 2 - 50 && // Shift up a bit for the content
+            y < centerY + exclusionHeight / 2
+        );
+    }
+    
     function createShape(x, y) {
         const size = Math.random() * 60 + 30;
+        let shapeX = x + (Math.random() - 0.5) * 200;
+        let shapeY = y + (Math.random() - 0.5) * 200;
+        
+        // If shape would be in exclusion zone, push it to the edges
+        if (isInExclusionZone(shapeX, shapeY)) {
+            // Push to nearest edge
+            const centerX = canvas.width / 2;
+            if (shapeX < centerX) {
+                shapeX = Math.random() * canvas.width * 0.2; // Left 20%
+            } else {
+                shapeX = canvas.width - Math.random() * canvas.width * 0.2; // Right 20%
+            }
+        }
+        
         return {
-            x: x + (Math.random() - 0.5) * 200,
-            y: y + (Math.random() - 0.5) * 200,
+            x: shapeX,
+            y: shapeY,
             size: size,
             type: shapeTypes[Math.floor(Math.random() * shapeTypes.length)],
             color: colors[Math.floor(Math.random() * colors.length)],
