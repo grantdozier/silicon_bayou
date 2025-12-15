@@ -1,3 +1,166 @@
+// Geometric shapes canvas - Emergent Method style
+const canvas = document.getElementById('geometricCanvas');
+const hero = document.querySelector('.hero');
+
+if (canvas && hero) {
+    const ctx = canvas.getContext('2d');
+    let shapes = [];
+    let mouseX = 0;
+    let mouseY = 0;
+    let isMouseMoving = false;
+    let mouseStopTimeout = null;
+    
+    // Brand colors
+    const colors = [
+        '#0d4b76',  // primary navy
+        '#1a5a8a',  // primary light
+        '#0ea5e9',  // accent blue
+        '#064e7a',  // darker navy
+        '#38bdf8',  // light accent
+    ];
+    
+    // Shape types: square, circle, triangle, diagonal stripes, quarter circle
+    const shapeTypes = ['square', 'circle', 'triangle', 'stripes', 'quarterCircle', 'semicircle'];
+    
+    function resizeCanvas() {
+        canvas.width = hero.offsetWidth;
+        canvas.height = hero.offsetHeight;
+    }
+    
+    function createShape(x, y) {
+        const size = Math.random() * 60 + 30;
+        return {
+            x: x + (Math.random() - 0.5) * 200,
+            y: y + (Math.random() - 0.5) * 200,
+            size: size,
+            type: shapeTypes[Math.floor(Math.random() * shapeTypes.length)],
+            color: colors[Math.floor(Math.random() * colors.length)],
+            opacity: 0,
+            targetOpacity: 0.8,
+            rotation: Math.random() * Math.PI * 2,
+            fadeSpeed: 0.05
+        };
+    }
+    
+    function drawShape(shape) {
+        ctx.save();
+        ctx.globalAlpha = shape.opacity;
+        ctx.translate(shape.x, shape.y);
+        ctx.rotate(shape.rotation);
+        ctx.fillStyle = shape.color;
+        ctx.strokeStyle = shape.color;
+        ctx.lineWidth = 3;
+        
+        const s = shape.size;
+        
+        switch(shape.type) {
+            case 'square':
+                ctx.fillRect(-s/2, -s/2, s, s);
+                break;
+            case 'circle':
+                ctx.beginPath();
+                ctx.arc(0, 0, s/2, 0, Math.PI * 2);
+                ctx.fill();
+                break;
+            case 'triangle':
+                ctx.beginPath();
+                ctx.moveTo(0, -s/2);
+                ctx.lineTo(s/2, s/2);
+                ctx.lineTo(-s/2, s/2);
+                ctx.closePath();
+                ctx.fill();
+                break;
+            case 'stripes':
+                ctx.beginPath();
+                ctx.rect(-s/2, -s/2, s, s);
+                ctx.clip();
+                for (let i = -s; i < s * 2; i += 8) {
+                    ctx.beginPath();
+                    ctx.moveTo(i - s/2, -s/2);
+                    ctx.lineTo(i + s - s/2, s/2);
+                    ctx.stroke();
+                }
+                break;
+            case 'quarterCircle':
+                ctx.beginPath();
+                ctx.moveTo(0, 0);
+                ctx.arc(0, 0, s/2, 0, Math.PI/2);
+                ctx.closePath();
+                ctx.fill();
+                break;
+            case 'semicircle':
+                ctx.beginPath();
+                ctx.arc(0, 0, s/2, 0, Math.PI);
+                ctx.closePath();
+                ctx.fill();
+                break;
+        }
+        ctx.restore();
+    }
+    
+    function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        // Update and draw shapes
+        shapes.forEach((shape, index) => {
+            // Fade in if mouse is moving
+            if (isMouseMoving) {
+                shape.opacity += shape.fadeSpeed;
+                if (shape.opacity > shape.targetOpacity) shape.opacity = shape.targetOpacity;
+                shape.fadeStartTime = null; // Reset fade timer when moving again
+            } else {
+                // Stagger fade out - older shapes fade first based on their creation time
+                if (!shape.fadeStartTime) {
+                    shape.fadeStartTime = Date.now() + (index * 150); // 150ms delay between each
+                }
+                if (Date.now() > shape.fadeStartTime) {
+                    shape.opacity -= 0.005; // Even slower, smoother fade
+                }
+            }
+            
+            if (shape.opacity > 0.01) { // Only draw if visible enough
+                drawShape(shape);
+            }
+        });
+        
+        // Remove fully faded shapes
+        shapes = shapes.filter(shape => shape.opacity > 0.01);
+        
+        requestAnimationFrame(animate);
+    }
+    
+    let lastShapeTime = 0;
+    
+    hero.addEventListener('mousemove', (e) => {
+        const rect = hero.getBoundingClientRect();
+        mouseX = e.clientX - rect.left;
+        mouseY = e.clientY - rect.top;
+        isMouseMoving = true;
+        
+        // Reset the timeout each time mouse moves
+        if (mouseStopTimeout) clearTimeout(mouseStopTimeout);
+        mouseStopTimeout = setTimeout(() => {
+            isMouseMoving = false;
+        }, 150); // Start fading after 150ms of no movement
+        
+        // Add new shapes periodically while moving
+        const now = Date.now();
+        if (now - lastShapeTime > 50 && shapes.length < 50) {
+            shapes.push(createShape(mouseX, mouseY));
+            lastShapeTime = now;
+        }
+    });
+    
+    hero.addEventListener('mouseleave', () => {
+        isMouseMoving = false;
+        if (mouseStopTimeout) clearTimeout(mouseStopTimeout);
+    });
+    
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+    animate();
+}
+
 // Mobile Navigation Toggle
 const mobileMenu = document.getElementById('mobile-menu');
 const navMenu = document.querySelector('.nav-menu');
