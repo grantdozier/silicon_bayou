@@ -7,7 +7,7 @@
     <meta name="description" content="Professional AI consulting services including local AI integration, MCP setup, custom model training, and AI-enabled software development.">
     <link rel="icon" type="image/png" href="images/DozierTechGroupLogoMini.png">
     <link rel="stylesheet" href="css/styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
@@ -26,12 +26,18 @@
                     <a href="#services" class="nav-link">Services</a>
                 </li>
                 <li class="nav-item">
+                    <a href="#process" class="nav-link">Process</a>
+                </li>
+                <li class="nav-item">
                     <a href="#about" class="nav-link">About</a>
                 </li>
                 <li class="nav-item">
                     <a href="#contact" class="nav-link">Contact</a>
                 </li>
             </ul>
+            <div class="nav-cta">
+                <a href="#contact" class="btn-nav">Get Started</a>
+            </div>
             <div class="nav-toggle" id="mobile-menu">
                 <span class="bar"></span>
                 <span class="bar"></span>
@@ -42,55 +48,83 @@
 
     <!-- Hero Section -->
     <section id="home" class="hero">
-        <div class="hero-bg-elements">
-            <div class="hero-circle circle-1"></div>
-            <div class="hero-circle circle-2"></div>
-            <div class="hero-circle circle-3"></div>
+        <div class="hero-background">
+            <div class="grid-overlay"></div>
+            <div class="gradient-orb orb-1"></div>
+            <div class="gradient-orb orb-2"></div>
+            <div class="gradient-orb orb-3"></div>
         </div>
         <div class="hero-container">
             <div class="hero-content">
-                <div class="hero-badge">Innovative AI Solutions</div>
-                <h1 class="hero-title">Transform Your Business with <span class="gradient-text">Dozier Tech Group</span></h1>
-                <p class="hero-subtitle">Unlock the power of artificial intelligence to streamline operations, enhance decision-making, and drive unprecedented growth for your business.</p>
+                <div class="hero-badge">
+                    <span class="badge-dot"></span>
+                    Transforming Businesses with AI
+                </div>
+                <h1 class="hero-title">
+                    Unlock Intelligent
+                    <span class="gradient-text">Solutions</span>
+                    <br>For Your Business
+                </h1>
+                <p class="hero-subtitle">Empower your organization with cutting-edge AI technology. From strategic consulting to custom development, we transform your vision into reality.</p>
                 <div class="hero-buttons">
-                    <a href="#contact" class="btn btn-primary"><i class="fas fa-comment-dots"></i> Get Free Consultation</a>
-                    <a href="#services" class="btn btn-secondary"><i class="fas fa-arrow-right"></i> Explore Services</a>
+                    <a href="#contact" class="btn btn-primary">
+                        Start Your AI Journey
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                    <a href="#services" class="btn btn-secondary">
+                        Explore Capabilities
+                        <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <div class="stat-number">10+</div>
+                        <div class="stat-label">Years Experience</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">50+</div>
+                        <div class="stat-label">Projects Delivered</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">95%</div>
+                        <div class="stat-label">Client Satisfaction</div>
+                    </div>
                 </div>
             </div>
-            <div class="hero-visual">
-                <div class="hero-graphic">
-                    <div class="floating-card card-1">
+        </div>
+    </section>
+
+    <!-- Features Overview -->
+    <section class="features-overview">
+        <div class="container">
+            <div class="features-grid-modern">
+                <div class="feature-card-modern">
+                    <div class="feature-icon-modern">
                         <i class="fas fa-brain"></i>
-                        <span>AI Integration</span>
                     </div>
-                    <div class="floating-card card-2">
+                    <h3>AI Strategy</h3>
+                    <p>Comprehensive roadmaps aligned with your business goals</p>
+                </div>
+                <div class="feature-card-modern">
+                    <div class="feature-icon-modern">
                         <i class="fas fa-cogs"></i>
-                        <span>Custom Solutions</span>
                     </div>
-                    <div class="floating-card card-3">
-                        <i class="fas fa-chart-line"></i>
-                        <span>Business Growth</span>
+                    <h3>Custom Development</h3>
+                    <p>Tailored AI solutions built for your unique needs</p>
+                </div>
+                <div class="feature-card-modern">
+                    <div class="feature-icon-modern">
+                        <i class="fas fa-rocket"></i>
                     </div>
-                    <div class="floating-card card-4">
-                        <i class="fas fa-robot"></i>
-                        <span>Model Training</span>
+                    <h3>Rapid Deployment</h3>
+                    <p>Fast implementation with minimal disruption</p>
+                </div>
+                <div class="feature-card-modern">
+                    <div class="feature-icon-modern">
+                        <i class="fas fa-shield-alt"></i>
                     </div>
-                    <div class="floating-card card-5">
-                        <i class="fas fa-tasks"></i>
-                        <span>Workflow Enhancement</span>
-                    </div>
-                    <div class="floating-card card-6">
-                        <i class="fas fa-database"></i>
-                        <span>RAG Systems</span>
-                    </div>
-                    <div class="floating-card card-7">
-                        <i class="fas fa-tags"></i>
-                        <span>Data Annotation</span>
-                    </div>
-                    <div class="floating-card card-8">
-                        <i class="fas fa-project-diagram"></i>
-                        <span>AI Strategy</span>
-                    </div>
+                    <h3>Enterprise Security</h3>
+                    <p>Secure, compliant AI infrastructure</p>
                 </div>
             </div>
         </div>
@@ -100,122 +134,163 @@
     <section id="services" class="services">
         <div class="container">
             <div class="section-header">
-                <h2>Our Services</h2>
-                <p>Comprehensive AI solutions tailored to your business needs</p>
+                <span class="section-tag">Our Expertise</span>
+                <h2>Comprehensive AI Services</h2>
+                <p>End-to-end solutions that drive measurable business outcomes</p>
             </div>
             <div class="services-grid">
                 <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-network-wired"></i>
+                    <div class="service-header">
+                        <div class="service-icon">
+                            <i class="fas fa-network-wired"></i>
+                        </div>
+                        <h3>Local AI Integration</h3>
                     </div>
-                    <h3>Local AI Integration</h3>
                     <p>Seamlessly integrate AI into your existing business processes to enhance efficiency, reduce costs, and unlock valuable insights from your data.</p>
                     <ul class="service-features">
-                        <li>Process automation</li>
-                        <li>Data analysis & insights</li>
-                        <li>Workflow optimization</li>
+                        <li><i class="fas fa-check"></i> Process automation</li>
+                        <li><i class="fas fa-check"></i> Data analysis & insights</li>
+                        <li><i class="fas fa-check"></i> Workflow optimization</li>
                     </ul>
+                    <a href="#contact" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
                 </div>
                 <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-cloud-upload-alt"></i>
+                    <div class="service-header">
+                        <div class="service-icon">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                        </div>
+                        <h3>MCP Setup & Installation</h3>
                     </div>
-                    <h3>MCP Setup & Installation</h3>
                     <p>Professional setup and configuration of Managed Cloud Platforms to ensure scalable, secure, and high-performance AI infrastructure.</p>
                     <ul class="service-features">
-                        <li>Cloud architecture design</li>
-                        <li>Security implementation</li>
-                        <li>Performance optimization</li>
+                        <li><i class="fas fa-check"></i> Cloud architecture design</li>
+                        <li><i class="fas fa-check"></i> Security implementation</li>
+                        <li><i class="fas fa-check"></i> Performance optimization</li>
                     </ul>
+                    <a href="#contact" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
                 </div>
                 <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-robot"></i>
+                    <div class="service-header">
+                        <div class="service-icon">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <h3>Custom Model Training</h3>
                     </div>
-                    <h3>Custom Model Training</h3>
                     <p>Develop and train bespoke AI models tailored to your specific business requirements, from predictive analytics to natural language processing.</p>
                     <ul class="service-features">
-                        <li>Predictive analytics</li>
-                        <li>Natural language processing</li>
-                        <li>Computer vision solutions</li>
+                        <li><i class="fas fa-check"></i> Predictive analytics</li>
+                        <li><i class="fas fa-check"></i> Natural language processing</li>
+                        <li><i class="fas fa-check"></i> Computer vision solutions</li>
                     </ul>
+                    <a href="#contact" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
                 </div>
                 <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-code"></i>
+                    <div class="service-header">
+                        <div class="service-icon">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <h3>AI-Enabled Software</h3>
                     </div>
-                    <h3>AI-Enabled Software</h3>
                     <p>Build intelligent software components and applications that leverage AI capabilities to provide enhanced user experiences and business value.</p>
                     <ul class="service-features">
-                        <li>Intelligent chatbots</li>
-                        <li>Recommendation engines</li>
-                        <li>Automated workflows</li>
+                        <li><i class="fas fa-check"></i> Intelligent chatbots</li>
+                        <li><i class="fas fa-check"></i> Recommendation engines</li>
+                        <li><i class="fas fa-check"></i> Automated workflows</li>
                     </ul>
+                    <a href="#contact" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
                 </div>
                 <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-tags"></i>
+                    <div class="service-header">
+                        <div class="service-icon">
+                            <i class="fas fa-tags"></i>
+                        </div>
+                        <h3>Data Annotation for ML</h3>
                     </div>
-                    <h3>Data Annotation for ML</h3>
                     <p>High-quality data annotation services to create training datasets for machine learning models with precision and efficiency.</p>
                     <ul class="service-features">
-                        <li>Image & video annotation</li>
-                        <li>Text classification</li>
-                        <li>Entity recognition</li>
+                        <li><i class="fas fa-check"></i> Image & video annotation</li>
+                        <li><i class="fas fa-check"></i> Text classification</li>
+                        <li><i class="fas fa-check"></i> Entity recognition</li>
                     </ul>
+                    <a href="#contact" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
                 </div>
                 <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-project-diagram"></i>
+                    <div class="service-header">
+                        <div class="service-icon">
+                            <i class="fas fa-project-diagram"></i>
+                        </div>
+                        <h3>AI Strategy Consulting</h3>
                     </div>
-                    <h3>AI Strategy Consulting</h3>
                     <p>Strategic guidance on implementing AI solutions that align with your business goals and provide measurable ROI.</p>
                     <ul class="service-features">
-                        <li>AI readiness assessment</li>
-                        <li>Technology roadmapping</li>
-                        <li>Implementation planning</li>
+                        <li><i class="fas fa-check"></i> AI readiness assessment</li>
+                        <li><i class="fas fa-check"></i> Technology roadmapping</li>
+                        <li><i class="fas fa-check"></i> Implementation planning</li>
                     </ul>
+                    <a href="#contact" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Why Choose Us Section -->
-    <section class="why-choose-us">
+    <!-- Process Section -->
+    <section id="process" class="process">
         <div class="container">
             <div class="section-header">
-                <h2>Why Choose Dozier Tech Group</h2>
-                <p>Your trusted partner in AI transformation</p>
+                <span class="section-tag">Our Approach</span>
+                <h2>How We Work</h2>
+                <p>A proven methodology that delivers results</p>
             </div>
-            <div class="features-grid">
-                <div class="feature-item">
-                    <div class="feature-icon">
-                        <i class="fas fa-award"></i>
+            <div class="process-grid">
+                <div class="process-step">
+                    <div class="step-number">01</div>
+                    <div class="step-content">
+                        <h3>Discovery & Analysis</h3>
+                        <p>We dive deep into your business challenges, goals, and existing infrastructure to identify opportunities for AI integration.</p>
                     </div>
-                    <h3>Proven Expertise</h3>
-                    <p>Years of experience in AI implementation across various industries</p>
                 </div>
-                <div class="feature-item">
-                    <div class="feature-icon">
-                        <i class="fas fa-handshake"></i>
+                <div class="process-step">
+                    <div class="step-number">02</div>
+                    <div class="step-content">
+                        <h3>Strategy & Planning</h3>
+                        <p>Develop a comprehensive AI roadmap tailored to your objectives, timeline, and budget with clear milestones.</p>
                     </div>
-                    <h3>Client-Focused Approach</h3>
-                    <p>Tailored solutions that align with your business goals and objectives</p>
                 </div>
-                <div class="feature-item">
-                    <div class="feature-icon">
-                        <i class="fas fa-rocket"></i>
+                <div class="process-step">
+                    <div class="step-number">03</div>
+                    <div class="step-content">
+                        <h3>Development & Training</h3>
+                        <p>Build and train custom AI models and solutions using cutting-edge technologies and best practices.</p>
                     </div>
-                    <h3>Results-Driven</h3>
-                    <p>Measurable outcomes that drive real business value and growth</p>
                 </div>
-                <div class="feature-item">
-                    <div class="feature-icon">
-                        <i class="fas fa-headset"></i>
+                <div class="process-step">
+                    <div class="step-number">04</div>
+                    <div class="step-content">
+                        <h3>Deployment & Integration</h3>
+                        <p>Seamlessly integrate AI solutions into your workflows with minimal disruption and maximum impact.</p>
                     </div>
-                    <h3>Ongoing Support</h3>
-                    <p>Continuous support and optimization to ensure long-term success</p>
                 </div>
+                <div class="process-step">
+                    <div class="step-number">05</div>
+                    <div class="step-content">
+                        <h3>Optimization & Support</h3>
+                        <p>Continuous monitoring, refinement, and support to ensure long-term success and ROI.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Ready to Transform Your Business?</h2>
+                <p>Join leading organizations leveraging AI to drive innovation and growth</p>
+                <a href="#contact" class="btn btn-primary btn-large">
+                    Schedule Free Consultation
+                    <i class="fas fa-calendar-check"></i>
+                </a>
             </div>
         </div>
     </section>
@@ -225,21 +300,31 @@
         <div class="container">
             <div class="about-content">
                 <div class="about-text">
-                    <h2>About Dozier Tech Group</h2>
+                    <span class="section-tag">Who We Are</span>
+                    <h2>Leading AI Innovation</h2>
                     <p>We are a forward-thinking AI consulting firm founded by software development veterans with decades of collective experience. Our mission is to bridge the gap between cutting-edge AI technology and practical business applications.</p>
                     <p>Our team brings together expertise in software architecture, machine learning, and business process optimization to help companies navigate the rapidly evolving AI landscape. We believe that AI should be accessible, practical, and aligned with your specific business objectives.</p>
                     <div class="about-values">
                         <div class="value-item">
+                            <div class="value-icon">
+                                <i class="fas fa-medal"></i>
+                            </div>
                             <h4>Technical Excellence</h4>
-                            <p>Bringing decades of software development expertise to every project</p>
+                            <p>Decades of software development expertise</p>
                         </div>
                         <div class="value-item">
-                            <h4>Innovation</h4>
-                            <p>Staying at the forefront of AI technology and implementation</p>
+                            <div class="value-icon">
+                                <i class="fas fa-lightbulb"></i>
+                            </div>
+                            <h4>Innovation First</h4>
+                            <p>Staying at the forefront of AI technology</p>
                         </div>
                         <div class="value-item">
-                            <h4>Partnership</h4>
-                            <p>Working closely with you to understand your unique challenges</p>
+                            <div class="value-icon">
+                                <i class="fas fa-handshake"></i>
+                            </div>
+                            <h4>True Partnership</h4>
+                            <p>Understanding your unique challenges</p>
                         </div>
                     </div>
                 </div>
@@ -276,7 +361,8 @@
     <section id="contact" class="contact">
         <div class="container">
             <div class="section-header">
-                <h2>Get In Touch</h2>
+                <span class="section-tag">Get In Touch</span>
+                <h2>Let's Build Something Amazing</h2>
                 <p>Ready to transform your business with AI? Let's discuss your project.</p>
             </div>
             <div class="contact-content">
@@ -310,23 +396,28 @@
                     </div>
                 </div>
                 <form class="contact-form" id="contactForm">
-                    <div class="form-group">
-                        <label for="name">Name</label>
-                        <input type="text" id="name" name="name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" name="email" required>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" name="name" placeholder="John Doe" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" placeholder="john@company.com" required>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="subject">Subject</label>
-                        <input type="text" id="subject" name="subject" required>
+                        <input type="text" id="subject" name="subject" placeholder="AI Consultation Request" required>
                     </div>
                     <div class="form-group">
                         <label for="message">Message</label>
-                        <textarea id="message" name="message" rows="5" required></textarea>
+                        <textarea id="message" name="message" rows="5" placeholder="Tell us about your project..." required></textarea>
                     </div>
-                    <button type="submit" class="btn btn-primary">Send Message</button>
+                    <button type="submit" class="btn btn-primary btn-block">
+                        Send Message
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
                 </form>
             </div>
         </div>
@@ -336,39 +427,56 @@
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
-                <div class="footer-section">
-                    <h3>Dozier Tech Group</h3>
+                <div class="footer-section footer-brand">
+                    <div class="footer-logo">
+                        <img src="images/DozierTechGroupLogo.png" alt="Dozier Tech Group" class="footer-logo-img">
+                        <h3>Dozier Tech Group</h3>
+                    </div>
                     <p>Transforming businesses through intelligent AI solutions.</p>
-                </div>
-                <div class="footer-section">
-                    <h4>Services</h4>
-                    <ul>
-                        <li><a href="#services">Local AI Integration</a></li>
-                        <li><a href="#services">MCP Setup</a></li>
-                        <li><a href="#services">Custom Model Training</a></li>
-                        <li><a href="#services">AI-Enabled Software</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Company</h4>
-                    <ul>
-                        <li><a href="#about">About Us</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">Terms of Service</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Connect</h4>
                     <div class="social-links">
                         <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
                         <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
                         <a href="#" class="social-link"><i class="fab fa-github"></i></a>
                     </div>
                 </div>
+                <div class="footer-section">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="#services">AI Integration</a></li>
+                        <li><a href="#services">MCP Setup</a></li>
+                        <li><a href="#services">Model Training</a></li>
+                        <li><a href="#services">AI Software</a></li>
+                        <li><a href="#services">Data Annotation</a></li>
+                        <li><a href="#services">AI Strategy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#process">Our Process</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="#">Documentation</a></li>
+                        <li><a href="#">Case Studies</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                    </ul>
+                </div>
             </div>
             <div class="footer-bottom">
                 <p>&copy; 2025 Dozier Tech Group. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="#">Privacy</a>
+                    <a href="#">Terms</a>
+                    <a href="#">Cookies</a>
+                </div>
             </div>
         </div>
     </footer>
