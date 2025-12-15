@@ -239,10 +239,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Counter animation for stats
 function animateCounter(element, target, duration = 2000) {
-    let start = 0;
-    const increment = target / (duration / 16);
     const isPercentage = target.toString().includes('%');
     const numericTarget = parseInt(target);
+    
+    if (isNaN(numericTarget)) {
+        element.textContent = target;
+        return;
+    }
+    
+    let start = 0;
+    const increment = numericTarget / (duration / 16);
 
     const timer = setInterval(() => {
         start += increment;
