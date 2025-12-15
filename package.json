@@ -1,0 +1,7 @@
+{
+  "name": "ai-consulting-website",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "npx serve"
+  }
+}
