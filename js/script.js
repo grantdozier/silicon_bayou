@@ -31,13 +31,13 @@ if (canvas && hero) {
         // Define the center content area to exclude (where text/buttons are)
         const centerX = canvas.width / 2;
         const centerY = canvas.height / 2;
-        const exclusionWidth = Math.min(canvas.width * 0.5, 600); // 50% width or 600px max
-        const exclusionHeight = Math.min(canvas.height * 0.7, 500); // 70% height or 500px max
+        const exclusionWidth = Math.min(canvas.width * 0.60, 700); // 55% width or 650px max
+        const exclusionHeight = canvas.height * 0.80; // 75% of height
         
         return (
             x > centerX - exclusionWidth / 2 &&
             x < centerX + exclusionWidth / 2 &&
-            y > centerY - exclusionHeight / 2 - 50 && // Shift up a bit for the content
+            y > centerY - exclusionHeight / 2 &&
             y < centerY + exclusionHeight / 2
         );
     }
