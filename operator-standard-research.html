@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Operator Standard Research - Dozier Tech Group</title>
+    <meta name="description" content="Technical observations and prototype concepts for the Operator Standard - friction, enforcement, and alignment research.">
+    <link rel="icon" type="image/png" href="images/DozierTechGroupLogoMini.png">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/operator-standard.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="operator-page">
+    <!-- Navigation -->
+    <nav class="navbar navbar-dark">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="index.html" class="logo-link">
+                    <img src="images/DozierTechGroupLogo.png" alt="Dozier Tech Group Logo" class="logo-img">
+                    <h2>Dozier Tech Group</h2>
+                </a>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="index.html#services" class="nav-link">Services</a>
+                </li>
+                <li class="nav-item">
+                    <a href="index.html#contact" class="nav-link">Contact</a>
+                </li>
+            </ul>
+            <div class="nav-toggle" id="mobile-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="operator-hero">
+        <div class="operator-hero-bg">
+            <div class="grid-pattern"></div>
+        </div>
+        <div class="container">
+            <div class="operator-hero-content">
+                <span class="doc-badge">
+                    <i class="fas fa-shield-alt"></i>
+                    Internal Systems Review v0.1
+                </span>
+                <h1>Operator Standard</h1>
+                <p class="hero-tagline">Friction, Enforcement, and Alignment</p>
+                <p class="hero-desc">Technical observations and prototype concepts compiled during early access testing.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Executive Summary -->
+    <section class="doc-section">
+        <div class="container">
+            <div class="doc-card summary-card">
+                <div class="doc-card-header">
+                    <span class="section-number">00</span>
+                    <h2>Executive Summary</h2>
+                </div>
+                <div class="doc-card-content">
+                    <p class="lead-text">The Operator Standard succeeds only if:</p>
+                    <ul class="principle-list">
+                        <li>
+                            <i class="fas fa-crosshairs"></i>
+                            <span>Task creation is frictionless</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-gem"></i>
+                            <span>Premium instructional content signals seriousness</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-balance-scale"></i>
+                            <span>AI feedback enforces alignment, not motivation</span>
+                        </li>
+                    </ul>
+                    <div class="quote-block">
+                        <p>This document outlines three early failure points observed in the mobile experience and proposes minimal, enforceable prototype solutions.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Observed Failure Points -->
+    <section class="doc-section failures-section">
+        <div class="container">
+            <div class="section-header-operator">
+                <span class="section-tag">Observed Failure Points</span>
+                <h2>Early Technical Observations & Risks</h2>
+            </div>
+
+            <!-- Failure 1: Task Friction -->
+            <div class="doc-card failure-card">
+                <div class="doc-card-header">
+                    <span class="section-number">01</span>
+                    <h3>Task Creation Friction (Mobile)</h3>
+                </div>
+                <div class="doc-card-content">
+                    <div class="observation-block">
+                        <h4><i class="fas fa-eye"></i> Observation</h4>
+                        <ul class="observation-list">
+                            <li>Task creation flow on mobile is inconsistent and imprecise</li>
+                            <li>Adding tasks requires multiple taps, navigating away, and re-selecting input fields</li>
+                            <li>Building out the daily task list introduces unnecessary friction at the planning stage</li>
+                            <li>Users must tap around and off of tasks to properly add the next one</li>
+                        </ul>
+                    </div>
+                    <div class="impact-block">
+                        <h4><i class="fas fa-exclamation-triangle"></i> Why This Matters</h4>
+                        <p>The Operator Standard is built on <strong>decisive planning</strong>.</p>
+                        <p>When a user must negotiate with the UI to create their daily commitments, the system:</p>
+                        <ul class="impact-list">
+                            <li>Introduces friction at the moment of commitment</li>
+                            <li>Weakens the planning ritual</li>
+                            <li>Conditions users to avoid thorough task definition</li>
+                            <li>Reduces the quality and specificity of daily standards</li>
+                        </ul>
+                        <div class="principle-callout">
+                            <i class="fas fa-bolt"></i>
+                            <span>Operators should never hesitate when defining their standard.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Failure 2: Video Playback -->
+            <div class="doc-card failure-card">
+                <div class="doc-card-header">
+                    <span class="section-number">02</span>
+                    <h3>Instructional Video Playback Is Non-Persistent</h3>
+                </div>
+                <div class="doc-card-content">
+                    <div class="observation-block">
+                        <h4><i class="fas fa-eye"></i> Observation</h4>
+                        <ul class="observation-list">
+                            <li>Video playback halts when the device locks or the app backgrounds</li>
+                            <li>Behavior mirrors disposable content platforms rather than premium instruction tools</li>
+                        </ul>
+                    </div>
+                    <div class="impact-block">
+                        <h4><i class="fas fa-exclamation-triangle"></i> Why This Matters</h4>
+                        <p>Instructional content should behave like <strong>training</strong>, not entertainment.</p>
+                        <p>When playback stops:</p>
+                        <ul class="impact-list">
+                            <li>Continuity breaks during walks, commutes, or workouts</li>
+                            <li>The content subconsciously signals "optional"</li>
+                            <li>The perceived seriousness of the platform degrades</li>
+                        </ul>
+                        <div class="principle-callout">
+                            <i class="fas fa-gem"></i>
+                            <span>Premium instruction should persist by default.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Failure 3: AI Insights -->
+            <div class="doc-card failure-card">
+                <div class="doc-card-header">
+                    <span class="section-number">03</span>
+                    <h3>AI Insights Lack Alignment Enforcement</h3>
+                </div>
+                <div class="doc-card-content">
+                    <div class="observation-block">
+                        <h4><i class="fas fa-eye"></i> Observation</h4>
+                        <ul class="observation-list">
+                            <li>AI feedback explains task failure but does not confront misalignment with stated goals</li>
+                            <li>Responses feel generic rather than corrective</li>
+                        </ul>
+                    </div>
+                    <div class="impact-block">
+                        <h4><i class="fas fa-exclamation-triangle"></i> Why This Matters</h4>
+                        <p>The system currently reports outcomes instead of enforcing standards.</p>
+                        <p>AI should not comfort. AI should clarify misalignment.</p>
+                        <div class="principle-callout">
+                            <i class="fas fa-gavel"></i>
+                            <span>Without enforcement logic, the platform risks becoming reflective instead of directive.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Prototype Solutions -->
+    <section class="doc-section prototypes-section">
+        <div class="container">
+            <div class="section-header-operator">
+                <span class="section-tag">Prototype Concepts</span>
+                <h2>Enforcement & Alignment Prototypes</h2>
+            </div>
+
+            <!-- Prototype A: Zero-Friction Task Creation -->
+            <div class="doc-card prototype-card">
+                <div class="doc-card-header">
+                    <span class="prototype-badge">Prototype A</span>
+                    <h3>Zero-Friction Task Creation Model</h3>
+                </div>
+                <div class="doc-card-content">
+                    <div class="goal-block">
+                        <h4>Design Goal</h4>
+                        <p>Eliminate all friction between intent and commitment. Task creation should flow like thought.</p>
+                    </div>
+                    
+                    <div class="interface-rules">
+                        <h4>Interface Rules</h4>
+                        <ul class="rules-list">
+                            <li>Single input field always visible and focused</li>
+                            <li>Press <code>ENTER</code> to commit task and immediately create next</li>
+                            <li>No modal dialogs or confirmation screens</li>
+                            <li>No category selection required upfront</li>
+                            <li>Tasks appear instantly in the list below</li>
+                            <li>Tap any task to edit inline — no navigation required</li>
+                        </ul>
+                    </div>
+
+                    <div class="state-flow">
+                        <h4>State Flow</h4>
+                        <div class="code-block">
+                            <pre><code>INPUT_FOCUSED → TYPE_TASK → ENTER → TASK_COMMITTED → INPUT_CLEARED → INPUT_FOCUSED
+                           ↑                                                              |
+                           └──────────────────────────────────────────────────────────────┘</code></pre>
+                        </div>
+                    </div>
+
+                    <!-- Interactive Prototype -->
+                    <div class="prototype-demo">
+                        <h4>Interactive Demo — Build Your Daily Standard</h4>
+                        <div class="task-creation-prototype">
+                            <div class="creation-header">
+                                <span class="creation-label">TODAY'S COMMITMENTS</span>
+                                <span class="task-count" id="taskCount">0 tasks</span>
+                            </div>
+                            <div class="task-input-wrapper">
+                                <input type="text" 
+                                       id="taskInput" 
+                                       class="task-input" 
+                                       placeholder="Type a task and press Enter..." 
+                                       autocomplete="off">
+                                <span class="input-hint">Press Enter to add</span>
+                            </div>
+                            <div class="task-list" id="taskList">
+                                <div class="empty-state" id="emptyState">
+                                    <i class="fas fa-clipboard-list"></i>
+                                    <span>No tasks yet. Start typing above.</span>
+                                </div>
+                            </div>
+                            <div class="creation-actions">
+                                <button class="lock-btn" id="lockTasks" disabled>
+                                    <i class="fas fa-lock"></i>
+                                    Lock Daily Standard
+                                </button>
+                                <button class="clear-btn" id="clearTasks">
+                                    <i class="fas fa-trash-alt"></i>
+                                    Clear All
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="rationale-block">
+                        <p><strong>Rationale:</strong> Planning should be frictionless. The harder it is to define your standard, the lower the standard becomes.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Prototype B: Persistent Playback -->
+            <div class="doc-card prototype-card">
+                <div class="doc-card-header">
+                    <span class="prototype-badge">Prototype B</span>
+                    <h3>Persistent Instructional Playback Model</h3>
+                </div>
+                <div class="doc-card-content">
+                    <div class="goal-block">
+                        <h4>Design Goal</h4>
+                        <p>Signal instructional seriousness through system behavior.</p>
+                    </div>
+
+                    <div class="playback-rules">
+                        <h4>Playback Rules</h4>
+                        <ul class="rules-list">
+                            <li>Playback continues when screen locks</li>
+                            <li>Playback continues when app backgrounds</li>
+                            <li>Playback stops <strong>only</strong> on explicit user pause</li>
+                        </ul>
+                    </div>
+
+                    <div class="state-table">
+                        <h4>Playback State Table</h4>
+                        <table class="operator-table">
+                            <thead>
+                                <tr>
+                                    <th>State</th>
+                                    <th>Screen</th>
+                                    <th>Audio</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Playing</td>
+                                    <td><span class="status-on">On</span></td>
+                                    <td><span class="status-on">On</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Screen Locked</td>
+                                    <td><span class="status-off">Off</span></td>
+                                    <td><span class="status-on">On</span></td>
+                                </tr>
+                                <tr>
+                                    <td>App Backgrounded</td>
+                                    <td><span class="status-off">Off</span></td>
+                                    <td><span class="status-on">On</span></td>
+                                </tr>
+                                <tr>
+                                    <td>User Paused</td>
+                                    <td><span class="status-off">Off</span></td>
+                                    <td><span class="status-off">Off</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Playback Demo -->
+                    <div class="prototype-demo">
+                        <h4>State Simulation</h4>
+                        <div class="playback-prototype">
+                            <div class="playback-visual">
+                                <div class="device-frame">
+                                    <div class="device-screen" id="deviceScreen">
+                                        <div class="video-player">
+                                            <i class="fas fa-play-circle" id="playIcon"></i>
+                                            <span class="video-title">Operator Instruction: Module 3</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="audio-indicator" id="audioIndicator">
+                                    <i class="fas fa-volume-up"></i>
+                                    <span>Audio Active</span>
+                                </div>
+                            </div>
+                            <div class="playback-controls">
+                                <button class="state-btn" data-state="playing">
+                                    <i class="fas fa-play"></i> Playing
+                                </button>
+                                <button class="state-btn" data-state="locked">
+                                    <i class="fas fa-lock"></i> Lock Screen
+                                </button>
+                                <button class="state-btn" data-state="background">
+                                    <i class="fas fa-window-minimize"></i> Background
+                                </button>
+                                <button class="state-btn" data-state="paused">
+                                    <i class="fas fa-pause"></i> User Pause
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="note-block">
+                        <i class="fas fa-info-circle"></i>
+                        <p>This is not a UX feature — it is a behavioral signal. Content that persists is content that matters.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Prototype C: AI Alignment -->
+            <div class="doc-card prototype-card">
+                <div class="doc-card-header">
+                    <span class="prototype-badge">Prototype C</span>
+                    <h3>AI Alignment & Enforcement Engine (RAG-Style)</h3>
+                </div>
+                <div class="doc-card-content">
+                    <div class="goal-block">
+                        <h4>Purpose</h4>
+                        <p>Deliver corrective insight tied directly to stated goals and standards.</p>
+                    </div>
+
+                    <div class="data-inputs">
+                        <h4>Data Inputs (Prototype Scope)</h4>
+                        <div class="input-grid">
+                            <div class="input-item">
+                                <i class="fas fa-bullseye"></i>
+                                <span>Long-term user goals</span>
+                            </div>
+                            <div class="input-item">
+                                <i class="fas fa-layer-group"></i>
+                                <span>Current training phase</span>
+                            </div>
+                            <div class="input-item">
+                                <i class="fas fa-calendar-check"></i>
+                                <span>Daily commitments</span>
+                            </div>
+                            <div class="input-item">
+                                <i class="fas fa-history"></i>
+                                <span>Task completion history</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="rag-flow">
+                        <h4>Retrieval-Augmented Flow</h4>
+                        <div class="flow-diagram">
+                            <div class="flow-step">
+                                <div class="flow-icon retrieve">
+                                    <i class="fas fa-database"></i>
+                                </div>
+                                <div class="flow-content">
+                                    <h5>Retrieve</h5>
+                                    <ul>
+                                        <li>Relevant user goal</li>
+                                        <li>Applicable Operator principle</li>
+                                        <li>Similar past failures</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="flow-arrow"><i class="fas fa-arrow-right"></i></div>
+                            <div class="flow-step">
+                                <div class="flow-icon evaluate">
+                                    <i class="fas fa-balance-scale"></i>
+                                </div>
+                                <div class="flow-content">
+                                    <h5>Evaluate</h5>
+                                    <ul>
+                                        <li>Does today's behavior align with stated standards?</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="flow-arrow"><i class="fas fa-arrow-right"></i></div>
+                            <div class="flow-step">
+                                <div class="flow-icon respond">
+                                    <i class="fas fa-comment-alt"></i>
+                                </div>
+                                <div class="flow-content">
+                                    <h5>Respond</h5>
+                                    <ul>
+                                        <li>One alignment insight</li>
+                                        <li>One corrective directive</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="output-requirements">
+                        <h4>Output Requirements</h4>
+                        <div class="requirements-grid">
+                            <div class="req-item">
+                                <i class="fas fa-check"></i>
+                                <span>Direct</span>
+                            </div>
+                            <div class="req-item">
+                                <i class="fas fa-check"></i>
+                                <span>Non-emotional</span>
+                            </div>
+                            <div class="req-item">
+                                <i class="fas fa-check"></i>
+                                <span>Non-motivational</span>
+                            </div>
+                            <div class="req-item negative">
+                                <i class="fas fa-times"></i>
+                                <span>No praise</span>
+                            </div>
+                            <div class="req-item negative">
+                                <i class="fas fa-times"></i>
+                                <span>No encouragement</span>
+                            </div>
+                            <div class="req-item negative">
+                                <i class="fas fa-times"></i>
+                                <span>No sympathy</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- AI Demo -->
+                    <div class="prototype-demo">
+                        <h4>Example Output Comparison</h4>
+                        <div class="ai-comparison">
+                            <div class="ai-example bad">
+                                <div class="example-header">
+                                    <i class="fas fa-times-circle"></i>
+                                    <span>Generic Response (During Task Creation)</span>
+                                </div>
+                                <div class="example-content">
+                                    <p>"Great job planning your day! Remember to stay positive! 🌟"</p>
+                                </div>
+                            </div>
+                            <div class="ai-example good">
+                                <div class="example-header">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Operator Response (During Task Creation)</span>
+                                </div>
+                                <div class="example-content">
+                                    <p>"Your stated goal is operational endurance, but you've scheduled no conditioning. Yesterday you also skipped it. Either add conditioning or acknowledge you're deprioritizing endurance."</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Interactive AI Demo -->
+                    <div class="prototype-demo">
+                        <h4>Interactive Alignment Engine — Task Creation Context</h4>
+                        <div class="ai-prototype">
+                            <div class="ai-context-display">
+                                <div class="context-item">
+                                    <span class="context-label">Stated Goal:</span>
+                                    <span class="context-value" id="userGoal">Operational Endurance</span>
+                                </div>
+                                <div class="context-item">
+                                    <span class="context-label">Current Phase:</span>
+                                    <span class="context-value">Discipline Building</span>
+                                </div>
+                            </div>
+                            <div class="ai-trigger">
+                                <label>Simulate Task Creation Scenario:</label>
+                                <select id="creationScenario">
+                                    <option value="no-conditioning">No conditioning task added</option>
+                                    <option value="vague-tasks">Vague task definitions</option>
+                                    <option value="overloaded">Overloaded schedule (12+ tasks)</option>
+                                    <option value="no-skill">No skill development scheduled</option>
+                                    <option value="repeat-skip">Repeating yesterday's skipped tasks</option>
+                                </select>
+                                <button class="generate-btn" id="generateResponse">
+                                    <i class="fas fa-bolt"></i>
+                                    Generate Alignment Check
+                                </button>
+                            </div>
+                            <div class="ai-output" id="aiOutput">
+                                <div class="output-placeholder">
+                                    <i class="fas fa-robot"></i>
+                                    <span>Select a scenario to see how AI enforces alignment during task creation</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Scale Risks -->
+    <section class="doc-section risks-section">
+        <div class="container">
+            <div class="section-header-operator">
+                <span class="section-tag">Scale Analysis</span>
+                <h2>What Breaks at Scale (100k+ Users)</h2>
+            </div>
+
+            <div class="risks-grid">
+                <div class="risk-card">
+                    <div class="risk-number">4.1</div>
+                    <h4>Behavioral Dilution</h4>
+                    <ul>
+                        <li>Passive users will outnumber operators</li>
+                        <li>Standards erode without enforcement mechanisms</li>
+                    </ul>
+                </div>
+                <div class="risk-card">
+                    <div class="risk-number">4.2</div>
+                    <h4>Identity Drift</h4>
+                    <ul>
+                        <li>"Operator" risks becoming aesthetic rather than behavioral</li>
+                    </ul>
+                </div>
+                <div class="risk-card">
+                    <div class="risk-number">4.3</div>
+                    <h4>Incentive Conflict</h4>
+                    <ul>
+                        <li>Engagement metrics will eventually conflict with discipline enforcement</li>
+                    </ul>
+                </div>
+                <div class="risk-card">
+                    <div class="risk-number">4.4</div>
+                    <h4>Moderation Bottlenecks</h4>
+                    <ul>
+                        <li>Free-form interaction requires increasing human oversight</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Guiding Principle -->
+    <section class="doc-section principle-section">
+        <div class="container">
+            <div class="principle-card">
+                <div class="principle-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h2>Guiding Principle</h2>
+                <blockquote>
+                    If standards are optional, identity collapses.<br>
+                    Software must enforce what culture cannot.
+                </blockquote>
+            </div>
+        </div>
+    </section>
+
+    <!-- Enforcement Philosophy -->
+    <section class="doc-section philosophy-section">
+        <div class="container">
+            <div class="doc-card">
+                <div class="doc-card-header">
+                    <span class="section-number">05</span>
+                    <h2>Enforcement Philosophy</h2>
+                </div>
+                <div class="doc-card-content">
+                    <div class="philosophy-grid">
+                        <div class="philosophy-item">
+                            <i class="fas fa-check-double"></i>
+                            <p>Standards must be executable</p>
+                        </div>
+                        <div class="philosophy-item">
+                            <i class="fas fa-crosshairs"></i>
+                            <p>Feedback must be corrective</p>
+                        </div>
+                        <div class="philosophy-item">
+                            <i class="fas fa-fingerprint"></i>
+                            <p>Identity must be behavior-backed</p>
+                        </div>
+                    </div>
+                    <div class="philosophy-footer">
+                        <p>Encouragement is optional. <strong>Enforcement is not.</strong></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Closing -->
+    <section class="doc-section closing-section">
+        <div class="container">
+            <div class="closing-card">
+                <h2>Closing</h2>
+                <p>These prototypes are intentionally minimal. Their purpose is to demonstrate enforcement logic, not visual polish.</p>
+                <div class="closing-principles">
+                    <span>Execution > Encouragement</span>
+                    <span class="divider">|</span>
+                    <span>Standards > Motivation</span>
+                </div>
+                <div class="doc-meta">
+                    <span><i class="fas fa-file-alt"></i> Internal Systems Review v0.1</span>
+                    <span><i class="fas fa-clock"></i> Compiled during early access testing</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer operator-footer">
+        <div class="container">
+            <div class="footer-content-simple">
+                <div class="footer-brand-simple">
+                    <img src="images/DozierTechGroupLogo.png" alt="Dozier Tech Group" class="footer-logo-img">
+                    <span>Dozier Tech Group</span>
+                </div>
+                <p class="footer-note">This document is for internal review purposes only.</p>
+                <p class="copyright">&copy; 2025 Dozier Tech Group. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/operator-standard.js"></script>
+</body>
+</html>
