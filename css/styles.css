@@ -1326,6 +1326,50 @@ body {
     color: var(--gray-900);
 }
 
+.case-study-testimonial {
+    margin-top: 2rem;
+    padding: 2rem;
+    background: linear-gradient(135deg, rgba(13, 75, 118, 0.05) 0%, rgba(14, 165, 233, 0.05) 100%);
+    border-radius: 12px;
+    border-left: 4px solid var(--primary);
+}
+
+.case-study-testimonial blockquote {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: var(--gray-700);
+    font-style: italic;
+    margin: 0 0 1.5rem 0;
+}
+
+.testimonial-author {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.testimonial-logo {
+    height: 40px;
+    width: auto;
+    object-fit: contain;
+}
+
+.author-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.author-info strong {
+    color: var(--gray-900);
+    font-size: 1rem;
+}
+
+.author-info span {
+    color: var(--gray-600);
+    font-size: 0.875rem;
+}
+
 .case-study-footer {
     margin-top: 2rem;
     padding-top: 2rem;
