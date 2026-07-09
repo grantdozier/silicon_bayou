@@ -8,10 +8,18 @@
 <link rel="canonical" href="https://www.doziertechgroup.com/">
 <meta name="theme-color" content="#0D1B3D">
 
-<!-- Set to the dtg-web Worker host printed by `wrangler deploy`. Until this is
-     filled in, the contact form tells the visitor to email directly rather than
-     pretending to send. -->
-<meta name="dtg:contact-endpoint" content="">
+<!-- Where the contact form POSTs. Two supported backends:
+       Web3Forms  — endpoint below + an access key. No server to run.
+       dtg-web    — the Cloudflare Worker host printed by `wrangler deploy`,
+                    with the key left empty.
+     Until a working pair is filled in, the form tells the visitor to email
+     directly rather than pretending to send. -->
+<meta name="dtg:contact-endpoint" content="https://api.web3forms.com/submit">
+
+<!-- Get one free at https://web3forms.com — enter grant@doziertechgroup.com and
+     the key arrives by email. It is designed to live in public HTML: it can only
+     send mail to the address that created it. Leave empty when using dtg-web. -->
+<meta name="dtg:contact-key" content="e686e521-6133-4e0a-929e-1ce39a8e92b4">
 
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://www.doziertechgroup.com/">

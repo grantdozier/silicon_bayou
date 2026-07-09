@@ -3,9 +3,19 @@
 (function () {
   'use strict';
 
-  // Set once, in index.html, after `wrangler deploy` prints the Worker host.
-  var meta = document.querySelector('meta[name="dtg:contact-endpoint"]');
-  var CONTACT_ENDPOINT = meta && meta.content;
+  // Both set once, in index.html. See the comments there.
+  var readMeta = function (n) {
+    var m = document.querySelector('meta[name="' + n + '"]');
+    return (m && m.content.trim()) || '';
+  };
+  var CONTACT_ENDPOINT = readMeta('dtg:contact-endpoint');
+  var CONTACT_KEY = readMeta('dtg:contact-key');
+  var USING_WEB3FORMS = /(^|\.)web3forms\.com$/i.test(
+    CONTACT_ENDPOINT ? new URL(CONTACT_ENDPOINT, location.href).hostname : ''
+  );
+  // Web3Forms rejects a submission with no access key, so an endpoint without
+  // one is not a working configuration — treat it as unconfigured.
+  var CONTACT_READY = !!CONTACT_ENDPOINT && (!USING_WEB3FORMS || !!CONTACT_KEY);
   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   /* ---------- nav ---------- */
@@ -232,9 +242,9 @@
     // Bots fill every field they find, including the hidden one.
     if (form.elements.company.value) return;
 
-    // No endpoint configured yet — say so plainly rather than fake a success
+    // No backend configured yet — say so plainly rather than fake a success
     // toast, which is precisely what the previous implementation did.
-    if (!CONTACT_ENDPOINT) {
+    if (!CONTACT_READY) {
       say('The form is not connected yet. Please email grant@doziertechgroup.com.', 'err');
       return;
     }
@@ -244,23 +254,42 @@
     submit.textContent = 'Sending…';
     say('Sending your message…', '');
 
+    var name = form.elements.name.value.trim();
+    var email = form.elements.email.value.trim();
+    var subject = form.elements.subject.value.trim();
+
+    var payload = {
+      name: name,
+      email: email,
+      message: form.elements.message.value.trim(),
+    };
+
+    if (USING_WEB3FORMS) {
+      payload.access_key = CONTACT_KEY;
+      // Web3Forms puts `subject` on the email itself, so an empty one would
+      // arrive blank in the inbox.
+      payload.subject = subject || 'New enquiry from doziertechgroup.com';
+      payload.from_name = 'doziertechgroup.com';
+      payload.replyto = email;
+    } else {
+      payload.subject = subject;
+      payload.company = form.elements.company.value; // honeypot, checked server-side too
+      payload.ts = Number(form.dataset.loaded || 0);
+    }
+
     fetch(CONTACT_ENDPOINT, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        name: form.elements.name.value.trim(),
-        email: form.elements.email.value.trim(),
-        subject: form.elements.subject.value.trim(),
-        message: form.elements.message.value.trim(),
-        company: form.elements.company.value,
-        ts: Number(form.dataset.loaded || 0),
-      }),
+      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      body: JSON.stringify(payload),
     })
       .then(function (r) {
         if (!r.ok) throw new Error('HTTP ' + r.status);
         return r.json();
       })
-      .then(function () {
+      .then(function (data) {
+        // Web3Forms can answer 200 with { success: false } — a rejected key, a
+        // domain that isn't allowed. Don't report that as delivered.
+        if (data && data.success === false) throw new Error(data.message || 'rejected');
         form.reset();
         say("Thanks — that's landed in Grant's inbox. You'll hear back within one business day.", 'ok');
       })
