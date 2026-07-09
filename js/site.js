@@ -38,34 +38,6 @@
     });
   }
 
-  /* ---------- hero: a quiet light that follows the cursor ----------
-     Coalesced into one rAF per frame, so a fast mouse cannot queue up work.
-     Skipped entirely on touch (no cursor) and under reduced motion. */
-  var hero = document.querySelector('.hero');
-  var glow = document.getElementById('hero-glow');
-
-  if (hero && glow && !reduced && window.matchMedia('(hover: hover)').matches) {
-    var pending = false;
-    var px = 0;
-    var py = 0;
-
-    hero.addEventListener('pointermove', function (e) {
-      var rect = hero.getBoundingClientRect();
-      px = ((e.clientX - rect.left) / rect.width) * 100;
-      py = ((e.clientY - rect.top) / rect.height) * 100;
-      if (pending) return;
-      pending = true;
-      requestAnimationFrame(function () {
-        pending = false;
-        glow.style.setProperty('--mx', px + '%');
-        glow.style.setProperty('--my', py + '%');
-      });
-    }, { passive: true });
-
-    hero.addEventListener('pointerenter', function () { hero.classList.add('is-lit'); });
-    hero.addEventListener('pointerleave', function () { hero.classList.remove('is-lit'); });
-  }
-
   /* ---------- one observer drives both scroll-reveal and the diagrams ----------
      Diagrams keep every animation gated behind `.is-visible` so nothing plays
      off-screen, and each element is unobserved after its first intersection. */

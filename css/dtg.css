@@ -31,11 +31,16 @@
   --navy-300: #a3c6ea;
   --navy-200: #cfe0f4;
 
-  /* Surfaces */
+  /* Surfaces. The light side is an elevation ladder taken straight from the
+     packet — Light Gray for the band, Off White for panels — rather than one
+     flat sheet of white, which was hard on the eyes over a long page. */
   --dark-bg: #0b1220;
   --dark-bg-deep: #070c1a;
-  --light-bg: #f7f8fa;
-  --light-bg-alt: #ffffff;
+  --dark-panel: #0e1729;
+
+  --light-bg: #e6e8ec;
+  --light-panel: #f2f4f7;
+  --light-panel-hi: #fbfcfd;
 
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
 
@@ -55,6 +60,8 @@
    gray, while white at 24% on near-black is a legible hairline. */
 .band--dark {
   --bg: var(--dark-bg);
+  --panel: var(--dark-panel);
+  --panel-hi: #101b31;
   --ink: 255, 255, 255;
   --accent: var(--navy-400);
   --accent-soft: var(--navy-600);
@@ -86,6 +93,8 @@
 
 .band--light {
   --bg: var(--light-bg);
+  --panel: var(--light-panel);
+  --panel-hi: var(--light-panel-hi);
   --ink: 13, 27, 61;
   --accent: var(--navy-700);
   --accent-soft: var(--navy-600);
@@ -117,7 +126,7 @@
   color: rgba(var(--ink), var(--a-body));
 }
 
-.band--light-alt { background: var(--light-bg-alt); }
+.band--light-alt { background: var(--light-panel-hi); }
 
 /* semantic aliases so component rules stay readable */
 .band--dark,
@@ -302,19 +311,6 @@ p { text-wrap: pretty; }
   display: flex; align-items: center; padding-top: var(--nav-h);
   overflow: hidden; isolation: isolate;
 }
-/* A single soft light that follows the cursor. The old hero spawned drifting
-   shapes on every mouse move; on a marketing page that competes with the copy
-   for attention. This reacts, but stays quiet. Idle position is the headline. */
-#hero-glow {
-  position: absolute; inset: 0; z-index: 0; pointer-events: none;
-  opacity: 0; transition: opacity 0.6s var(--ease);
-  background: radial-gradient(
-    420px circle at var(--mx, 30%) var(--my, 45%),
-    rgba(66, 133, 206, 0.16), transparent 68%
-  );
-}
-.hero.is-lit #hero-glow { opacity: 1; }
-
 .hero-inner { position: relative; z-index: 1; max-width: 900px; }
 
 .hero h1 { font-size: clamp(2.4rem, 6.2vw, 4.6rem); line-height: 1.04; letter-spacing: -0.035em; }
@@ -355,8 +351,8 @@ p { text-wrap: pretty; }
 .grid--3 { grid-template-columns: repeat(3, 1fr); }
 .grid--2 { grid-template-columns: repeat(2, 1fr); }
 
-.card { background: var(--bg); padding: clamp(1.6rem, 2.4vw, 2.2rem); transition: background 0.3s var(--ease); }
-.card:hover { background: var(--surface-lift); }
+.card { background: var(--panel); padding: clamp(1.6rem, 2.4vw, 2.2rem); transition: background 0.3s var(--ease); }
+.card:hover { background: var(--panel-hi); }
 .card h3 { margin-bottom: 0.7rem; }
 .card p { color: var(--text-dim); font-size: 0.92rem; }
 
@@ -367,22 +363,33 @@ p { text-wrap: pretty; }
 }
 .card-icon svg { width: 19px; height: 19px; }
 
-/* ---------- services ---------- */
-.services { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1px; background: var(--line-soft); }
+/* ---------- services ----------
+   Hairlines live on the cards, not as a background showing through 1px gaps.
+   Ten cards in a four-column grid leave two empty cells, and the gap colour was
+   painting them as a tinted rectangle. */
+.services { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
 .service {
-  background: var(--bg); padding: clamp(1.6rem, 2.4vw, 2.1rem);
+  background: var(--panel); padding: clamp(1.6rem, 2.4vw, 2.1rem);
   display: flex; flex-direction: column; position: relative;
+  border-right: 1px solid var(--line-soft);
+  border-bottom: 1px solid var(--line-soft);
   transition: background 0.3s var(--ease);
 }
-.service:hover { background: var(--surface-lift); }
+.service:hover { background: var(--panel-hi); }
 .service:hover .service-num { color: var(--accent); }
 .service-num {
   font-size: 0.7rem; font-weight: 600; letter-spacing: 0.2em;
   color: var(--text-faint); margin-bottom: 1.1rem;
   transition: color 0.3s var(--ease); font-variant-numeric: tabular-nums;
 }
-.service h3 { font-size: 1.05rem; margin-bottom: 0.65rem; }
+/* Reserve two lines so a one-line and a two-line title still leave the body copy
+   on a common baseline across the row. */
+.service h3 { font-size: 1.05rem; margin-bottom: 0.65rem; min-height: 2.24em; }
+/* The description grows, pushing the bullet list to the card's foot. The number
+   is also a <p>, so it has to be pinned — otherwise it absorbs the leftover
+   space and every title in the row lands at a different height. */
 .service p { font-size: 0.88rem; color: var(--text-dim); flex: 1; }
+.service p.service-num { flex: 0 0 auto; }
 .service ul { list-style: none; padding: 0; margin-top: 1.1rem; display: grid; gap: 0.45rem; }
 .service li { font-size: 0.8rem; color: var(--text-faint); display: flex; gap: 0.6rem; line-height: 1.5; }
 .service li::before {
@@ -417,7 +424,7 @@ p { text-wrap: pretty; }
   background: var(--line-soft); border-block: 1px solid var(--line-soft); margin-top: 2.5rem;
 }
 @media (min-width: 1180px) { .rail { grid-template-columns: repeat(4, 1fr); } }
-.rail div { background: var(--bg); padding: 1.4rem 1.25rem; }
+.rail div { background: var(--panel); padding: 1.4rem 1.25rem; }
 .rail dt { font-size: 1.75rem; font-weight: 700; letter-spacing: -0.03em; color: var(--accent); font-variant-numeric: tabular-nums; }
 .rail dd { margin: 0.3rem 0 0; font-size: 0.75rem; color: var(--text-dim); line-height: 1.45; }
 
@@ -425,7 +432,7 @@ p { text-wrap: pretty; }
 .work { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
 .work-card {
   border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden;
-  background: var(--surface); display: flex; flex-direction: column;
+  background: var(--panel); display: flex; flex-direction: column;
   transition: border-color 0.3s var(--ease), transform 0.3s var(--ease);
 }
 .work-card:hover { border-color: var(--accent); transform: translateY(-3px); }
@@ -457,9 +464,9 @@ p { text-wrap: pretty; }
 /* ---------- case studies ---------- */
 .case {
   border: 1px solid var(--line); border-radius: var(--radius-lg);
-  padding: clamp(1.75rem, 3.5vw, 3rem); background: var(--light-bg-alt);
+  padding: clamp(1.75rem, 3.5vw, 3rem); background: var(--panel-hi);
 }
-.band--dark .case { background: rgba(255, 255, 255, 0.02); }
+.band--dark .case { background: var(--panel); }
 .case + .case { margin-top: 2rem; }
 .case--featured { border-color: var(--accent); }
 
@@ -515,8 +522,8 @@ p { text-wrap: pretty; }
   background: var(--line-soft); border: 1px solid var(--line-soft);
   border-radius: var(--radius-sm); overflow: hidden; margin-top: 1.25rem;
 }
-.case-metrics div { background: var(--bg); padding: 1.15rem; }
-.band--dark .case-metrics div { background: var(--dark-bg); }
+.case-metrics div { background: var(--panel); padding: 1.15rem; }
+.band--dark .case-metrics div { background: var(--panel-hi); }
 .case-metrics dt { font-size: 1.1rem; font-weight: 700; color: var(--accent); letter-spacing: -0.02em; }
 .case-metrics dd { margin: 0.3rem 0 0; font-size: 0.72rem; color: var(--text-dim); }
 
@@ -548,7 +555,7 @@ blockquote footer strong { color: var(--text-strong); font-weight: 600; }
   border-radius: var(--radius-sm); padding: 0.8rem 1rem; font-size: 0.92rem;
   transition: border-color 0.2s var(--ease), background 0.2s var(--ease);
 }
-.band--light .field input, .band--light .field textarea { background: #fff; }
+.band--light .field input, .band--light .field textarea { background: var(--panel-hi); }
 .field input::placeholder, .field textarea::placeholder { color: rgba(var(--ink), 0.3); }
 .field input:focus, .field textarea:focus { outline: none; border-color: var(--accent); }
 .field textarea { resize: vertical; min-height: 130px; }
