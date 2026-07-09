@@ -81,6 +81,18 @@ body {
     width: auto;
 }
 
+/* .nav-logo and .footer-logo are flex containers. Wrapping their children in an
+   anchor makes that anchor the only flex item, so it has to lay the image and
+   the wordmark out itself. */
+.logo-link {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    text-decoration: none;
+    color: inherit;
+}
+.logo-link h2, .logo-link h3, .logo-link span { color: inherit; }
+
 .nav-logo h2 {
     font-size: 1.25rem;
     font-weight: 700;
