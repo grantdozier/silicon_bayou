@@ -5,16 +5,50 @@ on:
     branches:
       - main
 
+# This previously deployed `folder: .`, which published the ENTIRE repo to the
+# public gh-pages branch — including client proposals, rate sheets, and internal
+# client pitch documents. It now stages an explicit allowlist into dist/, and a
+# guard step fails the build if anything confidential slips through.
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
+
+      - name: Stage public files (allowlist)
+        run: |
+          set -euo pipefail
+          mkdir -p dist
+          for d in css js images; do
+            [ -d "$d" ] && cp -r "$d" dist/
+          done
+          for f in index.html privacy-policy.html terms-and-conditions.html \
+                   operator-standard-research.html favicon.svg favicon.ico \
+                   site.webmanifest robots.txt sitemap.xml CNAME; do
+            [ -f "$f" ] && cp "$f" dist/
+          done
+          touch dist/.nojekyll
+
+      - name: Guard — refuse to publish confidential paths
+        run: |
+          set -euo pipefail
+          FORBIDDEN='client_proposals|NOAH-|noah-optimized|RoyalEngineeringFirmDocs|rate-sheet|RateSheet|_SOW|MSA|\.env|\.pem|service-account'
+          if find dist -mindepth 1 | grep -Ei "$FORBIDDEN"; then
+            echo "::error::Confidential path staged for public deploy. Aborting."
+            exit 1
+          fi
+          if grep -rIlEi 'rate sheet|Exhibit A|mobilization fee' dist 2>/dev/null; then
+            echo "::error::Staged file contains rate-sheet language. Aborting."
+            exit 1
+          fi
+          echo "Guard passed. Staged:"
+          find dist -mindepth 1 -maxdepth 1 | sort
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          folder: .  # The folder the action should deploy
-          branch: gh-pages  # The branch the action should deploy to
-          clean: true  # Automatically remove deleted files from the deploy branch
+          folder: dist
+          branch: gh-pages
+          clean: true

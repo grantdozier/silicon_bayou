@@ -1,0 +1,38 @@
+# ─── Never commit client-confidential material to this repo ───────────────
+# This site deploys to a PUBLIC GitHub Pages branch. Anything committed here
+# is world-readable, including via direct URL. Proposals, rate sheets, SOWs,
+# and named-prospect documents belong in R2 behind the dtg-web Worker.
+client_proposals/
+proposals/
+NOAH-*/
+noah-*.html
+*ProposalPackage*/
+*_proposal*.html
+*Proposal*.html
+*RateSheet*
+*rate-sheet*
+*_SOW*
+*MSA*
+RoyalEngineeringFirmDocs/
+*FirmDocs/
+*ClientDocs/
+
+# Secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*service-account*.json
+.dev.vars
+
+# Build output / deps
+dist/
+node_modules/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
