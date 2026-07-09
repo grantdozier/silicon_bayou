@@ -6,7 +6,7 @@
  *
  * Why the payload is encrypted rather than just hidden behind a JS password
  * check: this site deploys to a PUBLIC repo. Every file is served verbatim by
- * raw.githubusercontent.com, with no password, forever — deleting it later does
+ * raw.githubusercontent.com, with no password, forever. Deleting it later does
  * not remove it, because the blob stays reachable by commit SHA. A password
  * that only hides a <div> protects nothing; anyone can read the source.
  *
@@ -16,7 +16,7 @@
  * this repo, nothing to deploy.
  *
  * GCM is authenticated, so a wrong password fails to decrypt rather than
- * producing garbage — the page can say "wrong password" honestly.
+ * producing garbage, so the page can say "wrong password" honestly.
  */
 import fs from 'node:fs';
 import path from 'node:path';
@@ -55,7 +55,7 @@ const titleOf = (name) => {
   const n = name.toLowerCase();
   if (n.includes('system-design')) return 'System Design';
   if (n.includes('msa')) return 'Master Services Agreement';
-  if (n.includes('sow')) return 'Statement of Work — Conference Sprint';
+  if (n.includes('sow')) return 'Statement of Work, Conference Sprint';
   if (n.includes('proposal')) return 'Proposal';
   return name.replace(/\.[a-z]+$/i, '');
 };
@@ -91,7 +91,7 @@ const ct = Buffer.concat([cipher.update(plain), cipher.final(), cipher.getAuthTa
 
 const folder = folderArg || `proposal-${crypto.randomBytes(6).toString('hex')}`;
 if (!/^proposal-[a-z0-9-]+$/.test(folder)) {
-  console.error('folder name must match /^proposal-[a-z0-9-]+$/ — the deploy allowlist globs proposal-*');
+  console.error('folder name must match /^proposal-[a-z0-9-]+$/. The deploy allowlist globs proposal-*');
   process.exit(1);
 }
 
@@ -109,7 +109,7 @@ for (const d of docs) {
 }
 console.log(`\n  plaintext ${kb(JSON.stringify(docs).length)} → gzip ${kb(plain.length)} → +base64 ${kb(ct.length * 1.34)}`);
 console.log(`\nShare:  https://www.doziertechgroup.com/${folder}/`);
-console.log('Give them the password by text or a call — not in the same email as the link.');
+console.log('Give them the password by text or a call, not in the same email as the link.');
 
 /* ---------- the page ---------- */
 
@@ -120,7 +120,7 @@ function PAGE({ salt, iv, ct, iterations }) {
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
-<title>Dozier Tech Group — Confidential</title>
+<title>Dozier Tech Group | Confidential</title>
 <style>
   :root { --navy-900:#0d1b3d; --navy-700:#1f4a86; --navy-400:#6fa6de; --bg:#0b1220; }
   * { box-sizing: border-box; }

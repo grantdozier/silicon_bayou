@@ -1,27 +1,27 @@
 /* ============================================================================
-   Dozier Tech Group — design system
+   Dozier Tech Group: design system
 
    Palette is the approved brand packet plus a single monochromatic ramp of
    tints of the packet navy (#0D1B3D). No new hue is introduced. Both ramps are
-   validated as ordinal scales — monotone lightness, >=0.06 OKLCH ΔL between
-   adjacent steps, light end clearing its surface — against each surface they
+   validated as ordinal scales: monotone lightness, >=0.06 OKLCH ΔL between
+   adjacent steps, light end clearing its surface, against each surface they
    render on. Colour encodes emphasis, never identity.
 
    The page is built from BANDS. A band sets --ink (as an "r,g,b" triple) and a
    background; every component below draws with rgba(var(--ink), α). That is what
    lets one stylesheet render a dark hero and a light services section without a
-   second copy of every rule — and what lets the diagrams follow along.
+   second copy of every rule, and what lets the diagrams follow along.
    ========================================================================= */
 
 :root {
-  /* Brand packet — the only literal colours in the system */
+  /* Brand packet: the only literal colours in the system */
   --navy: #0d1b3d;
   --charcoal: #1e232b;
   --steel: #586475;
   --light-gray: #e6e8ec;
   --off-white: #f7f8fa;
 
-  /* Navy ramp — tints of --navy, same hue. Validated as an ordinal scale. */
+  /* Navy ramp: tints of --navy, same hue. Validated as an ordinal scale. */
   --navy-900: #0d1b3d;
   --navy-800: #16305f;
   --navy-700: #1f4a86;
@@ -32,7 +32,7 @@
   --navy-200: #cfe0f4;
 
   /* Surfaces. The light side is an elevation ladder taken straight from the
-     packet — Light Gray for the band, Off White for panels — rather than one
+     packet (Light Gray for the band, Off White for panels) rather than one
      flat sheet of white, which was hard on the eyes over a long page. */
   --dark-bg: #0b1220;
   --dark-bg-deep: #070c1a;
@@ -369,7 +369,7 @@ p { text-wrap: pretty; }
    A scroll-snap rail, not an auto-rotating carousel. It scrolls natively with a
    trackpad, a touch swipe, or the arrow keys when focused; the buttons and dots
    are progressive enhancement and stay hidden until JS un-hides them. Nothing
-   moves on its own — a marketing page should not steal the reader's attention. */
+   moves on its own. A marketing page should not steal the reader's attention. */
 .svc-carousel { position: relative; }
 
 .svc-railhead {

@@ -1,5 +1,5 @@
 /* ============================================================================
-   Diagrams — dependency-free SVG + CSS.
+   Diagrams: dependency-free SVG + CSS.
 
    framer  ->  vanilla
    ------------------------------------------------------------------
@@ -21,7 +21,7 @@
    ========================================================================= */
 
 /* ── discovery-map ─────────────────────────────────────────────── */
-/* ===== Discovery Map — AI Strategy & Discovery ===== */
+/* ===== Discovery Map: AI Strategy & Discovery ===== */
 /* Scattered data nodes on a faint grid; a scan line sweeps top->bottom,
    connections draw cluster by cluster (bridges last), 3 key nodes pulse forever.
    Nothing animates until the root gains .is-visible. */
@@ -140,7 +140,7 @@
 }
 
 /* ── connected-systems ─────────────────────────────────────────────── */
-/* connected-systems — named production integrations orbiting the DTG mark.
+/* connected-systems: named production integrations orbiting the DTG mark.
    Colour comes from --dgm-ink / --dgm-accent, set by the band, so this renders
    on the dark and the light surface without a second stylesheet. */
 
@@ -299,7 +299,7 @@
 
 /* ── blueprint ─────────────────────────────────────────────── */
 /* ============================================================
-   Blueprint diagram — "Purpose-Built Products"
+   Blueprint diagram: "Purpose-Built Products"
    A dashboard wireframe constructs itself, then a live glow loops.
    viewBox 0 0 100 80. Nothing animates until .is-visible is added.
    ============================================================ */
@@ -383,7 +383,7 @@
   100%    { opacity: 0; }
 }
 
-/* ---- Animations — only once the root is in view ---- */
+/* ---- Animations: only once the root is in view ---- */
 :root { --bp-ease: cubic-bezier(.22,1,.36,1); }
 
 /* Outer frame */
@@ -451,7 +451,7 @@
 .dgm--blueprint.is-visible .bp-el-pfill0 { animation: blueprint-grow-x 0.496s var(--ease, var(--bp-ease)) 1.52s both; }
 .dgm--blueprint.is-visible .bp-el-pfill1 { animation: blueprint-grow-x 0.496s var(--ease, var(--bp-ease)) 1.577s both; }
 
-/* Final live pulse — loops forever */
+/* Final live pulse: loops forever */
 .dgm--blueprint.is-visible .bp-el-pulse {
   animation: blueprint-live-pulse 6.5s ease-in-out 1.444s infinite both;
 }
@@ -473,7 +473,7 @@
 
 /* ── perspective-wheel ─────────────────────────────────────────────── */
 /* ============================================================
-   Perspective Wheel — vanilla SVG + CSS port
+   Perspective Wheel: vanilla SVG + CSS port
    Nothing animates until the root gains .is-visible
    ============================================================ */
 
@@ -681,7 +681,7 @@
 
 /* ── process-timeline ─────────────────────────────────────────────── */
 /* ==========================================================================
-   process-timeline — "How We Work" engagement process
+   process-timeline: "How We Work" engagement process
    HTML + inline-SVG hybrid. Four phases: Discover -> Architect -> Build -> Evolve.
    Nothing animates until the root gains .is-visible (shared IntersectionObserver).
    ========================================================================== */
@@ -804,7 +804,7 @@
 .dgm--process-timeline .ptl-icon * { transform-box: view-box; }
 
 /* ==========================================================================
-   DISCOVER — compass
+   DISCOVER: compass
    ========================================================================== */
 /* concentric rings: scale+fade in, centred on 20,20 */
 .dgm--process-timeline .dc-rings circle {
@@ -860,7 +860,7 @@
 .dgm--process-timeline .dc-points circle:nth-child(4) { transform-origin: 13px 30px; animation-delay: calc(var(--phase-delay) + 0.722s); }
 
 /* ==========================================================================
-   ARCHITECT — framework drawing itself
+   ARCHITECT: framework drawing itself
    ========================================================================== */
 .dgm--process-timeline .ar-lines line {
   opacity: 0;
@@ -888,7 +888,7 @@
 .dgm--process-timeline .ar-nodes circle:nth-child(6) { transform-origin: 20px 32px; animation-delay: calc(var(--phase-delay) + 0.456s); }
 
 /* ==========================================================================
-   BUILD — dashed outlines, then solid blocks scale in, then assembly line
+   BUILD: dashed outlines, then solid blocks scale in, then assembly line
    ========================================================================== */
 .dgm--process-timeline .bd-outlines rect { opacity: 0; }
 .dgm--process-timeline.is-visible .bd-outlines rect {
@@ -923,7 +923,7 @@
 }
 
 /* ==========================================================================
-   EVOLVE — growing tree
+   EVOLVE: growing tree
    ========================================================================== */
 .dgm--process-timeline .ev-branches path {
   stroke-dasharray: 1;
@@ -964,7 +964,7 @@
 .dgm--process-timeline .ev-leaves circle:nth-child(9)  { transform-origin: 6px 8px;  animation-delay: calc(var(--phase-delay) + 0.76s); }
 .dgm--process-timeline .ev-leaves circle:nth-child(10) { transform-origin: 15px 7px; animation-delay: calc(var(--phase-delay) + 0.779s); }
 
-/* pulse rings on select leaves — pulse 2s then idle 2.5s (baked into a 4.5s loop) */
+/* pulse rings on select leaves: pulse 2s then idle 2.5s (baked into a 4.5s loop) */
 .dgm--process-timeline .ev-pulse circle {
   opacity: 0;
   transform: scale(1);
@@ -1041,7 +1041,7 @@
 }
 
 /* ==========================================================================
-   Responsive — vertical stack under 768px
+   Responsive: vertical stack under 768px
    ========================================================================== */
 @media (max-width: 767px) {
   .dgm--process-timeline {
@@ -1087,7 +1087,7 @@
 }
 
 /* ==========================================================================
-   Reduced motion — freeze everything at its final, fully-drawn resting state
+   Reduced motion: freeze everything at its final, fully-drawn resting state
    ========================================================================== */
 @media (prefers-reduced-motion: reduce) {
   .dgm--process-timeline *,

@@ -319,7 +319,7 @@ function initAIDemo() {
         },
         'vague-tasks': {
             trigger: 'Vague task definitions detected',
-            insight: 'You\'ve added "work on project" and "do some reading" — these are intentions, not commitments.',
+            insight: 'You\'ve added "work on project" and "do some reading". These are intentions, not commitments.',
             context: 'Vague tasks have a 73% failure rate in your history. Specific tasks complete at 91%.',
             directive: 'Redefine each task with: duration, specific action, and completion criteria. "Read Chapter 4 of [Book] for 30 minutes" not "do some reading."'
         },
@@ -337,7 +337,7 @@ function initAIDemo() {
         },
         'repeat-skip': {
             trigger: 'Repeating previously skipped tasks',
-            insight: 'You\'ve added "morning conditioning" again — the same task you\'ve skipped 3 days in a row.',
+            insight: 'You\'ve added "morning conditioning" again, the same task you\'ve skipped 3 days in a row.',
             context: 'Repeating failed commitments without changing conditions is not planning. It\'s hoping.',
             directive: 'Either change the time, reduce the duration, or remove it entirely. Do not add the same task you\'ve proven you won\'t execute.'
         }

@@ -1,4 +1,4 @@
-/* Dozier Tech Group — site behaviour.
+/* Dozier Tech Group site behaviour.
    No dependencies. Everything degrades to a readable static page if JS fails. */
 (function () {
   'use strict';
@@ -14,7 +14,7 @@
     CONTACT_ENDPOINT ? new URL(CONTACT_ENDPOINT, location.href).hostname : ''
   );
   // Web3Forms rejects a submission with no access key, so an endpoint without
-  // one is not a working configuration — treat it as unconfigured.
+  // one is not a working configuration; treat it as unconfigured.
   var CONTACT_READY = !!CONTACT_ENDPOINT && (!USING_WEB3FORMS || !!CONTACT_KEY);
   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -242,7 +242,7 @@
     // Bots fill every field they find, including the hidden one.
     if (form.elements.company.value) return;
 
-    // No backend configured yet — say so plainly rather than fake a success
+    // No backend configured yet. Say so plainly rather than fake a success
     // toast, which is precisely what the previous implementation did.
     if (!CONTACT_READY) {
       say('The form is not connected yet. Please email grant@doziertechgroup.com.', 'err');
@@ -287,16 +287,16 @@
         return r.json();
       })
       .then(function (data) {
-        // Web3Forms can answer 200 with { success: false } — a rejected key, a
+        // Web3Forms can answer 200 with { success: false }: a rejected key, a
         // domain that isn't allowed. Don't report that as delivered.
         if (data && data.success === false) throw new Error(data.message || 'rejected');
         form.reset();
-        say("Thanks — that's landed in Grant's inbox. You'll hear back within one business day.", 'ok');
+        say("Thanks, that's landed in Grant's inbox. You'll hear back within one business day.", 'ok');
       })
       .catch(function () {
         // Never silently swallow. Give the user a route that definitely works.
         say(
-          "Something went wrong sending that. Please email grant@doziertechgroup.com directly — or call (337) 412-4767.",
+          "Something went wrong sending that. Please email grant@doziertechgroup.com directly, or call (337) 412-4767.",
           'err'
         );
       })

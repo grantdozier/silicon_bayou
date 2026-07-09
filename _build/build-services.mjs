@@ -4,7 +4,7 @@
  *
  *   node _build/build-services.mjs
  *
- * Nothing in _build/ is deployed — the deploy workflow copies an explicit
+ * Nothing in _build/ is deployed. The deploy workflow copies an explicit
  * allowlist. Commit the generated HTML.
  */
 import fs from 'fs';
@@ -60,8 +60,7 @@ const footer = (up) => `<div class="band band--dark">
             <span class="brand-word"><b>DOZIER</b><span>TECH GROUP</span></span>
           </a>
           <p>
-            AI systems, business ontologies, and custom platforms for engineering-led companies —
-            where the work is complex, regulated, and unforgiving.
+            AI systems, business ontologies, and custom platforms for engineering-led companies, where the work is complex, regulated, and unforgiving.
           </p>
         </div>
         <div>
@@ -112,14 +111,14 @@ ${s.practice.metrics.map(([v, l]) => `            <div><dt>${esc(v)}</dt><dd>${e
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>${esc(s.title)} — Dozier Tech Group</title>
+<title>${esc(s.title)} | Dozier Tech Group</title>
 <meta name="description" content="${esc(s.meta)}">
 <link rel="canonical" href="${SITE}/services/${s.slug}.html">
 <meta name="theme-color" content="#0D1B3D">
 
 <meta property="og:type" content="article">
 <meta property="og:url" content="${SITE}/services/${s.slug}.html">
-<meta property="og:title" content="${esc(s.title)} — Dozier Tech Group">
+<meta property="og:title" content="${esc(s.title)} | Dozier Tech Group">
 <meta property="og:description" content="${esc(s.meta)}">
 <meta property="og:image" content="${SITE}/images/brand/og-image.png">
 <meta name="twitter:card" content="summary_large_image">

@@ -6,7 +6,7 @@ on:
       - main
 
 # This previously deployed `folder: .`, which published the ENTIRE repo to the
-# public gh-pages branch — including client proposals, rate sheets, and internal
+# public gh-pages branch, including client proposals, rate sheets, and internal
 # client pitch documents. It now stages an explicit allowlist into dist/, and a
 # guard step fails the build if anything confidential slips through.
 
@@ -25,7 +25,7 @@ jobs:
           # _build/ itself is never published.
           #
           # proposal-* holds client packages built by _build/lock-docs.mjs. Their
-          # contents are AES-GCM ciphertext, not documents — that is the only
+          # contents are AES-GCM ciphertext, not documents. That is the only
           # reason they may be published from a repo this public. Never place a
           # readable document there.
           #
@@ -35,7 +35,7 @@ jobs:
             if [ -d "$d" ]; then cp -r "$d" dist/; fi
           done
           # Original client artwork with baked-in backgrounds. Kept in git as the
-          # only copies, but never served — the transparent re-cuts in
+          # only copies, but never served. The transparent re-cuts in
           # images/partners/ are what the site uses.
           rm -rf dist/images/_source
           for f in index.html privacy-policy.html terms-and-conditions.html \
@@ -45,7 +45,7 @@ jobs:
           done
           touch dist/.nojekyll
 
-      - name: Guard — refuse to publish confidential paths
+      - name: "Guard: refuse to publish confidential paths"
         run: |
           set -euo pipefail
           FORBIDDEN='client_proposals|NOAH-|noah-optimized|RoyalEngineeringFirmDocs|rate-sheet|RateSheet|_SOW|MSA|\.env|\.pem|service-account'
