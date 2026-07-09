@@ -89,12 +89,12 @@ export const services = [
     slug: 'systems-integration',
     num: '03',
     title: 'Systems integration & data infrastructure',
-    short: 'Connect what you already run. Rip out nothing.',
+    short: 'Connect what you already run. Replace nothing.',
     lede: 'Your operation runs on a dozen disconnected tools, and everyone has quietly built a workaround for each seam. We connect them and leave the tools your team likes exactly where they are.',
     meta: 'Unifying SharePoint, Microsoft 365, QuickBooks, storage, and source control behind one typed interface — without a big-bang cutover.',
     what: [
       'The cost of disconnected systems is not the software licence. It is the estimator who re-keys a vendor quote, the PM who checks three places before answering a question, and the invoice that goes out late because nobody could find the approval.',
-      'We connect the systems behind a single typed interface. Nothing gets ripped out, nobody retrains, and the seams stop leaking. Where a system has no API we work with what it does have — a file share, an inbox, an export.',
+      'We connect the systems behind a single typed interface. Nothing gets replaced, nobody retrains, and the seams stop leaking. Where a system has no API we work with what it does have — a file share, an inbox, an export.',
     ],
     get: [
       'One typed interface over SharePoint, Microsoft 365, QuickBooks, storage, and source control',
