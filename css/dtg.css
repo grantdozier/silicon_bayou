@@ -306,9 +306,14 @@ p { text-wrap: pretty; }
 .btn[disabled] { opacity: 0.5; cursor: progress; }
 
 /* ---------- hero ---------- */
+/* padding-top was exactly --nav-h, so when the content is taller than the box
+   (which it is on a laptop) centring does nothing and the headline starts flush
+   against the bottom edge of the fixed nav. The clearance is on top of the nav
+   height, not equal to it. */
 .hero {
   position: relative; min-height: min(92vh, 900px);
-  display: flex; align-items: center; padding-top: var(--nav-h);
+  display: flex; align-items: center;
+  padding-block: calc(var(--nav-h) + clamp(3.25rem, 7.5vh, 6rem)) clamp(1.75rem, 4vh, 3rem);
   overflow: hidden; isolation: isolate;
 }
 .hero-inner { position: relative; z-index: 1; max-width: 900px; }
@@ -341,12 +346,12 @@ p { text-wrap: pretty; }
 
 .hero .lede { margin-top: 1.75rem; font-size: clamp(1.02rem, 1.7vw, 1.2rem); max-width: 58ch; }
 .hero .hero-claim + .lede { margin-top: clamp(1.6rem, 2.2vw, 2rem); }
-.hero-actions { display: flex; flex-wrap: wrap; gap: 0.875rem; margin-top: 2.5rem; }
+.hero-actions { display: flex; flex-wrap: wrap; gap: 0.875rem; margin-top: 2rem; }
 
 .hero-proof {
   display: grid; grid-template-columns: repeat(3, auto); justify-content: start;
   gap: clamp(1.5rem, 5vw, 4rem);
-  margin-top: clamp(3rem, 6vw, 4.5rem); padding-top: 2rem;
+  margin-top: clamp(2.25rem, 4vw, 3.25rem); padding-top: 1.5rem;
   border-top: 1px solid var(--line-soft);
 }
 .hero-proof dt {
