@@ -24,6 +24,10 @@ jobs:
           for d in css js images; do
             [ -d "$d" ] && cp -r "$d" dist/
           done
+          # Original client artwork with baked-in backgrounds. Kept in git as the
+          # only copies, but never served — the transparent re-cuts in
+          # images/partners/ are what the site uses.
+          rm -rf dist/images/_source
           for f in index.html privacy-policy.html terms-and-conditions.html \
                    operator-standard-research.html favicon.svg favicon.ico \
                    site.webmanifest robots.txt sitemap.xml CNAME; do
