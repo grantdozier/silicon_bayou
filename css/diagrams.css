@@ -1,0 +1,1126 @@
+/* ============================================================================
+   Diagrams — dependency-free SVG + CSS.
+
+   framer  ->  vanilla
+   ------------------------------------------------------------------
+   useInView({once})   ->  IntersectionObserver in js/site.js adds .is-visible
+   pathLength 0 -> 1   ->  pathLength="1" + stroke-dashoffset 1 -> 0
+   scale w/ origin     ->  transform-box: fill-box + transform-origin
+   repeat + repeatDelay->  one long keyframe with the idle gap baked in
+   repeatType reverse  ->  animation-direction: alternate
+
+   No diagram hard-codes a colour. Ink comes from rgba(var(--dgm-ink), a), and
+   the emphasis mark of each graphic from var(--dgm-accent). The band (.band--dark
+   or .band--light) supplies both, which is how one stylesheet renders every
+   diagram on a near-black surface and on off-white. SVG presentation attributes
+   cannot take var(), so colours live in inline style declarations or in here.
+
+   Nothing animates until the diagram's root gains .is-visible, so no work
+   happens off-screen. Every diagram forces a complete, legible final state
+   under prefers-reduced-motion.
+   ========================================================================= */
+
+/* ── discovery-map ─────────────────────────────────────────────── */
+/* ===== Discovery Map — AI Strategy & Discovery ===== */
+/* Scattered data nodes on a faint grid; a scan line sweeps top->bottom,
+   connections draw cluster by cluster (bridges last), 3 key nodes pulse forever.
+   Nothing animates until the root gains .is-visible. */
+
+/* ---- Faint background grid ---- */
+.dgm--discovery-map .dm-gridline {
+  stroke: rgba(var(--dgm-ink), 0.03);
+  stroke-width: 0.2;
+  opacity: 0;
+}
+.dgm--discovery-map.is-visible .dm-gridline {
+  animation: discovery-map-grid 0.62s linear 0.038s both;
+}
+
+/* ---- Scan line (single sweep, top to bottom) ---- */
+.dgm--discovery-map .dm-scan {
+  transform-box: fill-box;
+  transform: translateY(-20px);
+}
+.dgm--discovery-map.is-visible .dm-scan {
+  animation: discovery-map-scan 1.364s var(--ease) 0.076s both;
+}
+
+/* ---- Connection lines ---- */
+.dgm--discovery-map .dm-conn {
+  stroke: rgba(var(--dgm-ink), 0.1);
+  stroke-width: 0.25;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  opacity: 0;
+}
+.dgm--discovery-map .dm-conn--bridge {
+  stroke: rgba(var(--dgm-ink), 0.25);
+  stroke-width: 0.4;
+}
+.dgm--discovery-map.is-visible .dm-conn {
+  animation: discovery-map-draw 0.496s var(--ease) var(--d) both;
+}
+
+/* ---- Node dots ---- */
+.dgm--discovery-map .dm-node {
+  fill: rgba(var(--dgm-ink), 0.35);
+  transform-box: fill-box;
+  transform-origin: center;
+  transform: scale(0);
+  opacity: 0;
+}
+.dgm--discovery-map .dm-node--key {
+  fill: var(--dgm-accent);
+}
+.dgm--discovery-map.is-visible .dm-node {
+  animation: discovery-map-pop 0.372s var(--ease) var(--d) both;
+}
+
+/* ---- Key-node outer glow rings (pulse forever) ---- */
+.dgm--discovery-map .dm-glow {
+  fill: none;
+  stroke: var(--dgm-accent);
+  stroke-width: 0.3;
+  transform-box: fill-box;
+  transform-origin: center;
+  transform: scale(0);
+  opacity: 0;
+}
+.dgm--discovery-map.is-visible .dm-glow {
+  animation: discovery-map-glow-in 0.93s var(--ease) var(--d) both,
+    discovery-map-glow-pulse 6s ease-in-out var(--d) infinite both;
+}
+
+/* ---- Keyframes ---- */
+@keyframes discovery-map-grid {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes discovery-map-scan {
+  from { transform: translateY(-20px); }
+  to   { transform: translateY(110px); }
+}
+
+@keyframes discovery-map-draw {
+  0%   { opacity: 0; stroke-dashoffset: 1; }
+  38%  { opacity: 1; }
+  100% { opacity: 1; stroke-dashoffset: 0; }
+}
+
+@keyframes discovery-map-pop {
+  0%   { opacity: 0; transform: scale(0); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes discovery-map-glow-in {
+  0%   { transform: scale(0); }
+  100% { transform: scale(1); }
+}
+
+/* framer opacity [0,0.6,0.3] over 3s, repeatType reverse -> baked 6s cycle */
+@keyframes discovery-map-glow-pulse {
+  0%   { opacity: 0; }
+  25%  { opacity: 0.6; }
+  50%  { opacity: 0.3; }
+  75%  { opacity: 0.6; }
+  100% { opacity: 0; }
+}
+
+/* ---- Reduced motion: force complete, legible, static final state ---- */
+@media (prefers-reduced-motion: reduce) {
+  .dgm--discovery-map * {
+    animation: none !important;
+  }
+  .dgm--discovery-map .dm-gridline { opacity: 1; }
+  .dgm--discovery-map .dm-scan     { opacity: 0; }
+  .dgm--discovery-map .dm-conn     { opacity: 1; stroke-dashoffset: 0; }
+  .dgm--discovery-map .dm-node     { opacity: 1; transform: scale(1); }
+  .dgm--discovery-map .dm-glow     { opacity: 0.3; transform: scale(1); }
+}
+
+/* ── connected-systems ─────────────────────────────────────────────── */
+/* connected-systems — named production integrations orbiting the DTG mark.
+   Colour comes from --dgm-ink / --dgm-accent, set by the band, so this renders
+   on the dark and the light surface without a second stylesheet. */
+
+.dgm--connected-systems {
+  width: 100%;
+  height: auto;
+  overflow: visible;
+  font-family: 'Poppins', system-ui, sans-serif;
+}
+
+/* ── orbits ───────────────────────────────────────────────────────────── */
+.dgm--connected-systems .cs-orbit {
+  fill: none;
+  stroke: rgba(var(--dgm-ink), 0.09);
+  stroke-width: 0.18;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  opacity: 0;
+}
+.dgm--connected-systems.is-visible .cs-orbit {
+  animation: cs-draw 0.992s var(--ease) both;
+  animation-delay: var(--d);
+}
+
+/* ── connectors ───────────────────────────────────────────────────────── */
+.dgm--connected-systems .cs-link {
+  fill: none;
+  stroke-linecap: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  opacity: 0;
+}
+.dgm--connected-systems .cs-link--a { stroke: rgba(var(--dgm-ink), 0.22); stroke-width: 0.28; }
+.dgm--connected-systems .cs-link--b { stroke: rgba(var(--dgm-ink), 0.13); stroke-width: 0.22; }
+.dgm--connected-systems.is-visible .cs-link {
+  animation: cs-draw 0.558s var(--ease) both;
+  animation-delay: var(--d);
+}
+
+/* ── particles ────────────────────────────────────────────────────────── */
+.dgm--connected-systems .cs-particle { fill: var(--dgm-accent); opacity: 0; }
+
+/* ── hub ──────────────────────────────────────────────────────────────── */
+.dgm--connected-systems .cs-hub-halo {
+  fill: rgba(var(--dgm-ink), 0.03);
+  stroke: none;
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.dgm--connected-systems .cs-hub-ring {
+  fill: none;
+  stroke: var(--dgm-accent);
+  stroke-width: 0.3;
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.dgm--connected-systems .cs-hub-pulse {
+  fill: none;
+  stroke: var(--dgm-accent);
+  stroke-width: 0.25;
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.dgm--connected-systems .cs-mark { overflow: visible; opacity: 0; }
+.dgm--connected-systems .cs-mark-hex,
+.dgm--connected-systems .cs-mark-d {
+  fill: none;
+  stroke: var(--dgm-accent);
+  stroke-linejoin: miter;
+  stroke-miterlimit: 10;
+  stroke-linecap: butt;
+}
+.dgm--connected-systems .cs-mark-hex { stroke-width: 3.75; }
+.dgm--connected-systems .cs-mark-d { stroke-width: 6.7; }
+
+.dgm--connected-systems.is-visible .cs-hub-halo { animation: cs-fade 0.558s var(--ease) 0.133s both; }
+.dgm--connected-systems.is-visible .cs-hub-ring { animation: cs-pop 0.496s var(--ease) 0.133s both; }
+.dgm--connected-systems.is-visible .cs-mark { animation: cs-pop 0.496s var(--ease) 0.209s both; }
+/* breathe forever: 2.2s of pulse, then a 4.3s rest, baked into one 6.5s cycle */
+.dgm--connected-systems.is-visible .cs-hub-pulse { animation: cs-breathe 6.5s var(--ease) 0.988s infinite both; }
+
+/* ── chips ────────────────────────────────────────────────────────────── */
+.dgm--connected-systems .cs-chip {
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.dgm--connected-systems .cs-chip rect {
+  fill: rgba(var(--dgm-ink), 0.045);
+  stroke: rgba(var(--dgm-ink), 0.14);
+  stroke-width: 0.16;
+  transition: fill 0.25s var(--ease), stroke 0.25s var(--ease);
+}
+.dgm--connected-systems .cs-chip text {
+  font-size: 2.5px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  fill: rgba(var(--dgm-ink), 0.72);
+  transition: fill 0.25s var(--ease);
+}
+.dgm--connected-systems .cs-chip:hover rect { fill: rgba(var(--dgm-ink), 0.1); stroke: var(--dgm-accent); }
+.dgm--connected-systems .cs-chip:hover text { fill: rgb(var(--dgm-ink)); }
+.dgm--connected-systems.is-visible .cs-chip {
+  animation: cs-chip-in 0.434s var(--ease) both;
+  animation-delay: var(--d);
+}
+
+.dgm--connected-systems .cs-more {
+  font-size: 2.5px;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  fill: rgba(var(--dgm-ink), var(--dgm-a-dim, 0.34));
+  opacity: 0;
+}
+.dgm--connected-systems.is-visible .cs-more { animation: cs-fade 0.558s var(--ease) 0.836s both; }
+
+/* ── keyframes ────────────────────────────────────────────────────────── */
+@keyframes cs-draw {
+  0% { opacity: 0; stroke-dashoffset: 1; }
+  25% { opacity: 1; }
+  100% { opacity: 1; stroke-dashoffset: 0; }
+}
+@keyframes cs-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes cs-pop {
+  0% { opacity: 0; transform: scale(0.82); }
+  100% { opacity: 1; transform: scale(1); }
+}
+@keyframes cs-chip-in {
+  0% { opacity: 0; transform: scale(0.9); }
+  100% { opacity: 1; transform: scale(1); }
+}
+@keyframes cs-breathe {
+  0% { opacity: 0; transform: scale(1); }
+  12% { opacity: 0.55; }
+  34% { opacity: 0; transform: scale(1.55); }
+  100% { opacity: 0; transform: scale(1.55); }
+}
+
+/* ── reduced motion: fully drawn, nothing moves ───────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .dgm--connected-systems * { animation: none !important; transition: none !important; }
+  .dgm--connected-systems .cs-orbit,
+  .dgm--connected-systems .cs-link { opacity: 1; stroke-dashoffset: 0; }
+  .dgm--connected-systems .cs-chip,
+  .dgm--connected-systems .cs-hub-halo,
+  .dgm--connected-systems .cs-hub-ring,
+  .dgm--connected-systems .cs-mark,
+  .dgm--connected-systems .cs-more { opacity: 1; transform: none; }
+  .dgm--connected-systems .cs-hub-pulse,
+  .dgm--connected-systems .cs-particle { opacity: 0; }
+}
+
+/* ── blueprint ─────────────────────────────────────────────── */
+/* ============================================================
+   Blueprint diagram — "Purpose-Built Products"
+   A dashboard wireframe constructs itself, then a live glow loops.
+   viewBox 0 0 100 80. Nothing animates until .is-visible is added.
+   ============================================================ */
+
+.dgm--blueprint {
+  overflow: visible;
+}
+
+/* ---- Resting (pre-animation) states = framer `initial` ---- */
+.dgm--blueprint .bp-fade { opacity: 0; }
+
+.dgm--blueprint .bp-frame-dashed { opacity: 0; }
+
+.dgm--blueprint .bp-draw {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+
+.dgm--blueprint .bp-growx {
+  transform-box: fill-box;
+  transform-origin: left center;
+  transform: scaleX(0);
+}
+
+.dgm--blueprint .bp-growx-fade {
+  transform-box: fill-box;
+  transform-origin: left center;
+  transform: scaleX(0);
+  opacity: 0;
+}
+
+.dgm--blueprint .bp-pop {
+  transform-box: fill-box;
+  transform-origin: center;
+  transform: scale(0);
+}
+
+.dgm--blueprint .bp-rise {
+  opacity: 0;
+  transform: translateY(2px);
+}
+
+.dgm--blueprint .bp-pulse { opacity: 0; }
+
+/* ---- Keyframes (all slug-prefixed) ---- */
+@keyframes blueprint-fade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes blueprint-draw {
+  from { stroke-dashoffset: 1; }
+  to   { stroke-dashoffset: 0; }
+}
+@keyframes blueprint-grow-x {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+@keyframes blueprint-grow-x-fade {
+  from { transform: scaleX(0); opacity: 0; }
+  to   { transform: scaleX(1); opacity: 1; }
+}
+@keyframes blueprint-pop {
+  from { transform: scale(0); }
+  to   { transform: scale(1); }
+}
+@keyframes blueprint-rise {
+  from { opacity: 0; transform: translateY(2px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+/* dashed wireframe materialises + subtle settle of the dash pattern */
+@keyframes blueprint-wireframe {
+  from { opacity: 0; stroke-dashoffset: 12; }
+  to   { opacity: 1; stroke-dashoffset: 0; }
+}
+/* framer: opacity [0,0.4,0] over 2.5s, repeat Infinity, repeatDelay 4s.
+   Baked into one 6.5s timeline; pulse fills the first 38.46% (2.5/6.5). */
+@keyframes blueprint-live-pulse {
+  0%      { opacity: 0; }
+  19.23%  { opacity: 0.4; }
+  38.46%  { opacity: 0; }
+  100%    { opacity: 0; }
+}
+
+/* ---- Animations — only once the root is in view ---- */
+:root { --bp-ease: cubic-bezier(.22,1,.36,1); }
+
+/* Outer frame */
+.dgm--blueprint.is-visible .bp-frame-dashed {
+  animation: blueprint-wireframe 0.93s var(--ease, var(--bp-ease)) 0.114s both;
+}
+.dgm--blueprint.is-visible .bp-frame-solid {
+  animation: blueprint-draw 0.744s var(--ease, var(--bp-ease)) 0.532s both,
+             blueprint-fade 0.186s var(--ease, var(--bp-ease)) 0.532s both;
+}
+
+/* Header */
+.dgm--blueprint.is-visible .bp-el-topbar { animation: blueprint-fade 0.372s var(--ease, var(--bp-ease)) 0.836s both; }
+.dgm--blueprint.is-visible .bp-el-h1 { animation: blueprint-grow-x 0.31s var(--ease, var(--bp-ease)) 1.064s both; }
+.dgm--blueprint.is-visible .bp-el-h2 { animation: blueprint-grow-x 0.31s var(--ease, var(--bp-ease)) 1.094s both; }
+.dgm--blueprint.is-visible .bp-el-nav0 { animation: blueprint-pop 0.186s var(--ease, var(--bp-ease)) 1.102s both; }
+.dgm--blueprint.is-visible .bp-el-nav1 { animation: blueprint-pop 0.186s var(--ease, var(--bp-ease)) 1.125s both; }
+.dgm--blueprint.is-visible .bp-el-nav2 { animation: blueprint-pop 0.186s var(--ease, var(--bp-ease)) 1.148s both; }
+
+/* Sidebar */
+.dgm--blueprint.is-visible .bp-el-sidebar { animation: blueprint-fade 0.372s var(--ease, var(--bp-ease)) 0.893s both; }
+.dgm--blueprint.is-visible .bp-el-menu0 { animation: blueprint-grow-x-fade 0.248s var(--ease, var(--bp-ease)) 1.121s both; }
+.dgm--blueprint.is-visible .bp-el-menu1 { animation: blueprint-grow-x-fade 0.248s var(--ease, var(--bp-ease)) 1.144s both; }
+.dgm--blueprint.is-visible .bp-el-menu2 { animation: blueprint-grow-x-fade 0.248s var(--ease, var(--bp-ease)) 1.167s both; }
+.dgm--blueprint.is-visible .bp-el-menu3 { animation: blueprint-grow-x-fade 0.248s var(--ease, var(--bp-ease)) 1.189s both; }
+.dgm--blueprint.is-visible .bp-el-menu4 { animation: blueprint-grow-x-fade 0.248s var(--ease, var(--bp-ease)) 1.212s both; }
+
+/* Stat cards */
+.dgm--blueprint.is-visible .bp-el-card0 { animation: blueprint-rise 0.31s var(--ease, var(--bp-ease)) 0.95s both; }
+.dgm--blueprint.is-visible .bp-el-card1 { animation: blueprint-rise 0.31s var(--ease, var(--bp-ease)) 0.996s both; }
+.dgm--blueprint.is-visible .bp-el-card2 { animation: blueprint-rise 0.31s var(--ease, var(--bp-ease)) 1.041s both; }
+.dgm--blueprint.is-visible .bp-el-num0 { animation: blueprint-grow-x 0.248s var(--ease, var(--bp-ease)) 1.178s both; }
+.dgm--blueprint.is-visible .bp-el-num1 { animation: blueprint-grow-x 0.248s var(--ease, var(--bp-ease)) 1.216s both; }
+.dgm--blueprint.is-visible .bp-el-num2 { animation: blueprint-grow-x 0.248s var(--ease, var(--bp-ease)) 1.254s both; }
+.dgm--blueprint.is-visible .bp-el-lab0 { animation: blueprint-grow-x 0.248s var(--ease, var(--bp-ease)) 1.216s both; }
+.dgm--blueprint.is-visible .bp-el-lab1 { animation: blueprint-grow-x 0.248s var(--ease, var(--bp-ease)) 1.254s both; }
+.dgm--blueprint.is-visible .bp-el-lab2 { animation: blueprint-grow-x 0.248s var(--ease, var(--bp-ease)) 1.292s both; }
+.dgm--blueprint.is-visible .bp-el-spark0 { animation: blueprint-draw 0.496s var(--ease, var(--bp-ease)) 1.254s both; }
+.dgm--blueprint.is-visible .bp-el-spark1 { animation: blueprint-draw 0.496s var(--ease, var(--bp-ease)) 1.292s both; }
+.dgm--blueprint.is-visible .bp-el-spark2 { animation: blueprint-draw 0.496s var(--ease, var(--bp-ease)) 1.33s both; }
+
+/* Chart area */
+.dgm--blueprint.is-visible .bp-el-chartpanel { animation: blueprint-rise 0.31s var(--ease, var(--bp-ease)) 1.026s both; }
+.dgm--blueprint.is-visible .bp-el-axis1 { animation: blueprint-draw 0.248s var(--ease, var(--bp-ease)) 1.292s both; }
+.dgm--blueprint.is-visible .bp-el-axis2 { animation: blueprint-draw 0.248s var(--ease, var(--bp-ease)) 1.311s both; }
+.dgm--blueprint.is-visible .bp-el-chartline { animation: blueprint-draw 0.744s var(--ease, var(--bp-ease)) 1.368s both; }
+.dgm--blueprint.is-visible .bp-el-chartarea { animation: blueprint-fade 0.496s var(--ease, var(--bp-ease)) 1.52s both; }
+
+/* Data table */
+.dgm--blueprint.is-visible .bp-el-tablepanel { animation: blueprint-rise 0.31s var(--ease, var(--bp-ease)) 1.064s both; }
+.dgm--blueprint.is-visible .bp-el-row0 { animation: blueprint-grow-x 0.186s var(--ease, var(--bp-ease)) 1.33s both; }
+.dgm--blueprint.is-visible .bp-el-row1 { animation: blueprint-grow-x 0.186s var(--ease, var(--bp-ease)) 1.353s both; }
+.dgm--blueprint.is-visible .bp-el-row2 { animation: blueprint-grow-x 0.186s var(--ease, var(--bp-ease)) 1.376s both; }
+.dgm--blueprint.is-visible .bp-el-row3 { animation: blueprint-grow-x 0.186s var(--ease, var(--bp-ease)) 1.398s both; }
+.dgm--blueprint.is-visible .bp-el-row4 { animation: blueprint-grow-x 0.186s var(--ease, var(--bp-ease)) 1.421s both; }
+.dgm--blueprint.is-visible .bp-el-row5 { animation: blueprint-grow-x 0.186s var(--ease, var(--bp-ease)) 1.444s both; }
+
+/* Progress bars */
+.dgm--blueprint.is-visible .bp-el-prog0 { animation: blueprint-rise 0.31s var(--ease, var(--bp-ease)) 1.102s both; }
+.dgm--blueprint.is-visible .bp-el-prog1 { animation: blueprint-rise 0.31s var(--ease, var(--bp-ease)) 1.14s both; }
+.dgm--blueprint.is-visible .bp-el-plab0 { animation: blueprint-grow-x 0.186s var(--ease, var(--bp-ease)) 1.444s both; }
+.dgm--blueprint.is-visible .bp-el-plab1 { animation: blueprint-grow-x 0.186s var(--ease, var(--bp-ease)) 1.482s both; }
+.dgm--blueprint.is-visible .bp-el-ptrack0 { animation: blueprint-fade 0.186s var(--ease, var(--bp-ease)) 1.482s both; }
+.dgm--blueprint.is-visible .bp-el-ptrack1 { animation: blueprint-fade 0.186s var(--ease, var(--bp-ease)) 1.52s both; }
+.dgm--blueprint.is-visible .bp-el-pfill0 { animation: blueprint-grow-x 0.496s var(--ease, var(--bp-ease)) 1.52s both; }
+.dgm--blueprint.is-visible .bp-el-pfill1 { animation: blueprint-grow-x 0.496s var(--ease, var(--bp-ease)) 1.577s both; }
+
+/* Final live pulse — loops forever */
+.dgm--blueprint.is-visible .bp-el-pulse {
+  animation: blueprint-live-pulse 6.5s ease-in-out 1.444s infinite both;
+}
+
+/* ---- Reduced motion: no animation, force complete legible state ---- */
+@media (prefers-reduced-motion: reduce) {
+  .dgm--blueprint * { animation: none !important; }
+  .dgm--blueprint .bp-fade,
+  .dgm--blueprint .bp-frame-dashed,
+  .dgm--blueprint .bp-growx-fade,
+  .dgm--blueprint .bp-rise { opacity: 1; }
+  .dgm--blueprint .bp-draw { stroke-dashoffset: 0; }
+  .dgm--blueprint .bp-growx,
+  .dgm--blueprint .bp-growx-fade,
+  .dgm--blueprint .bp-pop,
+  .dgm--blueprint .bp-rise { transform: none; }
+  .dgm--blueprint .bp-pulse { opacity: 0; }
+}
+
+/* ── perspective-wheel ─────────────────────────────────────────────── */
+/* ============================================================
+   Perspective Wheel — vanilla SVG + CSS port
+   Nothing animates until the root gains .is-visible
+   ============================================================ */
+
+.dgm--perspective-wheel {
+  overflow: visible; /* labels sit outside the 0..100 viewBox */
+}
+
+.dgm--perspective-wheel text {
+  font-family: 'Poppins', system-ui, sans-serif;
+  font-size: 2.8px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+}
+
+/* ---------- resting (pre-animation) states ---------- */
+.pw-slice { opacity: 0; }
+
+.pw-spoke {
+  opacity: 0;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+
+.pw-ring {
+  opacity: 0;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+
+.pw-node {
+  transform: scale(0);
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.pw-label { opacity: 0; }
+
+.pw-hub {
+  opacity: 0;
+  transform: scale(0);
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.pw-mark {
+  opacity: 0;
+  transform: scale(0.8);
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.pw-pulse { opacity: 0; }
+
+/* ---------- keyframes ---------- */
+@keyframes perspective-wheel-draw {
+  from { stroke-dashoffset: 1; }
+  to   { stroke-dashoffset: 0; }
+}
+@keyframes perspective-wheel-fade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes perspective-wheel-pop {
+  from { transform: scale(0); }
+  to   { transform: scale(1); }
+}
+@keyframes perspective-wheel-hub {
+  from { opacity: 0; transform: scale(0); }
+  to   { opacity: 1; transform: scale(1); }
+}
+@keyframes perspective-wheel-mark {
+  from { opacity: 0; transform: scale(0.8); }
+  to   { opacity: 1; transform: scale(1); }
+}
+/* pulse: 2s visible pulse + 4s idle = 6s loop (bakes repeatDelay in) */
+@keyframes perspective-wheel-pulse {
+  0%     { opacity: 0; }
+  16.67% { opacity: 0.4; }
+  33.33% { opacity: 0; }
+  100%   { opacity: 0; }
+}
+
+/* ---------- animated states (gated on .is-visible) ---------- */
+
+/* Centre hub: scale+fade, delay 0.3, dur 0.8 */
+.dgm--perspective-wheel.is-visible .pw-hub {
+  animation: perspective-wheel-hub 0.496s var(--ease) 0.114s both;
+}
+
+/* DTG mark: scale 0.8->1 + fade, delay 0.5, dur 0.8 */
+.dgm--perspective-wheel.is-visible .pw-mark {
+  animation: perspective-wheel-mark 0.496s var(--ease) 0.19s both;
+}
+
+/* Inner ring: draw dur 1.5 / fade 0.3, delay 0.3 */
+.dgm--perspective-wheel.is-visible .pw-ring-inner {
+  animation: perspective-wheel-draw 0.93s var(--ease) 0.114s both,
+             perspective-wheel-fade 0.186s var(--ease) 0.114s both;
+}
+
+/* Outer ring: draw dur 2 / fade 0.3, delay 0.5 */
+.dgm--perspective-wheel.is-visible .pw-ring-outer {
+  animation: perspective-wheel-draw 1.24s var(--ease) 0.19s both,
+             perspective-wheel-fade 0.186s var(--ease) 0.19s both;
+}
+
+/* Spokes: draw dur 0.6 + fade dur 0.2, delay 0.6 + i*0.1 */
+.dgm--perspective-wheel.is-visible .pw-spoke {
+  animation: perspective-wheel-draw 0.372s var(--ease) both,
+             perspective-wheel-fade 0.124s var(--ease) both;
+}
+.dgm--perspective-wheel.is-visible .pw-spoke:nth-child(1)  { animation-delay: 0.228s; }
+.dgm--perspective-wheel.is-visible .pw-spoke:nth-child(2)  { animation-delay: 0.266s; }
+.dgm--perspective-wheel.is-visible .pw-spoke:nth-child(3)  { animation-delay: 0.304s; }
+.dgm--perspective-wheel.is-visible .pw-spoke:nth-child(4)  { animation-delay: 0.342s; }
+.dgm--perspective-wheel.is-visible .pw-spoke:nth-child(5)  { animation-delay: 0.38s; }
+.dgm--perspective-wheel.is-visible .pw-spoke:nth-child(6)  { animation-delay: 0.418s; }
+.dgm--perspective-wheel.is-visible .pw-spoke:nth-child(7)  { animation-delay: 0.456s; }
+.dgm--perspective-wheel.is-visible .pw-spoke:nth-child(8)  { animation-delay: 0.494s; }
+.dgm--perspective-wheel.is-visible .pw-spoke:nth-child(9)  { animation-delay: 0.532s; }
+.dgm--perspective-wheel.is-visible .pw-spoke:nth-child(10) { animation-delay: 0.57s; }
+.dgm--perspective-wheel.is-visible .pw-spoke:nth-child(11) { animation-delay: 0.608s; }
+.dgm--perspective-wheel.is-visible .pw-spoke:nth-child(12) { animation-delay: 0.646s; }
+
+/* Slices: fade dur 0.8, delay 0.8 + i*0.12 */
+.dgm--perspective-wheel.is-visible .pw-slice {
+  animation: perspective-wheel-fade 0.496s var(--ease) both;
+}
+.dgm--perspective-wheel.is-visible .pw-slice:nth-child(1)  { animation-delay: 0.304s; }
+.dgm--perspective-wheel.is-visible .pw-slice:nth-child(2)  { animation-delay: 0.35s; }
+.dgm--perspective-wheel.is-visible .pw-slice:nth-child(3)  { animation-delay: 0.395s; }
+.dgm--perspective-wheel.is-visible .pw-slice:nth-child(4)  { animation-delay: 0.441s; }
+.dgm--perspective-wheel.is-visible .pw-slice:nth-child(5)  { animation-delay: 0.486s; }
+.dgm--perspective-wheel.is-visible .pw-slice:nth-child(6)  { animation-delay: 0.532s; }
+.dgm--perspective-wheel.is-visible .pw-slice:nth-child(7)  { animation-delay: 0.578s; }
+.dgm--perspective-wheel.is-visible .pw-slice:nth-child(8)  { animation-delay: 0.623s; }
+.dgm--perspective-wheel.is-visible .pw-slice:nth-child(9)  { animation-delay: 0.669s; }
+.dgm--perspective-wheel.is-visible .pw-slice:nth-child(10) { animation-delay: 0.714s; }
+.dgm--perspective-wheel.is-visible .pw-slice:nth-child(11) { animation-delay: 0.76s; }
+.dgm--perspective-wheel.is-visible .pw-slice:nth-child(12) { animation-delay: 0.806s; }
+
+/* Node dots: scale 0->1 dur 0.4, delay 0.8 + i*0.12 */
+.dgm--perspective-wheel.is-visible .pw-node {
+  animation: perspective-wheel-pop 0.248s var(--ease) both;
+}
+.dgm--perspective-wheel.is-visible .pw-node:nth-child(1)  { animation-delay: 0.304s; }
+.dgm--perspective-wheel.is-visible .pw-node:nth-child(2)  { animation-delay: 0.35s; }
+.dgm--perspective-wheel.is-visible .pw-node:nth-child(3)  { animation-delay: 0.395s; }
+.dgm--perspective-wheel.is-visible .pw-node:nth-child(4)  { animation-delay: 0.441s; }
+.dgm--perspective-wheel.is-visible .pw-node:nth-child(5)  { animation-delay: 0.486s; }
+.dgm--perspective-wheel.is-visible .pw-node:nth-child(6)  { animation-delay: 0.532s; }
+.dgm--perspective-wheel.is-visible .pw-node:nth-child(7)  { animation-delay: 0.578s; }
+.dgm--perspective-wheel.is-visible .pw-node:nth-child(8)  { animation-delay: 0.623s; }
+.dgm--perspective-wheel.is-visible .pw-node:nth-child(9)  { animation-delay: 0.669s; }
+.dgm--perspective-wheel.is-visible .pw-node:nth-child(10) { animation-delay: 0.714s; }
+.dgm--perspective-wheel.is-visible .pw-node:nth-child(11) { animation-delay: 0.76s; }
+.dgm--perspective-wheel.is-visible .pw-node:nth-child(12) { animation-delay: 0.806s; }
+
+/* Labels: fade dur 0.5, delay 1.0 + i*0.12 */
+.dgm--perspective-wheel.is-visible .pw-label {
+  animation: perspective-wheel-fade 0.31s var(--ease) both;
+}
+.dgm--perspective-wheel.is-visible .pw-label:nth-child(1)  { animation-delay: 0.38s; }
+.dgm--perspective-wheel.is-visible .pw-label:nth-child(2)  { animation-delay: 0.426s; }
+.dgm--perspective-wheel.is-visible .pw-label:nth-child(3)  { animation-delay: 0.471s; }
+.dgm--perspective-wheel.is-visible .pw-label:nth-child(4)  { animation-delay: 0.517s; }
+.dgm--perspective-wheel.is-visible .pw-label:nth-child(5)  { animation-delay: 0.562s; }
+.dgm--perspective-wheel.is-visible .pw-label:nth-child(6)  { animation-delay: 0.608s; }
+.dgm--perspective-wheel.is-visible .pw-label:nth-child(7)  { animation-delay: 0.654s; }
+.dgm--perspective-wheel.is-visible .pw-label:nth-child(8)  { animation-delay: 0.699s; }
+.dgm--perspective-wheel.is-visible .pw-label:nth-child(9)  { animation-delay: 0.745s; }
+.dgm--perspective-wheel.is-visible .pw-label:nth-child(10) { animation-delay: 0.79s; }
+.dgm--perspective-wheel.is-visible .pw-label:nth-child(11) { animation-delay: 0.836s; }
+.dgm--perspective-wheel.is-visible .pw-label:nth-child(12) { animation-delay: 0.882s; }
+
+/* Completion pulse: loops forever, first fire 3s after visible */
+.dgm--perspective-wheel.is-visible .pw-pulse {
+  animation: perspective-wheel-pulse 6s ease-in-out 1.14s infinite both;
+}
+
+/* ---------- reduced motion: force complete, legible final state ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .dgm--perspective-wheel * {
+    animation: none !important;
+    transition: none !important;
+  }
+  .dgm--perspective-wheel .pw-slice,
+  .dgm--perspective-wheel .pw-label,
+  .dgm--perspective-wheel .pw-hub,
+  .dgm--perspective-wheel .pw-mark {
+    opacity: 1;
+  }
+  .dgm--perspective-wheel .pw-spoke,
+  .dgm--perspective-wheel .pw-ring {
+    opacity: 1;
+    stroke-dashoffset: 0;
+  }
+  .dgm--perspective-wheel .pw-node,
+  .dgm--perspective-wheel .pw-hub,
+  .dgm--perspective-wheel .pw-mark {
+    transform: none;
+  }
+  .dgm--perspective-wheel .pw-pulse { opacity: 0; }
+}
+
+/* ── process-timeline ─────────────────────────────────────────────── */
+/* ==========================================================================
+   process-timeline — "How We Work" engagement process
+   HTML + inline-SVG hybrid. Four phases: Discover -> Architect -> Build -> Evolve.
+   Nothing animates until the root gains .is-visible (shared IntersectionObserver).
+   ========================================================================== */
+
+.dgm--process-timeline {
+  /* restyle hooks for the page */
+  --ptl-tile-size: 72px;
+  --ptl-tile-radius: 16px;
+  --ptl-tile-bg: rgba(var(--dgm-ink), 0.02);
+  --ptl-tile-border: rgba(var(--dgm-ink), 0.08);
+  --ptl-icon-size: 44px;
+  /* shared easing token (fallback if the page's global --ease is absent) */
+  --ease: cubic-bezier(.22, 1, .36, 1);
+
+  width: 100%;
+  font-family: 'Poppins', system-ui, -apple-system, sans-serif;
+  color: rgba(var(--dgm-ink), 0.85);
+}
+.dgm--process-timeline *,
+.dgm--process-timeline *::before,
+.dgm--process-timeline *::after { box-sizing: border-box; }
+
+/* ---- Track: horizontal, equal-width flex columns (desktop) ---- */
+.dgm--process-timeline .ptl-track {
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+}
+.dgm--process-timeline .ptl-phase {
+  flex: 1 1 0;
+  min-width: 0;
+}
+.dgm--process-timeline .ptl-arrow {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 56px;              /* aligns arrow with the icon-tile mid-line */
+}
+
+/* ---- Per-phase delay tokens ----
+   --phase-delay = 0.6s + phaseIndex*0.3s  (offsets every icon-internal delay)
+   --enter-delay = 0.3s + phaseIndex*0.18s (column entrance)
+   --arrow-delay = 0.8s + arrowIndex*0.2s  (independent of phase-delay)          */
+.dgm--process-timeline .p1 { --phase-delay:0.228s;  --enter-delay:0.114s; }
+.dgm--process-timeline .p2 { --phase-delay:0.342s;  --enter-delay:0.182s; }
+.dgm--process-timeline .p3 { --phase-delay:0.456s; --enter-delay:0.251s; }
+.dgm--process-timeline .p4 { --phase-delay:0.57s; --enter-delay:0.319s; }
+.dgm--process-timeline .a1 { --arrow-delay:0.304s;  }
+.dgm--process-timeline .a2 { --arrow-delay:0.38s; }
+.dgm--process-timeline .a3 { --arrow-delay:0.456s; }
+
+/* ---- Phase content grid (stacked + centred on desktop) ---- */
+.dgm--process-timeline .ptl-content {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-areas: "num" "tile" "title" "desc";
+  justify-items: center;
+  text-align: center;
+  opacity: 0;                    /* resting: hidden until .is-visible */
+}
+.dgm--process-timeline .ptl-num {
+  grid-area: num;
+  font-size: 10px;
+  letter-spacing: .25em;
+  font-weight: 500;
+  color: rgba(var(--dgm-ink), var(--dgm-a-faint, 0.2));
+  margin-bottom: 12px;
+}
+.dgm--process-timeline .ptl-tile {
+  grid-area: tile;
+  width: var(--ptl-tile-size);
+  height: var(--ptl-tile-size);
+  border-radius: var(--ptl-tile-radius);
+  background: var(--ptl-tile-bg);
+  border: 1px solid var(--ptl-tile-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+.dgm--process-timeline .ptl-icon {
+  width: var(--ptl-icon-size);
+  height: var(--ptl-icon-size);
+  display: block;
+}
+.dgm--process-timeline .ptl-title {
+  grid-area: title;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: rgba(var(--dgm-ink), 0.85);
+  margin: 0 0 8px;
+}
+.dgm--process-timeline .ptl-desc {
+  grid-area: desc;
+  font-size: 13px;
+  line-height: 1.6;
+  color: rgba(var(--dgm-ink), var(--dgm-a-dim, 0.35));
+  margin: 0;
+  max-width: 200px;
+}
+
+/* ---- Column entrance ---- */
+.dgm--process-timeline.is-visible .ptl-content {
+  animation: process-timeline-enter-h 0.434s var(--ease) both;
+  animation-delay: var(--enter-delay);
+}
+
+/* ---- Arrows ---- */
+.dgm--process-timeline .ptl-arrow-v { display: none; }
+.dgm--process-timeline .ptl-arrow { opacity: 0; }
+.dgm--process-timeline.is-visible .ptl-arrow {
+  animation: process-timeline-arrow-in 0.31s var(--ease) both;
+  animation-delay: var(--arrow-delay);
+}
+
+/* Every transform-animated icon element rotates/scales about explicit
+   USER-SPACE coordinates -> resolve transform-origin against the viewBox. */
+.dgm--process-timeline .ptl-icon * { transform-box: view-box; }
+
+/* ==========================================================================
+   DISCOVER — compass
+   ========================================================================== */
+/* concentric rings: scale+fade in, centred on 20,20 */
+.dgm--process-timeline .dc-rings circle {
+  opacity: 0;
+  transform: scale(0);
+  transform-origin: 20px 20px;
+}
+.dgm--process-timeline.is-visible .dc-rings circle {
+  animation: process-timeline-pop-in 0.372s var(--ease) both;
+}
+.dgm--process-timeline .dc-rings circle:nth-child(1) { animation-delay: calc(var(--phase-delay) + 0s);   }
+.dgm--process-timeline .dc-rings circle:nth-child(2) { animation-delay: calc(var(--phase-delay) + 0.046s); }
+.dgm--process-timeline .dc-rings circle:nth-child(3) { animation-delay: calc(var(--phase-delay) + 0.091s); }
+
+/* cardinal ticks: fade in */
+.dgm--process-timeline .dc-ticks line { opacity: 0; }
+.dgm--process-timeline.is-visible .dc-ticks line {
+  animation: process-timeline-fade 0.186s var(--ease) both;
+}
+.dgm--process-timeline .dc-ticks line:nth-child(1) { animation-delay: calc(var(--phase-delay) + 0.114s); }
+.dgm--process-timeline .dc-ticks line:nth-child(2) { animation-delay: calc(var(--phase-delay) + 0.133s); }
+.dgm--process-timeline .dc-ticks line:nth-child(3) { animation-delay: calc(var(--phase-delay) + 0.152s); }
+.dgm--process-timeline .dc-ticks line:nth-child(4) { animation-delay: calc(var(--phase-delay) + 0.171s); }
+
+/* needle: continuous rotation -30deg -> 330deg (one full turn), forever */
+.dgm--process-timeline .dc-needle {
+  transform: rotate(-30deg);
+  transform-origin: 20px 20px;
+}
+.dgm--process-timeline.is-visible .dc-needle {
+  animation: process-timeline-compass 4s linear infinite both;
+  animation-delay: calc(var(--phase-delay) + 0.152s);
+}
+
+/* centre pivot dot */
+.dgm--process-timeline .dc-pivot {
+  transform: scale(0);
+  transform-origin: 20px 20px;
+}
+.dgm--process-timeline.is-visible .dc-pivot {
+  animation: process-timeline-scale-in 0.186s var(--ease) both;
+  animation-delay: calc(var(--phase-delay) + 0.19s);
+}
+
+/* discovered points: pop with overshoot [0, 1.3, 1] */
+.dgm--process-timeline .dc-points circle { transform: scale(0); }
+.dgm--process-timeline.is-visible .dc-points circle {
+  animation: process-timeline-pop-overshoot 0.248s var(--ease) both;
+}
+.dgm--process-timeline .dc-points circle:nth-child(1) { transform-origin: 27px 10px; animation-delay: calc(var(--phase-delay) + 0.38s); }
+.dgm--process-timeline .dc-points circle:nth-child(2) { transform-origin: 10px 17px; animation-delay: calc(var(--phase-delay) + 0.494s); }
+.dgm--process-timeline .dc-points circle:nth-child(3) { transform-origin: 29px 27px; animation-delay: calc(var(--phase-delay) + 0.608s); }
+.dgm--process-timeline .dc-points circle:nth-child(4) { transform-origin: 13px 30px; animation-delay: calc(var(--phase-delay) + 0.722s); }
+
+/* ==========================================================================
+   ARCHITECT — framework drawing itself
+   ========================================================================== */
+.dgm--process-timeline .ar-lines line {
+  opacity: 0;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+.dgm--process-timeline.is-visible .ar-lines line {
+  animation: process-timeline-draw-line 0.372s var(--ease) both;
+}
+.dgm--process-timeline .ar-lines line:nth-child(1) { animation-delay: calc(var(--phase-delay) + 0.114s); }
+.dgm--process-timeline .ar-lines line:nth-child(2) { animation-delay: calc(var(--phase-delay) + 0.171s); }
+.dgm--process-timeline .ar-lines line:nth-child(3) { animation-delay: calc(var(--phase-delay) + 0.228s); }
+.dgm--process-timeline .ar-lines line:nth-child(4) { animation-delay: calc(var(--phase-delay) + 0.285s); }
+.dgm--process-timeline .ar-lines line:nth-child(5) { animation-delay: calc(var(--phase-delay) + 0.342s); }
+
+.dgm--process-timeline .ar-nodes circle { transform: scale(0); }
+.dgm--process-timeline.is-visible .ar-nodes circle {
+  animation: process-timeline-scale-in 0.186s var(--ease) both;
+}
+.dgm--process-timeline .ar-nodes circle:nth-child(1) { transform-origin: 20px 10px; animation-delay: calc(var(--phase-delay) + 0.304s); }
+.dgm--process-timeline .ar-nodes circle:nth-child(2) { transform-origin: 8px 32px;  animation-delay: calc(var(--phase-delay) + 0.334s); }
+.dgm--process-timeline .ar-nodes circle:nth-child(3) { transform-origin: 32px 32px; animation-delay: calc(var(--phase-delay) + 0.365s); }
+.dgm--process-timeline .ar-nodes circle:nth-child(4) { transform-origin: 14px 21px; animation-delay: calc(var(--phase-delay) + 0.395s); }
+.dgm--process-timeline .ar-nodes circle:nth-child(5) { transform-origin: 26px 21px; animation-delay: calc(var(--phase-delay) + 0.426s); }
+.dgm--process-timeline .ar-nodes circle:nth-child(6) { transform-origin: 20px 32px; animation-delay: calc(var(--phase-delay) + 0.456s); }
+
+/* ==========================================================================
+   BUILD — dashed outlines, then solid blocks scale in, then assembly line
+   ========================================================================== */
+.dgm--process-timeline .bd-outlines rect { opacity: 0; }
+.dgm--process-timeline.is-visible .bd-outlines rect {
+  animation: process-timeline-fade 0.186s var(--ease) both;
+}
+.dgm--process-timeline .bd-outlines rect:nth-child(1) { animation-delay: calc(var(--phase-delay) + 0.076s); }
+.dgm--process-timeline .bd-outlines rect:nth-child(2) { animation-delay: calc(var(--phase-delay) + 0.114s); }
+.dgm--process-timeline .bd-outlines rect:nth-child(3) { animation-delay: calc(var(--phase-delay) + 0.152s); }
+.dgm--process-timeline .bd-outlines rect:nth-child(4) { animation-delay: calc(var(--phase-delay) + 0.19s); }
+
+.dgm--process-timeline .bd-fills rect {
+  opacity: 0;
+  transform: scale(0);
+}
+.dgm--process-timeline.is-visible .bd-fills rect {
+  animation: process-timeline-pop-in 0.31s var(--ease) both;
+}
+.dgm--process-timeline .bd-fills rect:nth-child(1) { transform-origin: 13px 29px; animation-delay: calc(var(--phase-delay) + 0.266s);  }
+.dgm--process-timeline .bd-fills rect:nth-child(2) { transform-origin: 27px 29px; animation-delay: calc(var(--phase-delay) + 0.323s);  }
+.dgm--process-timeline .bd-fills rect:nth-child(3) { transform-origin: 27px 15px; animation-delay: calc(var(--phase-delay) + 0.38s);  }
+.dgm--process-timeline .bd-fills rect:nth-child(4) { transform-origin: 13px 15px; animation-delay: calc(var(--phase-delay) + 0.437s); }
+
+/* assembly polyline draws itself (framer's pathLength overrides the source's
+   visual dash pattern, so this renders as a solid faint stroke) */
+.dgm--process-timeline .bd-assembly {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+.dgm--process-timeline.is-visible .bd-assembly {
+  animation: process-timeline-draw 0.62s var(--ease) both;
+  animation-delay: calc(var(--phase-delay) + 0.57s);
+}
+
+/* ==========================================================================
+   EVOLVE — growing tree
+   ========================================================================== */
+.dgm--process-timeline .ev-branches path {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+.dgm--process-timeline.is-visible .ev-branches path {
+  animation-name: process-timeline-draw;
+  animation-timing-function: var(--ease);
+  animation-fill-mode: both;
+}
+.dgm--process-timeline .ev-branches path:nth-child(1)  { animation-duration: .8s; animation-delay: calc(var(--phase-delay) + 0.114s);  }
+.dgm--process-timeline .ev-branches path:nth-child(2)  { animation-duration: .6s; animation-delay: calc(var(--phase-delay) + 0.342s);  }
+.dgm--process-timeline .ev-branches path:nth-child(3)  { animation-duration: .6s; animation-delay: calc(var(--phase-delay) + 0.38s); }
+.dgm--process-timeline .ev-branches path:nth-child(4)  { animation-duration: .5s; animation-delay: calc(var(--phase-delay) + 0.418s); }
+.dgm--process-timeline .ev-branches path:nth-child(5)  { animation-duration: .4s; animation-delay: calc(var(--phase-delay) + 0.494s); }
+.dgm--process-timeline .ev-branches path:nth-child(6)  { animation-duration: .4s; animation-delay: calc(var(--phase-delay) + 0.513s); }
+.dgm--process-timeline .ev-branches path:nth-child(7)  { animation-duration: .4s; animation-delay: calc(var(--phase-delay) + 0.532s); }
+.dgm--process-timeline .ev-branches path:nth-child(8)  { animation-duration: .4s; animation-delay: calc(var(--phase-delay) + 0.54s); }
+.dgm--process-timeline .ev-branches path:nth-child(9)  { animation-duration: .4s; animation-delay: calc(var(--phase-delay) + 0.551s); }
+.dgm--process-timeline .ev-branches path:nth-child(10) { animation-duration: .4s; animation-delay: calc(var(--phase-delay) + 0.562s); }
+.dgm--process-timeline .ev-branches path:nth-child(11) { animation-duration: .35s; animation-delay: calc(var(--phase-delay) + 0.589s); }
+.dgm--process-timeline .ev-branches path:nth-child(12) { animation-duration: .35s; animation-delay: calc(var(--phase-delay) + 0.6s); }
+.dgm--process-timeline .ev-branches path:nth-child(13) { animation-duration: .35s; animation-delay: calc(var(--phase-delay) + 0.608s); }
+.dgm--process-timeline .ev-branches path:nth-child(14) { animation-duration: .35s; animation-delay: calc(var(--phase-delay) + 0.616s); }
+
+.dgm--process-timeline .ev-leaves circle { transform: scale(0); }
+.dgm--process-timeline.is-visible .ev-leaves circle {
+  animation: process-timeline-scale-in 0.248s var(--ease) both;
+}
+.dgm--process-timeline .ev-leaves circle:nth-child(1)  { transform-origin: 4px 3px;  animation-delay: calc(var(--phase-delay) + 0.608s); }
+.dgm--process-timeline .ev-leaves circle:nth-child(2)  { transform-origin: 12px 4px; animation-delay: calc(var(--phase-delay) + 0.627s); }
+.dgm--process-timeline .ev-leaves circle:nth-child(3)  { transform-origin: 17px 2px; animation-delay: calc(var(--phase-delay) + 0.646s); }
+.dgm--process-timeline .ev-leaves circle:nth-child(4)  { transform-origin: 20px 3px; animation-delay: calc(var(--phase-delay) + 0.665s); }
+.dgm--process-timeline .ev-leaves circle:nth-child(5)  { transform-origin: 23px 1px; animation-delay: calc(var(--phase-delay) + 0.684s); }
+.dgm--process-timeline .ev-leaves circle:nth-child(6)  { transform-origin: 25px 5px; animation-delay: calc(var(--phase-delay) + 0.703s); }
+.dgm--process-timeline .ev-leaves circle:nth-child(7)  { transform-origin: 33px 5px; animation-delay: calc(var(--phase-delay) + 0.722s); }
+.dgm--process-timeline .ev-leaves circle:nth-child(8)  { transform-origin: 35px 1px; animation-delay: calc(var(--phase-delay) + 0.741s); }
+.dgm--process-timeline .ev-leaves circle:nth-child(9)  { transform-origin: 6px 8px;  animation-delay: calc(var(--phase-delay) + 0.76s); }
+.dgm--process-timeline .ev-leaves circle:nth-child(10) { transform-origin: 15px 7px; animation-delay: calc(var(--phase-delay) + 0.779s); }
+
+/* pulse rings on select leaves — pulse 2s then idle 2.5s (baked into a 4.5s loop) */
+.dgm--process-timeline .ev-pulse circle {
+  opacity: 0;
+  transform: scale(1);
+}
+.dgm--process-timeline.is-visible .ev-pulse circle {
+  animation: process-timeline-pulse 4.5s linear infinite forwards;
+}
+.dgm--process-timeline .ev-pulse circle:nth-child(1) { transform-origin: 4px 3px;  animation-delay: calc(var(--phase-delay) + 0.76s); }
+.dgm--process-timeline .ev-pulse circle:nth-child(2) { transform-origin: 20px 3px; animation-delay: calc(var(--phase-delay) + 0.95s); }
+.dgm--process-timeline .ev-pulse circle:nth-child(3) { transform-origin: 35px 1px; animation-delay: calc(var(--phase-delay) + 1.14s); }
+.dgm--process-timeline .ev-pulse circle:nth-child(4) { transform-origin: 12px 4px; animation-delay: calc(var(--phase-delay) + 1.33s); }
+
+.dgm--process-timeline .ev-root {
+  transform: scale(0);
+  transform-origin: 20px 37px;
+}
+.dgm--process-timeline.is-visible .ev-root {
+  animation: process-timeline-scale-in 0.186s var(--ease) both;
+  animation-delay: calc(var(--phase-delay) + 0.076s);
+}
+
+/* ==========================================================================
+   Keyframes (all slug-prefixed)
+   ========================================================================== */
+@keyframes process-timeline-enter-h {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes process-timeline-enter-v {
+  from { opacity: 0; transform: translateX(-15px); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes process-timeline-arrow-in {
+  from { opacity: 0; transform: translateX(-4px); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes process-timeline-pop-in {
+  from { opacity: 0; transform: scale(0); }
+  to   { opacity: 1; transform: scale(1); }
+}
+@keyframes process-timeline-scale-in {
+  from { transform: scale(0); }
+  to   { transform: scale(1); }
+}
+@keyframes process-timeline-pop-overshoot {
+  0%   { transform: scale(0); }
+  50%  { transform: scale(1.3); }
+  100% { transform: scale(1); }
+}
+@keyframes process-timeline-fade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes process-timeline-draw {
+  from { stroke-dashoffset: 1; }
+  to   { stroke-dashoffset: 0; }
+}
+@keyframes process-timeline-draw-line {
+  0%   { stroke-dashoffset: 1; opacity: 0; }
+  33%  { opacity: 1; }
+  100% { stroke-dashoffset: 0; opacity: 1; }
+}
+@keyframes process-timeline-compass {
+  from { transform: rotate(-30deg); }
+  to   { transform: rotate(330deg); }
+}
+/* pulse [1.5 -> 4 -> 4] r == scale [1 -> 2.667], opacity [.4 -> .1 -> 0];
+   2s active occupies 0-44.44% of the 4.5s (2s pulse + 2.5s idle) loop */
+@keyframes process-timeline-pulse {
+  0%     { opacity: .4; transform: scale(1); }
+  22.22% { opacity: .1; transform: scale(2.6667); }
+  44.44% { opacity: 0;  transform: scale(2.6667); }
+  100%   { opacity: 0;  transform: scale(1); }
+}
+
+/* ==========================================================================
+   Responsive — vertical stack under 768px
+   ========================================================================== */
+@media (max-width: 767px) {
+  .dgm--process-timeline {
+    --ptl-tile-size: 56px;
+    --ptl-tile-radius: 12px;
+    --ptl-icon-size: 36px;
+  }
+  .dgm--process-timeline .ptl-track {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .dgm--process-timeline .ptl-phase { flex: 0 0 auto; }
+
+  .dgm--process-timeline .ptl-content {
+    grid-template-columns: auto 1fr;
+    grid-template-areas:
+      "tile num"
+      "tile title"
+      "tile desc";
+    justify-items: start;
+    align-items: start;
+    text-align: left;
+    column-gap: 20px;
+    row-gap: 4px;
+  }
+  .dgm--process-timeline .ptl-num   { margin-bottom: 0; }
+  .dgm--process-timeline .ptl-tile  { margin-bottom: 0; }
+  .dgm--process-timeline .ptl-title { margin-bottom: 0; }
+  .dgm--process-timeline .ptl-desc  { max-width: none; }
+
+  .dgm--process-timeline.is-visible .ptl-content {
+    animation-name: process-timeline-enter-v;
+  }
+
+  .dgm--process-timeline .ptl-arrow {
+    margin-top: 0;
+    margin-left: 22px;           /* centre the down-arrow under the 56px tile */
+    padding: 10px 0;
+    justify-content: flex-start;
+  }
+  .dgm--process-timeline .ptl-arrow-h { display: none; }
+  .dgm--process-timeline .ptl-arrow-v { display: block; }
+}
+
+/* ==========================================================================
+   Reduced motion — freeze everything at its final, fully-drawn resting state
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  .dgm--process-timeline *,
+  .dgm--process-timeline *::before,
+  .dgm--process-timeline *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+  .dgm--process-timeline .ptl-content,
+  .dgm--process-timeline .ptl-arrow {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .dgm--process-timeline .dc-rings circle,
+  .dgm--process-timeline .dc-pivot,
+  .dgm--process-timeline .dc-points circle,
+  .dgm--process-timeline .ar-nodes circle,
+  .dgm--process-timeline .bd-fills rect,
+  .dgm--process-timeline .ev-leaves circle,
+  .dgm--process-timeline .ev-root {
+    opacity: 1 !important;
+    transform: scale(1) !important;
+  }
+  .dgm--process-timeline .dc-ticks line,
+  .dgm--process-timeline .bd-outlines rect {
+    opacity: 1 !important;
+  }
+  .dgm--process-timeline .ar-lines line,
+  .dgm--process-timeline .bd-assembly,
+  .dgm--process-timeline .ev-branches path {
+    opacity: 1 !important;
+    stroke-dashoffset: 0 !important;
+  }
+  .dgm--process-timeline .dc-needle { transform: none !important; }
+  .dgm--process-timeline .ev-pulse circle { opacity: 0 !important; }
+}

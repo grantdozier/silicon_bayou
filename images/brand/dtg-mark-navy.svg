@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 72">
+  <path fill="none" stroke="#0D1B3D" stroke-width="3.75" stroke-linejoin="miter" stroke-miterlimit="10"
+        d="M32 2.06 L61.6 18.98 L61.6 52.82 L32 69.74 L2.4 52.82 L2.4 18.98 Z"/>
+  <path fill="none" stroke="#0D1B3D" stroke-width="6.7" stroke-linejoin="miter" stroke-miterlimit="10" stroke-linecap="butt"
+        d="M16.25 23.9 L35.25 23.9 C41.65 23.9 46.85 28.7 46.85 35.9 C46.85 43.1 41.65 48.1 35.25 48.1 L19.6 48.1 L19.6 30.4"/></svg>

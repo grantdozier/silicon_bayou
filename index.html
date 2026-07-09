@@ -1,693 +1,1440 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dozier Tech Group - Transform Your Business Operations with AI</title>
-    <meta name="description" content="Professional AI consulting services including local AI integration, MCP setup, custom model training, and AI-enabled software development.">
-    <link rel="icon" type="image/png" href="images/DozierTechGroupLogoMini.png">
-    <link rel="stylesheet" href="css/styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dozier Tech Group — AI for operationally complex businesses</title>
+<meta name="description" content="AI-powered intelligence platforms for operationally complex businesses — construction, civil engineering, fabrication, and industrial safety.">
+<link rel="canonical" href="https://www.doziertechgroup.com/">
+<meta name="theme-color" content="#0D1B3D">
+
+<!-- Where the contact form POSTs. Two supported backends:
+       Web3Forms  — endpoint below + an access key. No server to run.
+       dtg-web    — the Cloudflare Worker host printed by `wrangler deploy`,
+                    with the key left empty.
+     Until a working pair is filled in, the form tells the visitor to email
+     directly rather than pretending to send. -->
+<meta name="dtg:contact-endpoint" content="https://api.web3forms.com/submit">
+
+<!-- Get one free at https://web3forms.com — enter grant@doziertechgroup.com and
+     the key arrives by email. It is designed to live in public HTML: it can only
+     send mail to the address that created it. Leave empty when using dtg-web. -->
+<meta name="dtg:contact-key" content="e686e521-6133-4e0a-929e-1ce39a8e92b4">
+
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.doziertechgroup.com/">
+<meta property="og:title" content="Dozier Tech Group — AI-powered intelligence platforms for operationally complex businesses">
+<meta property="og:description" content="AI-powered intelligence platforms for operationally complex businesses — construction, civil engineering, fabrication, and industrial safety.">
+<meta property="og:image" content="https://www.doziertechgroup.com/images/brand/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/images/brand/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="css/dtg.css">
+<link rel="stylesheet" href="css/diagrams.css">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "Dozier Tech Group",
+  "url": "https://www.doziertechgroup.com/",
+  "email": "grant@doziertechgroup.com",
+  "telephone": "+1-337-412-4767",
+  "description": "AI enablement, business ontologies, systems integration, and custom software platforms for engineering, construction, fabrication, and industrial-safety companies.",
+  "founder": { "@type": "Person", "name": "G. Grant Dozier" },
+  "areaServed": "US"
+}
+</script>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="nav-logo">
-                <img src="images/DozierTechGroupLogo.png" alt="Dozier Tech Group Logo" class="logo-img">
-                <h2>Dozier Tech Group</h2>
-            </div>
-            <ul class="nav-menu">
-                <li class="nav-item">
-                    <a href="#home" class="nav-link">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#services" class="nav-link">Services</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#process" class="nav-link">Process</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#about" class="nav-link">About</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#case-studies" class="nav-link">Case Studies</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#research" class="nav-link">Research</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#contact" class="nav-link">Contact</a>
-                </li>
-            </ul>
-            <div class="nav-cta">
-                <a href="#contact" class="btn-nav">Get Started</a>
-            </div>
-            <div class="nav-toggle" id="mobile-menu">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </div>
-        </div>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<!-- ═══════════════════════════ nav ═══════════════════════════ -->
+<header class="nav">
+  <div class="container">
+    <a class="brand" href="#top" aria-label="Dozier Tech Group, home">
+      <svg viewBox="0 0 64 72" aria-hidden="true" focusable="false">
+        <g fill="none" stroke="currentColor" stroke-linejoin="miter" stroke-miterlimit="10">
+          <path stroke-width="3.75" d="M32 2.06 L61.6 18.98 L61.6 52.82 L32 69.74 L2.4 52.82 L2.4 18.98 Z"/>
+          <path stroke-width="6.7" stroke-linecap="butt" d="M16.25 23.9 L35.25 23.9 C41.65 23.9 46.85 28.7 46.85 35.9 C46.85 43.1 41.65 48.1 35.25 48.1 L19.6 48.1 L19.6 30.4"/>
+        </g>
+      </svg>
+      <span class="brand-word"><b>DOZIER</b><span>TECH GROUP</span></span>
+    </a>
+
+    <nav aria-label="Primary">
+      <ul class="nav-links" id="nav-links">
+        <li><a href="#services">Services</a></li>
+        <li><a href="#ontology">Approach</a></li>
+        <li><a href="#integrations">Integrations</a></li>
+        <li><a href="#work">Work</a></li>
+        <li><a href="#clients">Case studies</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
     </nav>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="hero-background">
-            <div class="grid-overlay"></div>
-            <canvas id="geometricCanvas"></canvas>
-        </div>
-        <div class="hero-container">
-            <div class="hero-content">
-                <h1 class="hero-title">
-                    Unlock Intelligent
-                    <span class="gradient-text">Solutions</span>
-                    <br>For Your Business
-                </h1>
-                <p class="hero-subtitle">Empower your organization with cutting-edge AI technology. From strategic consulting to custom development, we transform your vision into reality.</p>
-                <div class="hero-buttons">
-                    <a href="#contact" class="btn btn-primary">
-                        Start Your AI Journey
-                        <i class="fas fa-arrow-right"></i>
-                    </a>
-                    <a href="#services" class="btn btn-secondary">
-                        Explore Capabilities
-                        <i class="fas fa-external-link-alt"></i>
-                    </a>
-                </div>
-                <div class="hero-stats">
-                    <div class="stat-item">
-                        <div class="stat-number">35+</div>
-                        <div class="stat-label">Years Combined Experience</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number">50+</div>
-                        <div class="stat-label">Projects Delivered</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number">100%</div>
-                        <div class="stat-label">Project Success Rate</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    <a class="btn btn--primary" href="#contact">Start a conversation</a>
 
-    <!-- Trusted By Section -->
-    <section class="trusted-by">
-        <div class="container">
-            <div class="trusted-by-content">
-                <div class="trusted-by-text">
-                    <h3>Trusted by innovative companies</h3>
-                    <a href="#case-studies" class="trusted-by-link">View case studies <i class="fas fa-arrow-right"></i></a>
-                </div>
-                <div class="trusted-by-logos">
-                    <div class="partner-logo">
-                        <img src="images/weights_app_logo.png" alt="Weights App">
-                    </div>
-                    <div class="partner-logo">
-                        <img src="images/chase_group_logo.png" alt="Chase Group">
-                    </div>
-                    <div class="partner-logo">
-                        <img src="images/chase_robotics_logo.png" alt="Chase Robotics">
-                    </div>
-                    <div class="partner-logo">
-                        <img src="images/royal_engineering_logo.png" alt="Royal Engineering">
-                    </div>
-                </div>
-            </div>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main id="main">
+<span id="top"></span>
+
+<!-- ═══════════════════════════ hero ═══════════════════════════ -->
+<div class="band band--dark">
+  <section class="hero">
+    <div class="grid-paper" aria-hidden="true"></div>
+    <div class="bloom" aria-hidden="true"></div>
+    <div class="container">
+      <div class="hero-inner">
+        <h1>
+          If a computer can do it,
+          <span class="dim">a person shouldn&rsquo;t have to.</span>
+        </h1>
+        <p class="lede">
+          We build AI-powered intelligence platforms for operationally complex businesses —
+          construction, civil engineering, fabrication, and industrial safety. Your engineers get
+          back to engineering, instead of moving data between systems.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn--primary" href="#services">
+            See what we do
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+          <a class="btn btn--ghost" href="#contact">Start a conversation</a>
         </div>
-    </section>
 
-    <!-- Features Overview -->
-    <section class="features-overview">
-        <div class="container">
-            <div class="features-grid-modern">
-                <div class="feature-card-modern">
-                    <div class="feature-icon-modern">
-                        <i class="fas fa-brain"></i>
-                    </div>
-                    <h3>AI Strategy</h3>
-                    <p>Comprehensive roadmaps aligned with your business goals</p>
-                </div>
-                <div class="feature-card-modern">
-                    <div class="feature-icon-modern">
-                        <i class="fas fa-cogs"></i>
-                    </div>
-                    <h3>Custom Development</h3>
-                    <p>Tailored AI solutions built for your unique needs</p>
-                </div>
-                <div class="feature-card-modern">
-                    <div class="feature-icon-modern">
-                        <i class="fas fa-rocket"></i>
-                    </div>
-                    <h3>Rapid Deployment</h3>
-                    <p>Fast implementation with minimal disruption</p>
-                </div>
-                <div class="feature-card-modern">
-                    <div class="feature-icon-modern">
-                        <i class="fas fa-shield-alt"></i>
-                    </div>
-                    <h3>Enterprise Security</h3>
-                    <p>Secure, compliant AI infrastructure</p>
-                </div>
-            </div>
+        <dl class="hero-proof">
+          <div>
+            <dt data-count="52">52</dt>
+            <dd>Tools in our production AI platform</dd>
+          </div>
+          <div>
+            <dt data-count="20" data-suffix="+">20+</dt>
+            <dd>Systems integrated in production</dd>
+          </div>
+          <div>
+            <dt>Weeks&nbsp;→&nbsp;Minutes</dt>
+            <dd>Royal Engineering's reporting cycle</dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─────────────── credibility strip ─────────────── -->
+  <section class="section section--tight" aria-label="Selected clients">
+    <div class="container">
+      <div class="logos-head">
+        <p>Trusted by teams doing high-consequence work</p>
+        <a href="#clients">Read the case studies</a>
+      </div>
+      <div class="logo-wall">
+        <img src="images/partners/royal-engineering-mono.png" alt="Royal Engineering" width="272" height="69" loading="lazy">
+        <img src="images/partners/chase-group-mono.png" alt="Chase Group Construction" width="169" height="82" loading="lazy">
+        <img class="logo--boxy" src="images/partners/chase-robotics-mono.png" alt="Chase Robotics" width="71" height="81" loading="lazy">
+        <img class="logo--boxy" src="images/partners/3cg-electric-mono.png" alt="3CG Electric" width="117" height="120" loading="lazy">
+        <img src="images/partners/weights-app-mono.png" alt="WeightsApp" width="243" height="34" loading="lazy">
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ═══════════════════════════ services ═══════════════════════════ -->
+<div class="band band--light">
+  <section class="section" id="services">
+    <div class="bloom" aria-hidden="true"></div>
+    <div class="container container--wide">
+      <div class="section-head" data-reveal>
+        <p class="eyebrow">Services</p>
+        <h2>What we do.</h2>
+        <p class="lede">
+          Ten services, from a short readiness review to a platform built from nothing. Each one
+          has a page with the detail.
+        </p>
+      </div>
+
+      <!--#svc:rail:begin-->
+      <div class="svc-carousel">
+        <div class="svc-railhead">
+          <p class="svc-count"><strong>10</strong> services</p>
+          <div class="svc-nav" hidden>
+            <button class="svc-arrow" type="button" data-dir="-1" aria-label="Scroll services left">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>
+            </button>
+            <button class="svc-arrow" type="button" data-dir="1" aria-label="Scroll services right">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+            </button>
+          </div>
         </div>
-    </section>
 
-    <!-- Services Section -->
-    <section id="services" class="services">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-tag">Our Expertise</span>
-                <h2>Comprehensive AI Services</h2>
-                <p>End-to-end solutions that drive measurable business outcomes</p>
-            </div>
-            <div class="services-grid">
-                <div class="service-card">
-                    <div class="service-header">
-                        <div class="service-icon">
-                            <i class="fas fa-network-wired"></i>
-                        </div>
-                        <h3>Local AI Integration</h3>
-                    </div>
-                    <p>Seamlessly integrate AI into your existing business processes to enhance efficiency, reduce costs, and unlock valuable insights from your data.</p>
-                    <ul class="service-features">
-                        <li><i class="fas fa-check"></i> Process automation</li>
-                        <li><i class="fas fa-check"></i> Data analysis & insights</li>
-                        <li><i class="fas fa-check"></i> Workflow optimization</li>
-                    </ul>
-                    <a href="#contact" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
-                </div>
-                <div class="service-card">
-                    <div class="service-header">
-                        <div class="service-icon">
-                            <i class="fas fa-cloud-upload-alt"></i>
-                        </div>
-                        <h3>MCP Setup & Installation</h3>
-                    </div>
-                    <p>Professional setup and configuration of Managed Cloud Platforms to ensure scalable, secure, and high-performance AI infrastructure.</p>
-                    <ul class="service-features">
-                        <li><i class="fas fa-check"></i> Cloud architecture design</li>
-                        <li><i class="fas fa-check"></i> Security implementation</li>
-                        <li><i class="fas fa-check"></i> Performance optimization</li>
-                    </ul>
-                    <a href="#contact" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
-                </div>
-                <div class="service-card">
-                    <div class="service-header">
-                        <div class="service-icon">
-                            <i class="fas fa-robot"></i>
-                        </div>
-                        <h3>Custom Model Training</h3>
-                    </div>
-                    <p>Develop and train bespoke AI models tailored to your specific business requirements, from predictive analytics to natural language processing.</p>
-                    <ul class="service-features">
-                        <li><i class="fas fa-check"></i> Predictive analytics</li>
-                        <li><i class="fas fa-check"></i> Natural language processing</li>
-                        <li><i class="fas fa-check"></i> Computer vision solutions</li>
-                    </ul>
-                    <a href="#contact" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
-                </div>
-                <div class="service-card">
-                    <div class="service-header">
-                        <div class="service-icon">
-                            <i class="fas fa-code"></i>
-                        </div>
-                        <h3>AI-Enabled Software</h3>
-                    </div>
-                    <p>Build intelligent software components and applications that leverage AI capabilities to provide enhanced user experiences and business value.</p>
-                    <ul class="service-features">
-                        <li><i class="fas fa-check"></i> Intelligent chatbots</li>
-                        <li><i class="fas fa-check"></i> Recommendation engines</li>
-                        <li><i class="fas fa-check"></i> Automated workflows</li>
-                    </ul>
-                    <a href="#contact" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
-                </div>
-                <div class="service-card">
-                    <div class="service-header">
-                        <div class="service-icon">
-                            <i class="fas fa-tags"></i>
-                        </div>
-                        <h3>Data Annotation for ML</h3>
-                    </div>
-                    <p>High-quality data annotation services to create training datasets for machine learning models with precision and efficiency.</p>
-                    <ul class="service-features">
-                        <li><i class="fas fa-check"></i> Image & video annotation</li>
-                        <li><i class="fas fa-check"></i> Text classification</li>
-                        <li><i class="fas fa-check"></i> Entity recognition</li>
-                    </ul>
-                    <a href="#contact" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
-                </div>
-                <div class="service-card">
-                    <div class="service-header">
-                        <div class="service-icon">
-                            <i class="fas fa-project-diagram"></i>
-                        </div>
-                        <h3>AI Strategy Consulting</h3>
-                    </div>
-                    <p>Strategic guidance on implementing AI solutions that align with your business goals and provide measurable ROI.</p>
-                    <ul class="service-features">
-                        <li><i class="fas fa-check"></i> AI readiness assessment</li>
-                        <li><i class="fas fa-check"></i> Technology roadmapping</li>
-                        <li><i class="fas fa-check"></i> Implementation planning</li>
-                    </ul>
-                    <a href="#contact" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
-                </div>
-            </div>
+        <div class="svc-rail" id="svc-rail" tabindex="0" role="group" aria-label="Services, scrollable">
+        <article class="svc-card">
+          <p class="svc-num">01</p>
+          <h3 class="svc-title">AI enablement &amp; Claude integration</h3>
+          <p class="svc-short">Claude, with typed tools over the systems you already run.</p>
+          <a class="svc-link" href="services/ai-enablement.html">
+            Read more<span class="sr-only"> about AI enablement &amp; Claude integration</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+        </article>
+        <article class="svc-card">
+          <p class="svc-num">02</p>
+          <h3 class="svc-title">Business ontologies &amp; knowledge graphs</h3>
+          <p class="svc-short">Typed objects, typed relationships, and a graph you can query.</p>
+          <a class="svc-link" href="services/business-ontologies.html">
+            Read more<span class="sr-only"> about Business ontologies &amp; knowledge graphs</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+        </article>
+        <article class="svc-card">
+          <p class="svc-num">03</p>
+          <h3 class="svc-title">Systems integration &amp; data infrastructure</h3>
+          <p class="svc-short">Connect what you already run. Replace nothing.</p>
+          <a class="svc-link" href="services/systems-integration.html">
+            Read more<span class="sr-only"> about Systems integration &amp; data infrastructure</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+        </article>
+        <article class="svc-card">
+          <p class="svc-num">04</p>
+          <h3 class="svc-title">Advanced workflow automation</h3>
+          <p class="svc-short">The loops nobody wants to run by hand.</p>
+          <a class="svc-link" href="services/workflow-automation.html">
+            Read more<span class="sr-only"> about Advanced workflow automation</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+        </article>
+        <article class="svc-card">
+          <p class="svc-num">05</p>
+          <h3 class="svc-title">Document intelligence &amp; extraction</h3>
+          <p class="svc-short">Plans, PDFs, and vendor quotes turned into structured data.</p>
+          <a class="svc-link" href="services/document-intelligence.html">
+            Read more<span class="sr-only"> about Document intelligence &amp; extraction</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+        </article>
+        <article class="svc-card">
+          <p class="svc-num">06</p>
+          <h3 class="svc-title">Data management &amp; retrieval</h3>
+          <p class="svc-short">Retrieval that cites its source.</p>
+          <a class="svc-link" href="services/data-retrieval.html">
+            Read more<span class="sr-only"> about Data management &amp; retrieval</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+        </article>
+        <article class="svc-card">
+          <p class="svc-num">07</p>
+          <h3 class="svc-title">Custom model training &amp; evaluation</h3>
+          <p class="svc-short">Usually you do not need one. When you do, we prove it works.</p>
+          <a class="svc-link" href="services/model-training.html">
+            Read more<span class="sr-only"> about Custom model training &amp; evaluation</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+        </article>
+        <article class="svc-card">
+          <p class="svc-num">08</p>
+          <h3 class="svc-title">Custom platforms &amp; product engineering</h3>
+          <p class="svc-short">Software built around your workflow, not the other way round.</p>
+          <a class="svc-link" href="services/custom-platforms.html">
+            Read more<span class="sr-only"> about Custom platforms &amp; product engineering</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+        </article>
+        <article class="svc-card">
+          <p class="svc-num">09</p>
+          <h3 class="svc-title">Strategic AI advisory</h3>
+          <p class="svc-short">A roadmap that gets executed, not a slide deck.</p>
+          <a class="svc-link" href="services/ai-advisory.html">
+            Read more<span class="sr-only"> about Strategic AI advisory</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+        </article>
+        <article class="svc-card">
+          <p class="svc-num">10</p>
+          <h3 class="svc-title">On-site consulting &amp; training</h3>
+          <p class="svc-short">We come to you, and train the people who will run it.</p>
+          <a class="svc-link" href="services/onsite-consulting.html">
+            Read more<span class="sr-only"> about On-site consulting &amp; training</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+        </article>
         </div>
-    </section>
 
-    <!-- Process Section -->
-    <section id="process" class="process">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-tag">Our Approach</span>
-                <h2>How We Work</h2>
-                <p>A proven methodology that delivers results</p>
-            </div>
-            <div class="process-grid">
-                <div class="process-step">
-                    <div class="step-number">01</div>
-                    <div class="step-content">
-                        <h3>Discovery & Analysis</h3>
-                        <p>We dive deep into your business challenges, goals, and existing infrastructure to identify opportunities for AI integration.</p>
-                    </div>
-                </div>
-                <div class="process-step">
-                    <div class="step-number">02</div>
-                    <div class="step-content">
-                        <h3>Strategy & Planning</h3>
-                        <p>Develop a comprehensive AI roadmap tailored to your objectives, timeline, and budget with clear milestones.</p>
-                    </div>
-                </div>
-                <div class="process-step">
-                    <div class="step-number">03</div>
-                    <div class="step-content">
-                        <h3>Development & Training</h3>
-                        <p>Build and train custom AI models and solutions using cutting-edge technologies and best practices.</p>
-                    </div>
-                </div>
-                <div class="process-step">
-                    <div class="step-number">04</div>
-                    <div class="step-content">
-                        <h3>Deployment & Integration</h3>
-                        <p>Seamlessly integrate AI solutions into your workflows with minimal disruption and maximum impact.</p>
-                    </div>
-                </div>
-                <div class="process-step">
-                    <div class="step-number">05</div>
-                    <div class="step-content">
-                        <h3>Optimization & Support</h3>
-                        <p>Continuous monitoring, refinement, and support to ensure long-term success and ROI.</p>
-                    </div>
-                </div>
-            </div>
+        <ol class="svc-dots" hidden></ol>
+      </div>
+      <!--#svc:rail:end-->
+    </div>
+  </section>
+</div>
+
+<!-- ═══════════════════════════ ontology + integrations ═══════════════════════════ -->
+<div class="band band--dark">
+  <section class="section" id="ontology">
+    <div class="bloom" aria-hidden="true"></div>
+    <div class="container">
+      <div class="feature">
+        <div class="feature-text" data-reveal>
+          <p class="eyebrow">The difference</p>
+          <h2>Make everything your company knows searchable.</h2>
+          <p>
+            Most companies have years of calls, emails, quotes, and decisions sitting in storage,
+            unqueryable. We build the layer above it: a typed object graph where a person belongs to
+            a company, a call produces a decision, a decision creates work, and that work rolls up
+            into an invoice — so every dollar traces back to the conversation that created it.
+          </p>
+          <ul class="feature-list">
+            <li>Entities are minted on first mention with full provenance, never silently collapsed
+              into a catch-all.</li>
+            <li>Near-duplicates are flagged for a human, never auto-merged. We model the uncertainty
+              instead of hiding it.</li>
+            <li>A single audited writer performs every mutation, and each one passes a policy gate
+              that decides run, queue, or suppress.</li>
+          </ul>
+          <dl class="rail">
+            <div><dt data-count="9">9</dt><dd>Object types</dd></div>
+            <div><dt data-count="11">11</dt><dd>Typed relations</dd></div>
+            <div><dt data-count="52">52</dt><dd>MCP tools</dd></div>
+            <div><dt data-count="20" data-suffix="+">20+</dt><dd>Systems integrated</dd></div>
+          </dl>
         </div>
-    </section>
+        <div class="feature-visual" data-reveal>
+          <div class="dgm-wrap">
+            <!--#dgm:discovery-map:begin-->
+<svg class="dgm dgm--discovery-map" viewBox="0 0 100 100" role="img" aria-labelledby="discovery-map-t">
+  <title id="discovery-map-t">Scattered data nodes on a faint grid; a scan line sweeps down, connection lines draw cluster by cluster, and three key opportunity nodes glow and pulse.</title>
+  <defs>
+    <linearGradient id="discovery-map-scan-grad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-opacity="0" style="stop-color:rgb(var(--dgm-ink))"/>
+      <stop offset="40%" stop-opacity="0.08" style="stop-color:rgb(var(--dgm-ink))"/>
+      <stop offset="60%" stop-opacity="0.08" style="stop-color:rgb(var(--dgm-ink))"/>
+      <stop offset="100%" stop-opacity="0" style="stop-color:rgb(var(--dgm-ink))"/>
+    </linearGradient>
+    <filter id="discovery-map-node-glow" x="-100%" y="-100%" width="300%" height="300%">
+      <feGaussianBlur stdDeviation="2" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
 
-    <!-- CTA Section -->
-    <section class="cta-section">
-        <div class="container">
-            <div class="cta-content">
-                <h2>Ready to Transform Your Business?</h2>
-                <p>Join leading organizations leveraging AI to drive innovation and growth</p>
-                <a href="#contact" class="btn btn-primary btn-large">
-                    Schedule Free Consultation
-                    <i class="fas fa-calendar-check"></i>
-                </a>
-            </div>
+  <!-- Faint background grid -->
+  <g class="dm-grid">
+    <line class="dm-gridline" x1="20" y1="0" x2="20" y2="100" />
+    <line class="dm-gridline" x1="0" y1="20" x2="100" y2="20" />
+    <line class="dm-gridline" x1="40" y1="0" x2="40" y2="100" />
+    <line class="dm-gridline" x1="0" y1="40" x2="100" y2="40" />
+    <line class="dm-gridline" x1="60" y1="0" x2="60" y2="100" />
+    <line class="dm-gridline" x1="0" y1="60" x2="100" y2="60" />
+    <line class="dm-gridline" x1="80" y1="0" x2="80" y2="100" />
+    <line class="dm-gridline" x1="0" y1="80" x2="100" y2="80" />
+  </g>
+
+  <!-- Scan line sweeping top to bottom -->
+  <rect class="dm-scan" x="0" y="0" width="100" height="20" fill="url(#discovery-map-scan-grad)" />
+
+  <!-- Connection lines (clusters first, bridges last) -->
+  <g class="dm-conns">
+    <line class="dm-conn" x1="12" y1="18" x2="28" y2="12" pathLength="1" style="--d:0.304s" />
+    <line class="dm-conn" x1="28" y1="12" x2="45" y2="8" pathLength="1" style="--d:0.327s" />
+    <line class="dm-conn" x1="12" y1="18" x2="8" y2="42" pathLength="1" style="--d:0.35s" />
+    <line class="dm-conn" x1="28" y1="12" x2="38" y2="38" pathLength="1" style="--d:0.372s" />
+    <line class="dm-conn" x1="8" y1="42" x2="22" y2="55" pathLength="1" style="--d:0.395s" />
+    <line class="dm-conn" x1="45" y1="8" x2="50" y2="30" pathLength="1" style="--d:0.418s" />
+    <line class="dm-conn" x1="38" y1="38" x2="52" y2="50" pathLength="1" style="--d:0.441s" />
+    <line class="dm-conn" x1="52" y1="50" x2="65" y2="42" pathLength="1" style="--d:0.464s" />
+    <line class="dm-conn" x1="50" y1="30" x2="52" y2="50" pathLength="1" style="--d:0.486s" />
+    <line class="dm-conn" x1="38" y1="38" x2="50" y2="30" pathLength="1" style="--d:0.509s" />
+    <line class="dm-conn" x1="68" y1="14" x2="78" y2="35" pathLength="1" style="--d:0.532s" />
+    <line class="dm-conn" x1="65" y1="42" x2="78" y2="35" pathLength="1" style="--d:0.555s" />
+    <line class="dm-conn" x1="78" y1="35" x2="92" y2="48" pathLength="1" style="--d:0.578s" />
+    <line class="dm-conn" x1="68" y1="14" x2="85" y2="10" pathLength="1" style="--d:0.6s" />
+    <line class="dm-conn" x1="22" y1="55" x2="15" y2="75" pathLength="1" style="--d:0.623s" />
+    <line class="dm-conn" x1="15" y1="75" x2="32" y2="70" pathLength="1" style="--d:0.646s" />
+    <line class="dm-conn" x1="32" y1="70" x2="48" y2="78" pathLength="1" style="--d:0.669s" />
+    <line class="dm-conn" x1="48" y1="78" x2="62" y2="68" pathLength="1" style="--d:0.692s" />
+    <line class="dm-conn" x1="62" y1="68" x2="75" y2="72" pathLength="1" style="--d:0.714s" />
+    <line class="dm-conn" x1="75" y1="72" x2="88" y2="65" pathLength="1" style="--d:0.737s" />
+    <line class="dm-conn" x1="48" y1="78" x2="35" y2="88" pathLength="1" style="--d:0.76s" />
+    <line class="dm-conn" x1="35" y1="88" x2="55" y2="92" pathLength="1" style="--d:0.783s" />
+    <line class="dm-conn" x1="62" y1="68" x2="55" y2="92" pathLength="1" style="--d:0.806s" />
+    <line class="dm-conn" x1="75" y1="72" x2="72" y2="85" pathLength="1" style="--d:0.828s" />
+    <line class="dm-conn dm-conn--bridge" x1="38" y1="38" x2="62" y2="68" pathLength="1" style="--d:0.76s" />
+    <line class="dm-conn dm-conn--bridge" x1="45" y1="8" x2="65" y2="42" pathLength="1" style="--d:0.817s" />
+    <line class="dm-conn dm-conn--bridge" x1="52" y1="50" x2="62" y2="68" pathLength="1" style="--d:0.874s" />
+    <line class="dm-conn dm-conn--bridge" x1="12" y1="18" x2="38" y2="38" pathLength="1" style="--d:0.931s" />
+    <line class="dm-conn dm-conn--bridge" x1="78" y1="35" x2="88" y2="65" pathLength="1" style="--d:0.988s" />
+  </g>
+
+  <!-- Nodes: key-node outer glow rings first, then all node dots -->
+  <g class="dm-nodes">
+    <circle class="dm-glow" cx="12" cy="18" r="7.5" style="--d:0.95s" />
+    <circle class="dm-glow" cx="38" cy="38" r="8" style="--d:1.216s" />
+    <circle class="dm-glow" cx="62" cy="68" r="7.5" style="--d:1.52s" />
+    <circle class="dm-node dm-node--key" cx="12" cy="18" r="3" filter="url(#discovery-map-node-glow)" style="--d:0.152s" />
+    <circle class="dm-node" cx="28" cy="12" r="2.2" style="--d:0.171s" />
+    <circle class="dm-node" cx="45" cy="8" r="2.5" style="--d:0.19s" />
+    <circle class="dm-node" cx="68" cy="14" r="2.8" style="--d:0.209s" />
+    <circle class="dm-node" cx="85" cy="10" r="2" style="--d:0.228s" />
+    <circle class="dm-node" cx="8" cy="42" r="2.4" style="--d:0.247s" />
+    <circle class="dm-node" cx="22" cy="55" r="2" style="--d:0.266s" />
+    <circle class="dm-node dm-node--key" cx="38" cy="38" r="3.2" filter="url(#discovery-map-node-glow)" style="--d:0.285s" />
+    <circle class="dm-node" cx="52" cy="50" r="2.6" style="--d:0.304s" />
+    <circle class="dm-node" cx="65" cy="42" r="2.2" style="--d:0.323s" />
+    <circle class="dm-node" cx="78" cy="35" r="2.8" style="--d:0.342s" />
+    <circle class="dm-node" cx="92" cy="48" r="2" style="--d:0.361s" />
+    <circle class="dm-node" cx="15" cy="75" r="2.6" style="--d:0.38s" />
+    <circle class="dm-node" cx="32" cy="70" r="2" style="--d:0.399s" />
+    <circle class="dm-node" cx="48" cy="78" r="2.4" style="--d:0.418s" />
+    <circle class="dm-node dm-node--key" cx="62" cy="68" r="3" filter="url(#discovery-map-node-glow)" style="--d:0.437s" />
+    <circle class="dm-node" cx="75" cy="72" r="2.2" style="--d:0.456s" />
+    <circle class="dm-node" cx="88" cy="65" r="2.5" style="--d:0.475s" />
+    <circle class="dm-node" cx="50" cy="30" r="2" style="--d:0.494s" />
+    <circle class="dm-node" cx="35" cy="88" r="2.2" style="--d:0.513s" />
+    <circle class="dm-node" cx="72" cy="85" r="2" style="--d:0.532s" />
+    <circle class="dm-node" cx="55" cy="92" r="2.4" style="--d:0.551s" />
+  </g>
+</svg>
+<!--#dgm:discovery-map:end-->
+          </div>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <!-- About Section -->
-    <section id="about" class="about">
-        <div class="container">
-            <div class="about-content">
-                <div class="about-text">
-                    <span class="section-tag">Who We Are</span>
-                    <h2>Leading AI Innovation</h2>
-                    <p>We are a forward-thinking AI consulting firm founded by software development veterans with decades of collective experience. Our mission is to bridge the gap between cutting-edge AI technology and practical business applications.</p>
-                    <p>Our team brings together expertise in software architecture, machine learning, and business process optimization to help companies navigate the rapidly evolving AI landscape. We believe that AI should be accessible, practical, and aligned with your specific business objectives.</p>
-                    <div class="about-values">
-                        <div class="value-item">
-                            <div class="value-icon">
-                                <i class="fas fa-medal"></i>
-                            </div>
-                            <h4>Technical Excellence</h4>
-                            <p>Decades of software development expertise</p>
-                        </div>
-                        <div class="value-item">
-                            <div class="value-icon">
-                                <i class="fas fa-lightbulb"></i>
-                            </div>
-                            <h4>Innovation First</h4>
-                            <p>Staying at the forefront of AI technology</p>
-                        </div>
-                        <div class="value-item">
-                            <div class="value-icon">
-                                <i class="fas fa-handshake"></i>
-                            </div>
-                            <h4>True Partnership</h4>
-                            <p>Understanding your unique challenges</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="about-visual">
-                    <div class="team-expertise">
-                        <div class="expertise-item">
-                            <div class="expertise-icon">
-                                <i class="fas fa-code"></i>
-                            </div>
-                            <h4>AI/ML Software Development</h4>
-                            <p>Enterprise-grade applications built with modern technologies</p>
-                        </div>
-                        <div class="expertise-item">
-                            <div class="expertise-icon">
-                                <i class="fas fa-brain"></i>
-                            </div>
-                            <h4>AI Integration</h4>
-                            <p>Seamless incorporation of AI into existing systems</p>
-                        </div>
-                        <div class="expertise-item">
-                            <div class="expertise-icon">
-                                <i class="fas fa-project-diagram"></i>
-                            </div>
-                            <h4>Data System Architecture</h4>
-                            <p>Designing scalable, efficient technical infrastructures</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+  <section class="section" id="integrations">
+    <div class="container">
+      <div class="section-head" data-reveal style="max-width:58ch">
+        <p class="eyebrow">Connected systems</p>
+        <h2>We meet your stack exactly where it is.</h2>
+        <p class="lede">
+          Nothing gets replaced. The tools your team already relies on stay put — we make them
+          reachable, searchable, and useful to the people and the AI that need them.
+        </p>
+      </div>
+      <div class="dgm-wrap dgm-wrap--wide" data-reveal style="max-width:840px">
+        <!--#dgm:connected-systems:begin-->
+<svg class="dgm dgm--connected-systems" viewBox="0 0 140 100" role="img" aria-labelledby="cs-title">
+  <title id="cs-title">Systems Dozier Tech Group connects in production, joined to the Dozier Tech Group mark</title>
+
+  <!-- decorative orbit rings -->
+  <g class="cs-orbits" aria-hidden="true">
+    <ellipse class="cs-orbit" cx="70" cy="50" rx="43.5" ry="28.5" pathLength="1" style="--d:0.057s"/>
+    <ellipse class="cs-orbit" cx="70" cy="50" rx="60" ry="41.5" pathLength="1" style="--d:0.114s"/>
+  </g>
+
+  <!-- connectors -->
+  <g class="cs-links">
+    <path id="cs-p0" class="cs-link cs-link--a" d="M70 24.5 Q68.7 31 70 37.5" pathLength="1" style="--d:0.437s"/>
+    <path id="cs-p1" class="cs-link cs-link--a" d="M96.18 32.85 Q87.29 36.43 80.46 43.15" pathLength="1" style="--d:0.456s"/>
+    <path id="cs-p2" class="cs-link cs-link--a" d="M103.5 50 Q93 47.9 82.5 50" pathLength="1" style="--d:0.475s"/>
+    <path id="cs-p3" class="cs-link cs-link--a" d="M96.18 67.15 Q89.35 60.43 80.46 56.85" pathLength="1" style="--d:0.494s"/>
+    <path id="cs-p4" class="cs-link cs-link--a" d="M70 75.5 Q71.3 69 70 62.5" pathLength="1" style="--d:0.513s"/>
+    <path id="cs-p5" class="cs-link cs-link--a" d="M43.82 67.15 Q52.71 63.57 59.54 56.85" pathLength="1" style="--d:0.532s"/>
+    <path id="cs-p6" class="cs-link cs-link--a" d="M38.48 50 Q47.99 51.9 57.5 50" pathLength="1" style="--d:0.551s"/>
+    <path id="cs-p7" class="cs-link cs-link--a" d="M43.82 32.85 Q50.65 39.57 59.54 43.15" pathLength="1" style="--d:0.57s"/>
+    <path id="cs-p8" class="cs-link cs-link--b" d="M91.16 14.66 Q80.34 24.91 76.42 39.28" pathLength="1" style="--d:0.589s"/>
+    <path id="cs-p9" class="cs-link cs-link--b" d="M116.09 36.8 Q97.69 36.91 82.02 46.56" pathLength="1" style="--d:0.608s"/>
+    <path id="cs-p10" class="cs-link cs-link--b" d="M118.07 63.77 Q101.49 53.56 82.02 53.44" pathLength="1" style="--d:0.627s"/>
+    <path id="cs-p11" class="cs-link cs-link--b" d="M91.16 85.34 Q87.24 70.97 76.42 60.72" pathLength="1" style="--d:0.646s"/>
+    <path id="cs-p12" class="cs-link cs-link--b" d="M48.84 85.34 Q59.66 75.09 63.58 60.72" pathLength="1" style="--d:0.665s"/>
+    <path id="cs-p13" class="cs-link cs-link--b" d="M21.93 63.77 Q41.4 63.65 57.98 53.44" pathLength="1" style="--d:0.684s"/>
+    <path id="cs-p14" class="cs-link cs-link--b" d="M23.25 36.61 Q39.22 46.45 57.98 46.56" pathLength="1" style="--d:0.703s"/>
+    <path id="cs-p15" class="cs-link cs-link--b" d="M48.84 14.66 Q52.76 29.03 63.58 39.28" pathLength="1" style="--d:0.722s"/>
+  </g>
+
+  <!-- data moving inward -->
+  <g class="cs-particles" aria-hidden="true">
+    <circle class="cs-particle" r="0.75">
+      <animateMotion dur="3s" begin="0.912s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear">
+        <mpath href="#cs-p0"/>
+      </animateMotion>
+      <animate attributeName="opacity" dur="3s" begin="0.912s" repeatCount="indefinite"
+               values="0;0.9;0.9;0" keyTimes="0;0.15;0.8;1"/>
+    </circle>
+    <circle class="cs-particle" r="0.75">
+      <animateMotion dur="3.4s" begin="1.254s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear">
+        <mpath href="#cs-p4"/>
+      </animateMotion>
+      <animate attributeName="opacity" dur="3.4s" begin="1.254s" repeatCount="indefinite"
+               values="0;0.9;0.9;0" keyTimes="0;0.15;0.8;1"/>
+    </circle>
+    <circle class="cs-particle" r="0.75">
+      <animateMotion dur="3.8s" begin="1.596s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear">
+        <mpath href="#cs-p9"/>
+      </animateMotion>
+      <animate attributeName="opacity" dur="3.8s" begin="1.596s" repeatCount="indefinite"
+               values="0;0.9;0.9;0" keyTimes="0;0.15;0.8;1"/>
+    </circle>
+    <circle class="cs-particle" r="0.75">
+      <animateMotion dur="4.2s" begin="1.938s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear">
+        <mpath href="#cs-p13"/>
+      </animateMotion>
+      <animate attributeName="opacity" dur="4.2s" begin="1.938s" repeatCount="indefinite"
+               values="0;0.9;0.9;0" keyTimes="0;0.15;0.8;1"/>
+    </circle>
+  </g>
+
+  <!-- the hub: DTG mark inside a breathing ring -->
+  <g class="cs-hub">
+    <circle class="cs-hub-halo" cx="70" cy="50" r="15.5"/>
+    <circle class="cs-hub-ring" cx="70" cy="50" r="12.5"/>
+    <circle class="cs-hub-pulse" cx="70" cy="50" r="12.5"/>
+    <!-- Mark in its own 64x72 space; the nested viewBox scales the strokes, so
+         they stay at their true 3.75 / 6.7 widths. Butt caps, mitred joins. -->
+    <svg class="cs-mark" x="63.4" y="42.57" width="13.2" height="14.85" viewBox="0 0 64 72">
+      <path class="cs-mark-hex" d="M32 2.06 L61.6 18.98 L61.6 52.82 L32 69.74 L2.4 52.82 L2.4 18.98 Z"/>
+      <path class="cs-mark-d" d="M16.25 23.9 L35.25 23.9 C41.65 23.9 46.85 28.7 46.85 35.9 C46.85 43.1 41.65 48.1 35.25 48.1 L19.6 48.1 L19.6 30.4"/>
+    </svg>
+  </g>
+
+  <!-- integration chips -->
+  <g class="cs-chips">
+    <g class="cs-chip" style="--d:0.19s">
+      <rect x="60" y="18.5" width="20" height="6" rx="2.4"/>
+      <text x="70" y="21.5" text-anchor="middle" dominant-baseline="central">SharePoint</text>
+    </g>
+    <g class="cs-chip" style="--d:0.209s">
+      <rect x="88.78" y="26.85" width="23.96" height="6" rx="2.4"/>
+      <text x="100.76" y="29.85" text-anchor="middle" dominant-baseline="central">Microsoft 365</text>
+    </g>
+    <g class="cs-chip" style="--d:0.224s">
+      <rect x="103.5" y="47" width="20" height="6" rx="2.4"/>
+      <text x="113.5" y="50" text-anchor="middle" dominant-baseline="central">QuickBooks</text>
+    </g>
+    <g class="cs-chip" style="--d:0.243s">
+      <rect x="89.44" y="67.15" width="22.64" height="6" rx="2.4"/>
+      <text x="100.76" y="70.15" text-anchor="middle" dominant-baseline="central">Google Drive</text>
+    </g>
+    <g class="cs-chip" style="--d:0.258s">
+      <rect x="62.64" y="75.5" width="14.72" height="6" rx="2.4"/>
+      <text x="70" y="78.5" text-anchor="middle" dominant-baseline="central">GitHub</text>
+    </g>
+    <g class="cs-chip" style="--d:0.277s">
+      <rect x="31.88" y="67.15" width="14.72" height="6" rx="2.4"/>
+      <text x="39.24" y="70.15" text-anchor="middle" dominant-baseline="central">Linear</text>
+    </g>
+    <g class="cs-chip" style="--d:0.293s">
+      <rect x="14.52" y="47" width="23.96" height="6" rx="2.4"/>
+      <text x="26.5" y="50" text-anchor="middle" dominant-baseline="central">Cloudflare R2</text>
+    </g>
+    <g class="cs-chip" style="--d:0.312s">
+      <rect x="29.24" y="26.85" width="20" height="6" rx="2.4"/>
+      <text x="39.24" y="29.85" text-anchor="middle" dominant-baseline="central">PostgreSQL</text>
+    </g>
+    <g class="cs-chip" style="--d:0.327s">
+      <rect x="85.6" y="8.66" width="14.72" height="6" rx="2.4"/>
+      <text x="92.96" y="11.66" text-anchor="middle" dominant-baseline="central">Chroma</text>
+    </g>
+    <g class="cs-chip" style="--d:0.346s">
+      <rect x="116.09" y="31.12" width="18.68" height="6" rx="2.4"/>
+      <text x="125.43" y="34.12" text-anchor="middle" dominant-baseline="central">Anthropic</text>
+    </g>
+    <g class="cs-chip" style="--d:0.361s">
+      <rect x="118.07" y="62.88" width="14.72" height="6" rx="2.4"/>
+      <text x="125.43" y="65.88" text-anchor="middle" dominant-baseline="central">OpenAI</text>
+    </g>
+    <g class="cs-chip" style="--d:0.38s">
+      <rect x="82.96" y="85.34" width="20" height="6" rx="2.4"/>
+      <text x="92.96" y="88.34" text-anchor="middle" dominant-baseline="central">AssemblyAI</text>
+    </g>
+    <g class="cs-chip" style="--d:0.395s">
+      <rect x="39.68" y="85.34" width="14.72" height="6" rx="2.4"/>
+      <text x="47.04" y="88.34" text-anchor="middle" dominant-baseline="central">Twilio</text>
+    </g>
+    <g class="cs-chip" style="--d:0.414s">
+      <rect x="7.21" y="62.88" width="14.72" height="6" rx="2.4"/>
+      <text x="14.57" y="65.88" text-anchor="middle" dominant-baseline="central">Stripe</text>
+    </g>
+    <g class="cs-chip" style="--d:0.429s">
+      <rect x="5.89" y="31.12" width="17.36" height="6" rx="2.4"/>
+      <text x="14.57" y="34.12" text-anchor="middle" dominant-baseline="central">Supabase</text>
+    </g>
+    <g class="cs-chip" style="--d:0.445s">
+      <rect x="39.02" y="8.66" width="16.04" height="6" rx="2.4"/>
+      <text x="47.04" y="11.66" text-anchor="middle" dominant-baseline="central">Discord</text>
+    </g>
+  </g>
+
+  <text class="cs-more" x="70" y="97" text-anchor="middle">and anything with an API</text>
+</svg>
+<!--#dgm:connected-systems:end-->
+      </div>
+
+      <!-- Under 760px the constellation's labels render at about 6px. This chip
+           list carries the same information, legibly. -->
+      <ul class="chip-list" data-reveal aria-label="Systems we connect in production">
+        <li>SharePoint</li><li>Microsoft 365</li><li>QuickBooks</li><li>Google Drive</li>
+        <li>GitHub</li><li>Linear</li><li>Cloudflare R2</li><li>PostgreSQL</li>
+        <li>Chroma</li><li>Anthropic</li><li>OpenAI</li><li>AssemblyAI</li>
+        <li>Twilio</li><li>Stripe</li><li>Supabase</li><li>Discord</li>
+      </ul>
+      <p class="chip-more">and anything with an API</p>
+    </div>
+  </section>
+</div>
+
+<!-- ═══════════════════════════ products + process ═══════════════════════════ -->
+<div class="band band--light">
+  <section class="section">
+    <div class="container">
+      <div class="feature">
+        <div class="feature-text" data-reveal>
+          <p class="eyebrow">Purpose-built products</p>
+          <h2>Engineered from scratch, around the way you already work.</h2>
+          <p>
+            Estimating that takes three days. A takeoff redone because the plans changed. A
+            settlement report keyed in by hand. These are not software problems in general — they
+            are your problems specifically, and general software will not fix them.
+          </p>
+          <ul class="feature-list">
+            <li>End-to-end product development, from discovery through production.</li>
+            <li>AI capability embedded directly in the workflow, not bolted on beside it.</li>
+            <li>Ongoing iteration — we ship fast, then evolve on real usage.</li>
+          </ul>
         </div>
-    </section>
+        <div class="feature-visual" data-reveal>
+          <div class="dgm-wrap">
+            <!--#dgm:blueprint:begin-->
+<svg class="dgm dgm--blueprint" viewBox="0 0 100 80" role="img" aria-labelledby="blueprint-t">
+  <title id="blueprint-t">A dashboard wireframe assembling itself: a dashed frame draws and solidifies, panels fill in, and charts, tables and progress bars populate a purpose-built product interface.</title>
 
-    <!-- Case Studies Section -->
-    <section id="case-studies" class="case-studies">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-tag">Success Stories</span>
-                <h2>Case Studies</h2>
-                <p>Real results from real clients using our AI-powered solutions</p>
-            </div>
-            <div class="case-studies-grid">
-                <div class="case-study-card featured">
-                    <div class="case-study-header">
-                        <div class="case-study-client">
-                            <img src="images/royal_engineering_logo.png" alt="Royal Engineering" class="client-logo">
-                            <div class="client-info">
-                                <span class="client-industry">Civil Engineering</span>
-                                <span class="client-location">Louisiana, USA</span>
-                            </div>
-                        </div>
-                        <span class="case-study-tag">AI Automation</span>
-                    </div>
-                    <h3 class="case-study-title">Settlement Report Processing: From Weeks to Minutes</h3>
-                    <p class="case-study-subtitle">How custom AI-powered automation eliminated manual data entry and accelerated project delivery for a coastal engineering firm</p>
-                    
-                    <div class="case-study-challenge">
-                        <h4><i class="fas fa-exclamation-circle"></i> The Challenge</h4>
-                        <p>Engineers were spending multiple weeks manually entering data from PSDDF (.pso) and SETTLE3 (.pdf) model outputs into Excel spreadsheets, then manipulating that data to generate settlement analysis graphs and account for variables like sea level rise.</p>
-                    </div>
-                    
-                    <div class="case-study-solution">
-                        <h4><i class="fas fa-lightbulb"></i> The Solution</h4>
-                        <ul>
-                            <li>Processes up to 300 model output files simultaneously</li>
-                            <li>Automatically extracts and structures settlement data with zero manual entry</li>
-                            <li>Generates complete Excel workbooks with all required graphs and calculations</li>
-                            <li>Accounts for sea level rise and other project-specific variables automatically</li>
-                        </ul>
-                        <p class="tech-stack"><strong>Built with:</strong> React.js frontend, .NET backend API</p>
-                    </div>
-                    
-                    <div class="case-study-results">
-                        <h4><i class="fas fa-chart-line"></i> The Results</h4>
-                        <div class="results-grid">
-                            <div class="result-item">
-                                <div class="result-value">Weeks → Minutes</div>
-                                <div class="result-label">Time Savings</div>
-                            </div>
-                            <div class="result-item">
-                                <div class="result-value">300</div>
-                                <div class="result-label">Files Per Upload</div>
-                            </div>
-                            <div class="result-item">
-                                <div class="result-value">Shortened</div>
-                                <div class="result-label">QA/QC Time</div>
-                            </div>
-                            <div class="result-item">
-                                <div class="result-value">15-25 Days</div>
-                                <div class="result-label">Project Timeline</div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="case-study-testimonial">
-                        <blockquote>
-                            "Dozier Tech Group delivered an exceptional solution that transformed our settlement analysis process, and it has been a game changer for our workflow. What once took weeks is now completed in minutes, with significantly improved accuracy and scalability. They eliminated time-consuming manual processes, shortened QAQC time, and enabled us to handle significantly larger volumes of data with ease. The results exceeded expectations both in performance and speed. Their team demonstrated strong technical expertise, responsiveness, and a clear understanding of our engineering needs. A highly effective and professional team."
-                        </blockquote>
-                        <div class="testimonial-author">
-                            <img src="images/royal_engineering_logo.png" alt="Royal Engineering" class="testimonial-logo">
-                            <div class="author-info">
-                                <strong>Ryan Hebert, PE</strong>
-                                <span>Lead Engineer, Royal Engineering</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="case-study-footer">
-                        <a href="#contact" class="btn btn-primary">
-                            Start Your Project
-                            <i class="fas fa-arrow-right"></i>
-                        </a>
-                    </div>
-                </div>
+  <defs>
+    <linearGradient id="blueprint-panel-fill" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-opacity="0.04" style="stop-color:rgb(var(--dgm-ink))"/>
+      <stop offset="100%" stop-opacity="0.01" style="stop-color:rgb(var(--dgm-ink))"/>
+    </linearGradient>
+    <linearGradient id="blueprint-chart-grad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-opacity="1" style="stop-color:var(--dgm-accent)"/>
+      <stop offset="100%" stop-opacity="0.45" style="stop-color:var(--dgm-accent)"/>
+    </linearGradient>
+    <filter id="blueprint-glow">
+      <feGaussianBlur stdDeviation="0.8" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
 
-                <div class="case-study-card featured">
-                    <div class="case-study-header">
-                        <div class="case-study-client">
-                            <img src="images/chase_group_logo.png" alt="Chase Group Construction" class="client-logo">
-                            <div class="client-info">
-                                <span class="client-industry">Commercial Construction</span>
-                                <span class="client-location">Louisiana, USA</span>
-                            </div>
-                        </div>
-                        <span class="case-study-tag">AI + Robotics</span>
-                    </div>
-                    <h3 class="case-study-title">AI-Powered Intelligence Platform & Autonomous Robotics</h3>
-                    <p class="case-study-subtitle">How a leading commercial construction firm leveraged a $30,000 pilot to gain competitive advantage through AI and robotics—adding 10-20 hours of productive capacity per person per project</p>
-                    
-                    <div class="case-study-challenge">
-                        <h4><i class="fas fa-rocket"></i> The Opportunity</h4>
-                        <p>Chase Group Construction, managing multiple high-value concurrent projects, saw an opportunity to gain significant competitive advantage by leveraging emerging AI and robotics technologies. Their next phase of growth required capturing institutional intelligence, increasing bid velocity, deploying autonomous site technologies, and seamless integration without disrupting proven workflows.</p>
-                    </div>
-                    
-                    <div class="case-study-solution">
-                        <h4><i class="fas fa-lightbulb"></i> The Solution</h4>
-                        <p><strong>AI-Powered Intelligence Platform:</strong></p>
-                        <ul>
-                            <li><strong>Intelligent Quote Aggregation:</strong> Team members continue working exactly as they always have—texting and emailing quotes from vendors. The AI automatically extracts vendor details, materials, pricing, and project context, building a searchable intelligence database</li>
-                            <li><strong>AI-Accelerated Material Takeoffs:</strong> Upload architectural plans and the system automatically identifies and quantifies materials, generating detailed estimates that augment estimators' expertise</li>
-                            <li><strong>RAG-Based Institutional Memory:</strong> Using Chroma vector database, the platform learns from every quote, estimate, and project decision—creating a living knowledge base that makes collective experience instantly accessible</li>
-                        </ul>
-                        <p><strong>Autonomous Robotics R&D Partnership:</strong></p>
-                        <ul>
-                            <li><strong>Pilot Site Survey Robots:</strong> Ongoing development and testing of autonomous robots for site surveys and building assessments, with full-scale rollout planned as the technology matures</li>
-                            <li><strong>AI Integration Framework:</strong> Building the data infrastructure and AI models to process robot-generated data streams for predictive scheduling and proactive safety monitoring</li>
-                            <li><strong>Advanced Surveillance Prototypes:</strong> Active R&D on next-generation autonomous site monitoring for 24/7 intelligence and anomaly detection</li>
-                        </ul>
-                        <p class="tech-stack"><strong>Built with:</strong> React.js frontend, .NET backend API, Chroma vector database</p>
-                    </div>
-                    
-                    <div class="case-study-results">
-                        <h4><i class="fas fa-chart-line"></i> The Impact</h4>
-                        <div class="results-grid">
-                            <div class="result-item">
-                                <div class="result-value">10-20 hrs</div>
-                                <div class="result-label">Saved Per Person/Project</div>
-                            </div>
-                            <div class="result-item">
-                                <div class="result-value">60 Days</div>
-                                <div class="result-label">Pilot to Full Ops</div>
-                            </div>
-                            <div class="result-item">
-                                <div class="result-value">$30K</div>
-                                <div class="result-label">Pilot Investment</div>
-                            </div>
-                            <div class="result-item">
-                                <div class="result-value">Ongoing</div>
-                                <div class="result-label">Strategic Partnership</div>
-                            </div>
-                        </div>
-                        <ul class="impact-list">
-                            <li><strong>Frictionless Adoption:</strong> Zero workflow disruption—team continues operating exactly as before while AI builds intelligence in the background</li>
-                            <li><strong>Robotics R&D Partnership:</strong> Active collaboration on autonomous site robotics—positioning Chase Group at the forefront of construction technology</li>
-                            <li><strong>Institutional Knowledge Amplification:</strong> Vector database RAG system transforms years of project history into instantly accessible competitive intelligence</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="case-study-footer">
-                        <a href="#contact" class="btn btn-primary">
-                            Start Your Project
-                            <i class="fas fa-arrow-right"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
+  <!-- OUTER FRAME: dashed wireframe -> solid -->
+  <rect class="bp-frame-dashed" x="4" y="2" width="92" height="76" rx="2"
+        fill="none" stroke-width="0.4"
+        stroke-dasharray="3 2" style="stroke:rgba(var(--dgm-ink), 0.15)"/>
+  <rect class="bp-frame-solid bp-draw bp-fade" x="4" y="2" width="92" height="76" rx="2"
+        fill="none" stroke-width="0.4"
+        pathLength="1" style="stroke:rgba(var(--dgm-ink), 0.2)"/>
+
+  <!-- TOP BAR / HEADER -->
+  <rect class="bp-fade bp-el-topbar" x="4" y="2" width="92" height="10" rx="2"
+        fill="url(#blueprint-panel-fill)" stroke-width="0.25" style="stroke:rgba(var(--dgm-ink), 0.08)"/>
+  <rect class="bp-growx bp-el-h1" x="8" y="5.5" width="14" height="1.5" rx="0.75" style="fill:rgba(var(--dgm-ink), 0.25)"/>
+  <rect class="bp-growx bp-el-h2" x="8" y="8" width="8" height="1" rx="0.5" style="fill:rgba(var(--dgm-ink), 0.1)"/>
+  <circle class="bp-pop bp-el-nav0" cx="80" cy="7" r="1" style="fill:rgba(var(--dgm-ink), 0.12)"/>
+  <circle class="bp-pop bp-el-nav1" cx="84" cy="7" r="1" style="fill:rgba(var(--dgm-ink), 0.12)"/>
+  <circle class="bp-pop bp-el-nav2" cx="88" cy="7" r="1" style="fill:rgba(var(--dgm-ink), 0.12)"/>
+
+  <!-- LEFT SIDEBAR -->
+  <rect class="bp-fade bp-el-sidebar" x="4" y="12" width="20" height="66" rx="0"
+        fill="url(#blueprint-panel-fill)" stroke-width="0.25" style="stroke:rgba(var(--dgm-ink), 0.06)"/>
+  <rect class="bp-growx-fade bp-el-menu0" x="7" y="16" width="14" height="1.5" rx="0.75" style="fill:rgba(var(--dgm-ink), 0.2)"/>
+  <rect class="bp-growx-fade bp-el-menu1" x="7" y="22" width="12" height="1.5" rx="0.75" style="fill:rgba(var(--dgm-ink), 0.07)"/>
+  <rect class="bp-growx-fade bp-el-menu2" x="7" y="28" width="13" height="1.5" rx="0.75" style="fill:rgba(var(--dgm-ink), 0.07)"/>
+  <rect class="bp-growx-fade bp-el-menu3" x="7" y="34" width="11" height="1.5" rx="0.75" style="fill:rgba(var(--dgm-ink), 0.07)"/>
+  <rect class="bp-growx-fade bp-el-menu4" x="7" y="40" width="12" height="1.5" rx="0.75" style="fill:rgba(var(--dgm-ink), 0.07)"/>
+
+  <!-- STAT CARD 0 -->
+  <rect class="bp-rise bp-el-card0" x="27" y="14" width="20" height="14" rx="1"
+        fill="url(#blueprint-panel-fill)" stroke-width="0.25" style="stroke:rgba(var(--dgm-ink), 0.08)"/>
+  <rect class="bp-growx bp-el-num0" x="30" y="17" width="8" height="2.5" rx="0.5" style="fill:rgba(var(--dgm-ink), 0.2)"/>
+  <rect class="bp-growx bp-el-lab0" x="30" y="21" width="12" height="1" rx="0.5" style="fill:rgba(var(--dgm-ink), 0.07)"/>
+  <polyline class="bp-draw bp-el-spark0" points="30,25 33,24.5 36,25.5 39,23 42,24"
+        fill="none" stroke-width="0.4"
+        stroke-linecap="round" stroke-linejoin="round" pathLength="1" style="stroke:rgba(var(--dgm-ink), 0.25)"/>
+
+  <!-- STAT CARD 1 -->
+  <rect class="bp-rise bp-el-card1" x="50" y="14" width="20" height="14" rx="1"
+        fill="url(#blueprint-panel-fill)" stroke-width="0.25" style="stroke:rgba(var(--dgm-ink), 0.08)"/>
+  <rect class="bp-growx bp-el-num1" x="53" y="17" width="8" height="2.5" rx="0.5" style="fill:rgba(var(--dgm-ink), 0.2)"/>
+  <rect class="bp-growx bp-el-lab1" x="53" y="21" width="12" height="1" rx="0.5" style="fill:rgba(var(--dgm-ink), 0.07)"/>
+  <polyline class="bp-draw bp-el-spark1" points="53,25.5 56,24 59,24.5 62,23.5 65,22"
+        fill="none" stroke-width="0.4"
+        stroke-linecap="round" stroke-linejoin="round" pathLength="1" style="stroke:rgba(var(--dgm-ink), 0.25)"/>
+
+  <!-- STAT CARD 2 -->
+  <rect class="bp-rise bp-el-card2" x="73" y="14" width="20" height="14" rx="1"
+        fill="url(#blueprint-panel-fill)" stroke-width="0.25" style="stroke:rgba(var(--dgm-ink), 0.08)"/>
+  <rect class="bp-growx bp-el-num2" x="76" y="17" width="8" height="2.5" rx="0.5" style="fill:rgba(var(--dgm-ink), 0.2)"/>
+  <rect class="bp-growx bp-el-lab2" x="76" y="21" width="12" height="1" rx="0.5" style="fill:rgba(var(--dgm-ink), 0.07)"/>
+  <polyline class="bp-draw bp-el-spark2" points="76,24 79,25 82,23.5 85,24.5 88,23"
+        fill="none" stroke-width="0.4"
+        stroke-linecap="round" stroke-linejoin="round" pathLength="1" style="stroke:rgba(var(--dgm-ink), 0.25)"/>
+
+  <!-- CHART AREA -->
+  <rect class="bp-rise bp-el-chartpanel" x="27" y="31" width="43" height="28" rx="1"
+        fill="url(#blueprint-panel-fill)" stroke-width="0.25" style="stroke:rgba(var(--dgm-ink), 0.08)"/>
+  <line class="bp-draw bp-el-axis1" x1="31" y1="35" x2="31" y2="55"
+        stroke-width="0.3" pathLength="1" style="stroke:rgba(var(--dgm-ink), 0.1)"/>
+  <line class="bp-draw bp-el-axis2" x1="31" y1="55" x2="66" y2="55"
+        stroke-width="0.3" pathLength="1" style="stroke:rgba(var(--dgm-ink), 0.1)"/>
+  <polyline class="bp-draw bp-el-chartline"
+        points="33,52 37,50 41,48 45,44 49,46 53,40 57,38 61,36 65,33"
+        fill="none" stroke="url(#blueprint-chart-grad)" stroke-width="0.6"
+        stroke-linecap="round" stroke-linejoin="round" filter="url(#blueprint-glow)" pathLength="1" />
+  <polygon class="bp-fade bp-el-chartarea"
+        points="33,52 37,50 41,48 45,44 49,46 53,40 57,38 61,36 65,33 65,55 33,55" style="fill:rgba(var(--dgm-ink), 0.03)"/>
+
+  <!-- RIGHT DATA TABLE -->
+  <rect class="bp-rise bp-el-tablepanel" x="73" y="31" width="23" height="28" rx="1"
+        fill="url(#blueprint-panel-fill)" stroke-width="0.25" style="stroke:rgba(var(--dgm-ink), 0.08)"/>
+  <rect class="bp-growx bp-el-row0" x="76" y="34" width="16" height="1.2" rx="0.5" style="fill:rgba(var(--dgm-ink), 0.15)"/>
+  <rect class="bp-growx bp-el-row1" x="76" y="37.8" width="13" height="1.2" rx="0.5" style="fill:rgba(var(--dgm-ink), 0.06)"/>
+  <rect class="bp-growx bp-el-row2" x="76" y="41.6" width="16" height="1.2" rx="0.5" style="fill:rgba(var(--dgm-ink), 0.06)"/>
+  <rect class="bp-growx bp-el-row3" x="76" y="45.4" width="13" height="1.2" rx="0.5" style="fill:rgba(var(--dgm-ink), 0.06)"/>
+  <rect class="bp-growx bp-el-row4" x="76" y="49.2" width="16" height="1.2" rx="0.5" style="fill:rgba(var(--dgm-ink), 0.06)"/>
+  <rect class="bp-growx bp-el-row5" x="76" y="53" width="13" height="1.2" rx="0.5" style="fill:rgba(var(--dgm-ink), 0.06)"/>
+
+  <!-- PROGRESS PANEL 0 -->
+  <rect class="bp-rise bp-el-prog0" x="27" y="62" width="31" height="14" rx="1"
+        fill="url(#blueprint-panel-fill)" stroke-width="0.25" style="stroke:rgba(var(--dgm-ink), 0.08)"/>
+  <rect class="bp-growx bp-el-plab0" x="30" y="65" width="15" height="1.2" rx="0.5" style="fill:rgba(var(--dgm-ink), 0.12)"/>
+  <rect class="bp-fade bp-el-ptrack0" x="30" y="69" width="28" height="2" rx="1" style="fill:rgba(var(--dgm-ink), 0.06)"/>
+  <rect class="bp-growx bp-el-pfill0" x="30" y="69" width="20.44" height="2" rx="1" style="fill:rgba(var(--dgm-ink), 0.25)"/>
+
+  <!-- PROGRESS PANEL 1 -->
+  <rect class="bp-rise bp-el-prog1" x="62" y="62" width="35" height="14" rx="1"
+        fill="url(#blueprint-panel-fill)" stroke-width="0.25" style="stroke:rgba(var(--dgm-ink), 0.08)"/>
+  <rect class="bp-growx bp-el-plab1" x="65" y="65" width="15" height="1.2" rx="0.5" style="fill:rgba(var(--dgm-ink), 0.12)"/>
+  <rect class="bp-fade bp-el-ptrack1" x="65" y="69" width="18" height="2" rx="1" style="fill:rgba(var(--dgm-ink), 0.06)"/>
+  <rect class="bp-growx bp-el-pfill1" x="65" y="69" width="10.44" height="2" rx="1" style="fill:rgba(var(--dgm-ink), 0.25)"/>
+
+  <!-- FINAL "LIVE" PULSE -->
+  <rect class="bp-pulse bp-el-pulse" x="4" y="2" width="92" height="76" rx="2"
+        fill="none" stroke-width="0.5" style="stroke:rgba(var(--dgm-ink), 0.15)"/>
+</svg>
+<!--#dgm:blueprint:end-->
+          </div>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <!-- Research Section -->
-    <section id="research" class="research">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-tag">Internal Research</span>
-                <h2>Research & Development</h2>
-                <p>Explore our internal research projects, prototypes, and client proposals</p>
-            </div>
-            <div class="research-grid">
-                <a href="operator-standard-research.html" class="research-card">
-                    <div class="research-icon">
-                        <i class="fas fa-shield-alt"></i>
-                    </div>
-                    <div class="research-content">
-                        <h3>Operator Standard Research</h3>
-                        <p>Technical observations on friction, enforcement, and alignment in task management systems</p>
-                        <span class="research-tag">Prototype v0.1</span>
-                    </div>
-                    <i class="fas fa-arrow-right research-arrow"></i>
-                </a>
-            </div>
+  <section class="section" id="process">
+    <div class="bloom" aria-hidden="true"></div>
+    <div class="container container--wide">
+      <div class="section-head" data-reveal style="max-width:56ch">
+        <p class="eyebrow">Process</p>
+        <h2>How we work.</h2>
+        <p class="lede">Every engagement runs the same way — from understanding to impact.</p>
+      </div>
+      <div class="dgm-wrap dgm-wrap--wide" data-reveal>
+        <!--#dgm:process-timeline:begin-->
+<div class="dgm dgm--process-timeline" role="group" aria-label="Our engagement process: Discover, Architect, Build, Evolve">
+  <div class="ptl-track">
+
+    <!-- Phase 01 — Discover -->
+    <div class="ptl-phase p1">
+      <div class="ptl-content">
+        <span class="ptl-num">01</span>
+        <div class="ptl-tile">
+          <svg class="ptl-icon ptl-icon--discover" viewBox="0 0 40 40" aria-hidden="true" focusable="false">
+            <g class="dc-rings">
+              <circle cx="20" cy="20" r="14" fill="none" stroke-width="0.5" style="stroke:rgba(var(--dgm-ink), 0.1)"/>
+              <circle cx="20" cy="20" r="10" fill="none" stroke-width="0.5" style="stroke:rgba(var(--dgm-ink), 0.1)"/>
+              <circle cx="20" cy="20" r="6" fill="none" stroke-width="0.5" style="stroke:rgba(var(--dgm-ink), 0.1)"/>
+            </g>
+            <g class="dc-ticks">
+              <line x1="20" y1="5" x2="20" y2="7" stroke-width="0.5" stroke-linecap="round" style="stroke:rgba(var(--dgm-ink), 0.2)"/>
+              <line x1="35" y1="20" x2="33" y2="20" stroke-width="0.5" stroke-linecap="round" style="stroke:rgba(var(--dgm-ink), 0.2)"/>
+              <line x1="20" y1="35" x2="20" y2="33" stroke-width="0.5" stroke-linecap="round" style="stroke:rgba(var(--dgm-ink), 0.2)"/>
+              <line x1="5" y1="20" x2="7" y2="20" stroke-width="0.5" stroke-linecap="round" style="stroke:rgba(var(--dgm-ink), 0.2)"/>
+            </g>
+            <g class="dc-needle">
+              <line x1="20" y1="20" x2="20" y2="8" stroke-width="0.8" stroke-linecap="round" style="stroke:rgba(var(--dgm-ink), 0.6)"/>
+              <line x1="20" y1="20" x2="20" y2="32" stroke-width="0.6" stroke-linecap="round" style="stroke:rgba(var(--dgm-ink), 0.2)"/>
+            </g>
+            <circle class="dc-pivot" cx="20" cy="20" r="1.5" style="fill:rgba(var(--dgm-ink), 0.7)"/>
+            <g class="dc-points">
+              <circle cx="27" cy="10" r="1.2" style="fill:rgba(var(--dgm-ink), 0.6)"/>
+              <circle cx="10" cy="17" r="1.2" style="fill:rgba(var(--dgm-ink), 0.6)"/>
+              <circle cx="29" cy="27" r="1.2" style="fill:rgba(var(--dgm-ink), 0.6)"/>
+              <circle cx="13" cy="30" r="1.2" style="fill:rgba(var(--dgm-ink), 0.6)"/>
+            </g>
+          </svg>
         </div>
-    </section>
+        <h4 class="ptl-title">Discover</h4>
+        <p class="ptl-desc">Map your landscape, surface the real problems, and identify where AI can move the needle.</p>
+      </div>
+    </div>
 
-    <!-- Contact Section -->
-    <section id="contact" class="contact">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-tag">Get In Touch</span>
-                <h2>Let's Build Something Amazing</h2>
-                <p>Ready to transform your business with AI? Let's discuss your project.</p>
-            </div>
-            <div class="contact-content">
-                <div class="contact-info">
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-envelope"></i>
-                        </div>
-                        <div class="contact-details">
-                            <h4>Email</h4>
-                            <p>grant@doziertechgroup.com</p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-phone"></i>
-                        </div>
-                        <div class="contact-details">
-                            <h4>Phone</h4>
-                            <p>1 (337) 412-4767</p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-map-marker-alt"></i>
-                        </div>
-                        <div class="contact-details">
-                            <h4>Location</h4>
-                            <p>Serving clients worldwide</p>
-                        </div>
-                    </div>
-                </div>
-                <form class="contact-form" id="contactForm">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="name">Name</label>
-                            <input type="text" id="name" name="name" placeholder="John Doe" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="email" id="email" name="email" placeholder="john@company.com" required>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="subject">Subject</label>
-                        <input type="text" id="subject" name="subject" placeholder="AI Consultation Request" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="message">Message</label>
-                        <textarea id="message" name="message" rows="5" placeholder="Tell us about your project..." required></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary btn-block">
-                        Send Message
-                        <i class="fas fa-paper-plane"></i>
-                    </button>
-                </form>
-            </div>
+    <div class="ptl-arrow a1" aria-hidden="true">
+      <svg class="ptl-arrow-h" width="20" height="12" viewBox="0 0 20 12" fill="none"><path d="M1 6h14M12 2l4 4-4 4" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" style="stroke:rgba(var(--dgm-ink), 0.2)"/></svg>
+      <svg class="ptl-arrow-v" width="12" height="20" viewBox="0 0 12 20" fill="none"><path d="M6 1v14M2 12l4 4 4-4" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" style="stroke:rgba(var(--dgm-ink), 0.2)"/></svg>
+    </div>
+
+    <!-- Phase 02 — Architect -->
+    <div class="ptl-phase p2">
+      <div class="ptl-content">
+        <span class="ptl-num">02</span>
+        <div class="ptl-tile">
+          <svg class="ptl-icon ptl-icon--architect" viewBox="0 0 40 40" aria-hidden="true" focusable="false">
+            <g class="ar-lines">
+              <line x1="8" y1="32" x2="20" y2="10" pathLength="1" stroke-width="0.6" stroke-linecap="round" style="stroke:rgba(var(--dgm-ink), 0.35)"/>
+              <line x1="20" y1="10" x2="32" y2="32" pathLength="1" stroke-width="0.6" stroke-linecap="round" style="stroke:rgba(var(--dgm-ink), 0.35)"/>
+              <line x1="8" y1="32" x2="32" y2="32" pathLength="1" stroke-width="0.6" stroke-linecap="round" style="stroke:rgba(var(--dgm-ink), 0.35)"/>
+              <line x1="14" y1="21" x2="26" y2="21" pathLength="1" stroke-width="0.6" stroke-linecap="round" style="stroke:rgba(var(--dgm-ink), 0.35)"/>
+              <line x1="20" y1="10" x2="20" y2="32" pathLength="1" stroke-width="0.6" stroke-linecap="round" style="stroke:rgba(var(--dgm-ink), 0.35)"/>
+            </g>
+            <g class="ar-nodes">
+              <circle cx="20" cy="10" r="1.5" style="fill:rgba(var(--dgm-ink), 0.5)"/>
+              <circle cx="8" cy="32" r="1.5" style="fill:rgba(var(--dgm-ink), 0.5)"/>
+              <circle cx="32" cy="32" r="1.5" style="fill:rgba(var(--dgm-ink), 0.5)"/>
+              <circle cx="14" cy="21" r="1.5" style="fill:rgba(var(--dgm-ink), 0.5)"/>
+              <circle cx="26" cy="21" r="1.5" style="fill:rgba(var(--dgm-ink), 0.5)"/>
+              <circle cx="20" cy="32" r="1.5" style="fill:rgba(var(--dgm-ink), 0.5)"/>
+            </g>
+          </svg>
         </div>
-    </section>
+        <h4 class="ptl-title">Architect</h4>
+        <p class="ptl-desc">Design the technical strategy, data flows, and system architecture from the ground up.</p>
+      </div>
+    </div>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section footer-brand">
-                    <div class="footer-logo">
-                        <img src="images/DozierTechGroupLogo.png" alt="Dozier Tech Group" class="footer-logo-img">
-                        <h3>Dozier Tech Group</h3>
-                    </div>
-                    <p>Transforming businesses through intelligent AI solutions.</p>
-                    <div class="social-links">
-                        <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-github"></i></a>
-                    </div>
-                </div>
-                <div class="footer-section">
-                    <h4>Services</h4>
-                    <ul>
-                        <li><a href="#services">AI Integration</a></li>
-                        <li><a href="#services">MCP Setup</a></li>
-                        <li><a href="#services">Model Training</a></li>
-                        <li><a href="#services">AI Software</a></li>
-                        <li><a href="#services">Data Annotation</a></li>
-                        <li><a href="#services">AI Strategy</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Company</h4>
-                    <ul>
-                        <li><a href="#about">About Us</a></li>
-                        <li><a href="#process">Our Process</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                        <li><a href="#">Careers</a></li>
-                        <li><a href="#">Blog</a></li>
-                        <li><a href="https://app.doziertechgroup.com">Client Portal</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Resources</h4>
-                    <ul>
-                        <li><a href="#">Documentation</a></li>
-                        <li><a href="#case-studies">Case Studies</a></li>
-                        <li><a href="privacy-policy.html">Privacy Policy</a></li>
-                        <li><a href="terms-and-conditions.html">Terms of Service</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 Dozier Tech Group. All rights reserved.</p>
-                <div class="footer-links">
-                    <a href="privacy-policy.html">Privacy</a>
-                    <a href="terms-and-conditions.html">Terms</a>
-                    <a href="#">Cookies</a>
-                </div>
-            </div>
+    <div class="ptl-arrow a2" aria-hidden="true">
+      <svg class="ptl-arrow-h" width="20" height="12" viewBox="0 0 20 12" fill="none"><path d="M1 6h14M12 2l4 4-4 4" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" style="stroke:rgba(var(--dgm-ink), 0.2)"/></svg>
+      <svg class="ptl-arrow-v" width="12" height="20" viewBox="0 0 12 20" fill="none"><path d="M6 1v14M2 12l4 4 4-4" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" style="stroke:rgba(var(--dgm-ink), 0.2)"/></svg>
+    </div>
+
+    <!-- Phase 03 — Build -->
+    <div class="ptl-phase p3">
+      <div class="ptl-content">
+        <span class="ptl-num">03</span>
+        <div class="ptl-tile">
+          <svg class="ptl-icon ptl-icon--build" viewBox="0 0 40 40" aria-hidden="true" focusable="false">
+            <g class="bd-outlines">
+              <rect x="8" y="24" width="10" height="10" rx="1" fill="none" stroke-width="0.5" stroke-dasharray="2 1.5" style="stroke:rgba(var(--dgm-ink), 0.15)"/>
+              <rect x="22" y="24" width="10" height="10" rx="1" fill="none" stroke-width="0.5" stroke-dasharray="2 1.5" style="stroke:rgba(var(--dgm-ink), 0.15)"/>
+              <rect x="22" y="10" width="10" height="10" rx="1" fill="none" stroke-width="0.5" stroke-dasharray="2 1.5" style="stroke:rgba(var(--dgm-ink), 0.15)"/>
+              <rect x="8" y="10" width="10" height="10" rx="1" fill="none" stroke-width="0.5" stroke-dasharray="2 1.5" style="stroke:rgba(var(--dgm-ink), 0.15)"/>
+            </g>
+            <g class="bd-fills">
+              <rect x="8" y="24" width="10" height="10" rx="1" stroke-width="0.4" style="fill:rgba(var(--dgm-ink), 0.08);stroke:rgba(var(--dgm-ink), 0.25)"/>
+              <rect x="22" y="24" width="10" height="10" rx="1" stroke-width="0.4" style="fill:rgba(var(--dgm-ink), 0.08);stroke:rgba(var(--dgm-ink), 0.25)"/>
+              <rect x="22" y="10" width="10" height="10" rx="1" stroke-width="0.4" style="fill:rgba(var(--dgm-ink), 0.08);stroke:rgba(var(--dgm-ink), 0.25)"/>
+              <rect x="8" y="10" width="10" height="10" rx="1" stroke-width="0.4" style="fill:rgba(var(--dgm-ink), 0.08);stroke:rgba(var(--dgm-ink), 0.25)"/>
+            </g>
+            <polyline class="bd-assembly" points="13,29 13,15 27,15 27,29" pathLength="1" fill="none" stroke-width="0.4" style="stroke:rgba(var(--dgm-ink), 0.15)"/>
+          </svg>
         </div>
-    </footer>
+        <h4 class="ptl-title">Build</h4>
+        <p class="ptl-desc">Engineer the solution — embedded with your team, shipping iteratively, testing with real users.</p>
+      </div>
+    </div>
 
-    <script src="js/script.js"></script>
+    <div class="ptl-arrow a3" aria-hidden="true">
+      <svg class="ptl-arrow-h" width="20" height="12" viewBox="0 0 20 12" fill="none"><path d="M1 6h14M12 2l4 4-4 4" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" style="stroke:rgba(var(--dgm-ink), 0.2)"/></svg>
+      <svg class="ptl-arrow-v" width="12" height="20" viewBox="0 0 12 20" fill="none"><path d="M6 1v14M2 12l4 4 4-4" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" style="stroke:rgba(var(--dgm-ink), 0.2)"/></svg>
+    </div>
+
+    <!-- Phase 04 — Evolve -->
+    <div class="ptl-phase p4">
+      <div class="ptl-content">
+        <span class="ptl-num">04</span>
+        <div class="ptl-tile">
+          <svg class="ptl-icon ptl-icon--evolve" viewBox="0 0 40 40" aria-hidden="true" focusable="false">
+            <g class="ev-branches">
+              <path d="M20,37 L20,20" pathLength="1" fill="none" stroke-width="0.8" stroke-linecap="round" style="stroke:rgba(var(--dgm-ink), 0.35)"/>
+              <path d="M20,26 Q15,22 11,16" pathLength="1" fill="none" stroke-width="0.65" stroke-linecap="round" style="stroke:rgba(var(--dgm-ink), 0.28)"/>
+              <path d="M20,23 Q25,19 29,13" pathLength="1" fill="none" stroke-width="0.65" stroke-linecap="round" style="stroke:rgba(var(--dgm-ink), 0.28)"/>
+              <path d="M20,20 Q18,16 17,10" pathLength="1" fill="none" stroke-width="0.55" stroke-linecap="round" style="stroke:rgba(var(--dgm-ink), 0.22)"/>
+              <path d="M11,16 Q8,12 6,8" pathLength="1" fill="none" stroke-width="0.45" stroke-linecap="round" style="stroke:rgba(var(--dgm-ink), 0.18)"/>
+              <path d="M11,16 Q13,12 15,7" pathLength="1" fill="none" stroke-width="0.45" stroke-linecap="round" style="stroke:rgba(var(--dgm-ink), 0.18)"/>
+              <path d="M29,13 Q31,9 33,5" pathLength="1" fill="none" stroke-width="0.45" stroke-linecap="round" style="stroke:rgba(var(--dgm-ink), 0.18)"/>
+              <path d="M29,13 Q27,9 25,5" pathLength="1" fill="none" stroke-width="0.45" stroke-linecap="round" style="stroke:rgba(var(--dgm-ink), 0.18)"/>
+              <path d="M17,10 Q14,7 12,4" pathLength="1" fill="none" stroke-width="0.4" stroke-linecap="round" style="stroke:rgba(var(--dgm-ink), 0.15)"/>
+              <path d="M17,10 Q19,6 20,3" pathLength="1" fill="none" stroke-width="0.4" stroke-linecap="round" style="stroke:rgba(var(--dgm-ink), 0.15)"/>
+              <path d="M6,8 Q5,5 4,3" pathLength="1" fill="none" stroke-width="0.3" stroke-linecap="round" style="stroke:rgba(var(--dgm-ink), 0.12)"/>
+              <path d="M15,7 Q16,4 17,2" pathLength="1" fill="none" stroke-width="0.3" stroke-linecap="round" style="stroke:rgba(var(--dgm-ink), 0.12)"/>
+              <path d="M33,5 Q34,3 35,1" pathLength="1" fill="none" stroke-width="0.3" stroke-linecap="round" style="stroke:rgba(var(--dgm-ink), 0.12)"/>
+              <path d="M25,5 Q24,3 23,1" pathLength="1" fill="none" stroke-width="0.3" stroke-linecap="round" style="stroke:rgba(var(--dgm-ink), 0.12)"/>
+            </g>
+            <g class="ev-leaves">
+              <circle cx="4" cy="3" r="1.5" style="fill:rgba(var(--dgm-ink), 0.5)"/>
+              <circle cx="12" cy="4" r="1.5" style="fill:rgba(var(--dgm-ink), 0.5)"/>
+              <circle cx="17" cy="2" r="1.5" style="fill:rgba(var(--dgm-ink), 0.5)"/>
+              <circle cx="20" cy="3" r="1.5" style="fill:rgba(var(--dgm-ink), 0.5)"/>
+              <circle cx="23" cy="1" r="1.5" style="fill:rgba(var(--dgm-ink), 0.5)"/>
+              <circle cx="25" cy="5" r="1.5" style="fill:rgba(var(--dgm-ink), 0.5)"/>
+              <circle cx="33" cy="5" r="1.5" style="fill:rgba(var(--dgm-ink), 0.5)"/>
+              <circle cx="35" cy="1" r="1.5" style="fill:rgba(var(--dgm-ink), 0.5)"/>
+              <circle cx="6" cy="8" r="1.5" style="fill:rgba(var(--dgm-ink), 0.5)"/>
+              <circle cx="15" cy="7" r="1.5" style="fill:rgba(var(--dgm-ink), 0.5)"/>
+            </g>
+            <g class="ev-pulse">
+              <circle cx="4" cy="3" r="1.5" fill="none" stroke-width="0.4" style="stroke:rgba(var(--dgm-ink), 0.3)"/>
+              <circle cx="20" cy="3" r="1.5" fill="none" stroke-width="0.4" style="stroke:rgba(var(--dgm-ink), 0.3)"/>
+              <circle cx="35" cy="1" r="1.5" fill="none" stroke-width="0.4" style="stroke:rgba(var(--dgm-ink), 0.3)"/>
+              <circle cx="12" cy="4" r="1.5" fill="none" stroke-width="0.4" style="stroke:rgba(var(--dgm-ink), 0.3)"/>
+            </g>
+            <circle class="ev-root" cx="20" cy="37" r="1.2" style="fill:rgba(var(--dgm-ink), 0.25)"/>
+          </svg>
+        </div>
+        <h4 class="ptl-title">Evolve</h4>
+        <p class="ptl-desc">Deploy, monitor, and continuously improve. The system gets smarter as your business grows.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+<!--#dgm:process-timeline:end-->
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ═══════════════════════════ perspective + work ═══════════════════════════ -->
+<div class="band band--dark">
+  <section class="section">
+    <div class="container">
+      <div class="feature feature--flip">
+        <div class="feature-text" data-reveal>
+          <p class="eyebrow">Our perspective</p>
+          <h2>Designed for everyone who uses it.</h2>
+          <p>
+            Software fails when it is designed for the person who bought it. We interview the
+            estimator, the field lead, the admin, and the new hire — because the system only works
+            if the person with the least time and the most interruptions can use it on a bad day.
+          </p>
+        </div>
+        <div class="feature-visual" data-reveal>
+          <div class="dgm-wrap">
+            <!--#dgm:perspective-wheel:begin-->
+<svg class="dgm dgm--perspective-wheel" viewBox="-12 -3 124 106" role="img" aria-labelledby="perspective-wheel-t">
+  <title id="perspective-wheel-t">A wheel of twelve organisational roles arranged as spokes around a central hub, each with a pie wedge that lights up to complete the full picture.</title>
+
+  <defs>
+    <filter id="perspective-wheel-glow">
+      <feGaussianBlur stdDeviation="1" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Pie slices (behind everything) -->
+  <g class="pw-slices" stroke-width="0.2" style="fill:rgba(var(--dgm-ink), 0.03);stroke:rgba(var(--dgm-ink), 0.04)">
+    <path class="pw-slice" d="M42.338,18.931 A32,32 0 0,1 57.662,18.931 L53.831,34.465 A16,16 0 0,0 46.169,34.465 Z" />
+    <path class="pw-slice" d="M58.899,19.262 A32,32 0 0,1 72.17,26.925 L61.085,38.462 A16,16 0 0,0 54.449,34.631 Z" />
+    <path class="pw-slice" d="M73.075,27.83 A32,32 0 0,1 80.738,41.101 L65.369,45.551 A16,16 0 0,0 61.538,38.915 Z" />
+    <path class="pw-slice" d="M81.069,42.338 A32,32 0 0,1 81.069,57.662 L65.535,53.831 A16,16 0 0,0 65.535,46.169 Z" />
+    <path class="pw-slice" d="M80.738,58.899 A32,32 0 0,1 73.075,72.17 L61.538,61.085 A16,16 0 0,0 65.369,54.449 Z" />
+    <path class="pw-slice" d="M72.17,73.075 A32,32 0 0,1 58.899,80.738 L54.449,65.369 A16,16 0 0,0 61.085,61.538 Z" />
+    <path class="pw-slice" d="M57.662,81.069 A32,32 0 0,1 42.338,81.069 L46.169,65.535 A16,16 0 0,0 53.831,65.535 Z" />
+    <path class="pw-slice" d="M41.101,80.738 A32,32 0 0,1 27.83,73.075 L38.915,61.538 A16,16 0 0,0 45.551,65.369 Z" />
+    <path class="pw-slice" d="M26.925,72.17 A32,32 0 0,1 19.262,58.899 L34.631,54.449 A16,16 0 0,0 38.462,61.085 Z" />
+    <path class="pw-slice" d="M18.931,57.662 A32,32 0 0,1 18.931,42.338 L34.465,46.169 A16,16 0 0,0 34.465,53.831 Z" />
+    <path class="pw-slice" d="M19.262,41.101 A32,32 0 0,1 26.925,27.83 L38.462,38.915 A16,16 0 0,0 34.631,45.551 Z" />
+    <path class="pw-slice" d="M27.83,26.925 A32,32 0 0,1 41.101,19.262 L45.551,34.631 A16,16 0 0,0 38.915,38.462 Z" />
+  </g>
+
+  <!-- Spokes from centre to each role -->
+  <g class="pw-spokes" stroke-width="0.3" style="stroke:rgba(var(--dgm-ink), 0.08)">
+    <line class="pw-spoke" pathLength="1" x1="50" y1="36" x2="50" y2="20" />
+    <line class="pw-spoke" pathLength="1" x1="57" y1="37.876" x2="65" y2="24.019" />
+    <line class="pw-spoke" pathLength="1" x1="62.124" y1="43" x2="75.981" y2="35" />
+    <line class="pw-spoke" pathLength="1" x1="64" y1="50" x2="80" y2="50" />
+    <line class="pw-spoke" pathLength="1" x1="62.124" y1="57" x2="75.981" y2="65" />
+    <line class="pw-spoke" pathLength="1" x1="57" y1="62.124" x2="65" y2="75.981" />
+    <line class="pw-spoke" pathLength="1" x1="50" y1="64" x2="50" y2="80" />
+    <line class="pw-spoke" pathLength="1" x1="43" y1="62.124" x2="35" y2="75.981" />
+    <line class="pw-spoke" pathLength="1" x1="37.876" y1="57" x2="24.019" y2="65" />
+    <line class="pw-spoke" pathLength="1" x1="36" y1="50" x2="20" y2="50" />
+    <line class="pw-spoke" pathLength="1" x1="37.876" y1="43" x2="24.019" y2="35" />
+    <line class="pw-spoke" pathLength="1" x1="43" y1="37.876" x2="35" y2="24.019" />
+  </g>
+
+  <!-- Outer ring (draws as wheel completes) -->
+  <circle class="pw-ring pw-ring-outer" pathLength="1" cx="50" cy="50" r="32" fill="none" stroke-width="0.3" style="stroke:rgba(var(--dgm-ink), 0.06)"/>
+
+  <!-- Inner ring -->
+  <circle class="pw-ring pw-ring-inner" pathLength="1" cx="50" cy="50" r="14" fill="none" stroke-width="0.3" style="stroke:rgba(var(--dgm-ink), 0.06)"/>
+
+  <!-- Node dots on the ring -->
+  <g class="pw-nodes" style="fill:rgba(var(--dgm-ink), 0.6)">
+    <circle class="pw-node" cx="50" cy="20" r="1.4" />
+    <circle class="pw-node" cx="65" cy="24.019" r="1.4" />
+    <circle class="pw-node" cx="75.981" cy="35" r="1.4" />
+    <circle class="pw-node" cx="80" cy="50" r="1.4" />
+    <circle class="pw-node" cx="75.981" cy="65" r="1.4" />
+    <circle class="pw-node" cx="65" cy="75.981" r="1.4" />
+    <circle class="pw-node" cx="50" cy="80" r="1.4" />
+    <circle class="pw-node" cx="35" cy="75.981" r="1.4" />
+    <circle class="pw-node" cx="24.019" cy="65" r="1.4" />
+    <circle class="pw-node" cx="20" cy="50" r="1.4" />
+    <circle class="pw-node" cx="24.019" cy="35" r="1.4" />
+    <circle class="pw-node" cx="35" cy="24.019" r="1.4" />
+  </g>
+
+  <!-- Role labels -->
+  <g class="pw-labels" style="fill:rgba(var(--dgm-ink), 0.5)">
+    <text class="pw-label" x="50" y="4.5" text-anchor="middle" dominant-baseline="central">Executive</text>
+    <text class="pw-label" x="74" y="10.127" text-anchor="start" dominant-baseline="central">Director</text>
+    <text class="pw-label" x="89.373" y="25.5" text-anchor="start" dominant-baseline="central">Manager</text>
+    <text class="pw-label" x="95" y="50.5" text-anchor="start" dominant-baseline="central">Team Lead</text>
+    <text class="pw-label" x="89.373" y="75.5" text-anchor="start" dominant-baseline="central">Engineer</text>
+    <text class="pw-label" x="74" y="90.873" text-anchor="start" dominant-baseline="central">Analyst</text>
+    <text class="pw-label" x="50" y="96.5" text-anchor="middle" dominant-baseline="central">Specialist</text>
+    <text class="pw-label" x="26" y="90.873" text-anchor="end" dominant-baseline="central">Coordinator</text>
+    <text class="pw-label" x="10.627" y="75.5" text-anchor="end" dominant-baseline="central">Operator</text>
+    <text class="pw-label" x="5" y="50.5" text-anchor="end" dominant-baseline="central">Admin</text>
+    <text class="pw-label" x="10.627" y="25.5" text-anchor="end" dominant-baseline="central">New Hire</text>
+    <text class="pw-label" x="26" y="10.127" text-anchor="end" dominant-baseline="central">End User</text>
+  </g>
+
+  <!-- Centre hub -->
+  <circle class="pw-hub" cx="50" cy="50" r="13" stroke-width="0.4" filter="url(#perspective-wheel-glow)" style="fill:rgba(var(--dgm-ink), 0.04);stroke:rgba(var(--dgm-ink), 0.15)"/>
+
+  <!-- DTG hexagon-D mark (replaces the removed centre image) -->
+  <g class="pw-mark">
+    <!-- Stroke widths stay in the mark's own 64x72 space (3.75 / 6.7). The
+         nested viewBox already scales them; pre-scaling them here thinned the
+         mark to a hairline. Caps are butt and joins mitred — the real mark has
+         square arm ends and sharp hexagon corners, not rounded ones.
+         Scale 0.32 puts the hexagon's circumradius (~36 mark units) at ~11.5,
+         comfortably inside the r=13 hub rather than touching it.
+         The mark's centre (32, 35.9) lands on the hub centre (50, 50). -->
+    <svg x="39.76" y="38.512" width="20.48" height="23.04" viewBox="0 0 64 72"
+         fill="none" stroke-linejoin="miter"
+         stroke-miterlimit="10" stroke-linecap="butt" style="stroke:var(--dgm-accent)">
+      <path d="M32 2.06 L61.6 18.98 L61.6 52.82 L32 69.74 L2.4 52.82 L2.4 18.98 Z" stroke-width="3.75" />
+      <path d="M16.25 23.9 L35.25 23.9 C41.65 23.9 46.85 28.7 46.85 35.9 C46.85 43.1 41.65 48.1 35.25 48.1 L19.6 48.1 L19.6 30.4" stroke-width="6.7" />
+    </svg>
+  </g>
+
+  <!-- Completion pulse (loops forever once visible) -->
+  <circle class="pw-pulse" cx="50" cy="50" r="32" fill="none" stroke-width="0.4" style="stroke:rgba(var(--dgm-ink), 0.15)"/>
+</svg>
+<!--#dgm:perspective-wheel:end-->
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="work">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <p class="eyebrow">Selected work</p>
+        <h2>Not everything we build wears a suit.</h2>
+        <p class="lede">
+          Storefronts, configurators, and a free mobile app. The engineering discipline is the same;
+          only the audience changes.
+        </p>
+      </div>
+
+      <div class="work" data-reveal-stagger>
+        <article class="work-card" data-reveal>
+          <div class="work-logo">
+            <img src="images/partners/hornet-outdoors.png" alt="Hornet Outdoors &amp; Tactical" width="272" height="86" loading="lazy">
+          </div>
+          <div class="work-body">
+            <p class="work-tag">E-commerce · Powersports</p>
+            <h3>Hornet Outdoors &amp; Tactical</h3>
+            <p>
+              A Colorado manufacturer of American-made, tool-free cargo racks and accessories for
+              UTVs and side-by-sides, plus an outdoor and tactical gear line.
+            </p>
+            <a class="work-link" href="https://hornetot.com/" target="_blank" rel="noopener noreferrer">
+              hornetot.com
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
+            </a>
+          </div>
+        </article>
+
+        <article class="work-card" data-reveal>
+          <div class="work-logo">
+            <img src="images/partners/badland-campers.png" alt="Badland Campers" width="373" height="240" loading="lazy">
+          </div>
+          <div class="work-body">
+            <p class="work-tag">Configurator · Overland</p>
+            <h3>Badland Campers</h3>
+            <p>
+              Premium off-road camper trailers, sold through an interactive build-your-own
+              configurator that prices and previews every option as you go.
+            </p>
+            <a class="work-link" href="https://badlandcampers.com/" target="_blank" rel="noopener noreferrer">
+              badlandcampers.com
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
+            </a>
+          </div>
+        </article>
+
+        <article class="work-card" data-reveal>
+          <div class="work-logo">
+            <img class="is-app-icon" src="images/partners/beginners-sponsorship-guide.png" alt="Beginners Sponsorship Guide" width="256" height="256" loading="lazy">
+          </div>
+          <div class="work-body">
+            <p class="work-tag">Mobile · Community, pro bono</p>
+            <h3>Beginners Sponsorship Guide</h3>
+            <p>
+              A free iOS and Android app, built and given away. Device-identity auth, no passwords,
+              no accounts, no analytics — inventories never leave the pair of people they belong to.
+            </p>
+            <a class="work-link" href="https://github.com/grantdozier/beginners-sponsorship-guide" target="_blank" rel="noopener noreferrer">
+              Source &amp; privacy policy
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
+            </a>
+          </div>
+        </article>
+      </div>
+
+      <p class="note">
+        The Beginners Sponsorship Guide is a community-service project offered free of charge. It is
+        not affiliated with, endorsed by, or associated with Alcoholics Anonymous World Services,
+        Inc. All A.A. literature referenced in the app remains under the copyright of A.A.W.S.
+      </p>
+    </div>
+  </section>
+</div>
+
+<!-- ═══════════════════════════ case studies ═══════════════════════════ -->
+<div class="band band--light">
+  <section class="section" id="clients">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <p class="eyebrow">Case studies</p>
+        <h2>Measured outcomes, in their words.</h2>
+        <p class="lede">Two engagements, start to finish — the problem, what we built, and what changed.</p>
+      </div>
+
+      <!-- ─── Royal Engineering ─── -->
+      <article class="case case--featured" data-reveal>
+        <div class="case-head">
+          <div class="case-client">
+            <img src="images/partners/royal-engineering-mono.png" alt="Royal Engineering" width="272" height="69" loading="lazy">
+            <span>Civil engineering · Louisiana, USA</span>
+          </div>
+          <span class="case-tag">AI automation</span>
+        </div>
+
+        <h3>Settlement report processing: from weeks to minutes</h3>
+        <p class="case-sub">
+          How custom AI-powered automation eliminated manual data entry and accelerated project
+          delivery for a coastal engineering firm.
+        </p>
+
+        <div class="case-block">
+          <h4>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg>
+            The challenge
+          </h4>
+          <p>
+            Engineers were spending multiple weeks manually entering data from PSDDF (.pso) and
+            SETTLE3 (.pdf) model outputs into Excel spreadsheets, then manipulating that data to
+            generate settlement analysis graphs and account for variables like sea level rise.
+          </p>
+        </div>
+
+        <div class="case-block">
+          <h4>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg>
+            The solution
+          </h4>
+          <ul>
+            <li>Processes up to <strong>300 model output files</strong> simultaneously</li>
+            <li>Automatically extracts and structures settlement data with zero manual entry</li>
+            <li>Generates complete Excel workbooks with all required graphs and calculations</li>
+            <li>Accounts for sea level rise and other project-specific variables automatically</li>
+          </ul>
+          <p class="tech-stack"><strong>Built with:</strong> React.js frontend, .NET backend API</p>
+        </div>
+
+        <div class="case-block">
+          <h4>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 20h18M6 16l4-5 3 3 5-7"/></svg>
+            The results
+          </h4>
+          <dl class="case-metrics">
+            <div><dt>Weeks → Minutes</dt><dd>Time savings</dd></div>
+            <div><dt>300</dt><dd>Files per upload</dd></div>
+            <div><dt>Shortened</dt><dd>QA/QC time</dd></div>
+            <div><dt>15–25 days</dt><dd>Off the project timeline</dd></div>
+          </dl>
+        </div>
+
+        <blockquote>
+          “Dozier Tech Group delivered an exceptional solution that transformed our settlement
+          analysis process, and it has been a game changer for our workflow. What once took weeks is
+          now completed in minutes, with significantly improved accuracy and scalability. They
+          eliminated time-consuming manual processes, shortened QAQC time, and enabled us to handle
+          significantly larger volumes of data with ease. The results exceeded expectations both in
+          performance and speed. Their team demonstrated strong technical expertise, responsiveness,
+          and a clear understanding of our engineering needs. A highly effective and professional
+          team.”
+          <footer>
+            <span><strong>Ryan Hebert, PE</strong> · Lead Engineer, Royal Engineering</span>
+          </footer>
+        </blockquote>
+
+        <div class="case-foot">
+          <a class="btn btn--primary" href="#contact">
+            Start your project
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+        </div>
+      </article>
+
+      <!-- ─── Chase Group ─── -->
+      <article class="case case--featured" data-reveal>
+        <div class="case-head">
+          <div class="case-client">
+            <img src="images/partners/chase-group-mono.png" alt="Chase Group Construction" width="169" height="82" loading="lazy">
+            <span>Commercial construction · Louisiana, USA</span>
+          </div>
+          <span class="case-tag">AI + robotics</span>
+        </div>
+
+        <h3>AI-powered intelligence platform &amp; autonomous robotics</h3>
+        <p class="case-sub">
+          How a leading commercial construction firm leveraged a $30,000 pilot to gain competitive
+          advantage through AI and robotics — adding 10–20 hours of productive capacity per person,
+          per project.
+        </p>
+
+        <div class="case-block">
+          <h4>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 19l3-3M12 3c4 2 7 6 7 11a7 7 0 1 1-14 0c0-5 3-9 7-11z"/></svg>
+            The opportunity
+          </h4>
+          <p>
+            Chase Group Construction, managing multiple high-value concurrent projects, saw an
+            opportunity to gain significant competitive advantage by leveraging emerging AI and
+            robotics technologies. Their next phase of growth required capturing institutional
+            intelligence, increasing bid velocity, deploying autonomous site technologies, and
+            seamless integration without disrupting proven workflows.
+          </p>
+        </div>
+
+        <div class="case-block">
+          <h4>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg>
+            The solution
+          </h4>
+          <p><strong>AI-powered intelligence platform</strong></p>
+          <ul>
+            <li><strong>Intelligent quote aggregation:</strong> the team keeps texting and emailing
+              vendor quotes exactly as they always have. The system extracts vendor details,
+              materials, pricing, and project context, building a searchable database in the
+              background.</li>
+            <li><strong>AI-accelerated material takeoffs:</strong> upload architectural plans and the
+              system identifies and quantifies materials, generating detailed estimates that augment
+              the estimator's expertise rather than replace it.</li>
+            <li><strong>Institutional memory:</strong> a vector database learns from every quote,
+              estimate, and project decision — turning years of collective experience into something
+              a new hire can query on day one.</li>
+            <li><strong>Claude, with tools:</strong> job costing, RFIs, submittals, schedule, budget,
+              and inbox search exposed to Claude through a custom MCP server, scoped by role and
+              audited on every write.</li>
+          </ul>
+          <p><strong>Autonomous robotics R&amp;D partnership</strong></p>
+          <ul>
+            <li><strong>Pilot site-survey robots:</strong> ongoing development and testing of autonomous
+              robots for site surveys and building assessments, with full-scale rollout planned as the
+              technology matures.</li>
+            <li><strong>AI integration framework:</strong> the data infrastructure and models to process
+              robot-generated data streams for predictive scheduling and proactive safety monitoring.</li>
+            <li><strong>Advanced surveillance prototypes:</strong> active R&amp;D on next-generation
+              autonomous site monitoring for 24/7 intelligence and anomaly detection.</li>
+          </ul>
+          <p class="tech-stack"><strong>Built with:</strong> React.js frontend, .NET backend API, Chroma vector database, Model Context Protocol, Microsoft Graph, QuickBooks</p>
+        </div>
+
+        <div class="case-block">
+          <h4>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 20h18M6 16l4-5 3 3 5-7"/></svg>
+            The impact
+          </h4>
+          <dl class="case-metrics">
+            <div><dt>10–20 hrs</dt><dd>Saved per person, per project</dd></div>
+            <div><dt>60 days</dt><dd>Pilot to full operation</dd></div>
+            <div><dt>$30K</dt><dd>Pilot investment</dd></div>
+            <div><dt>Ongoing</dt><dd>Strategic partnership</dd></div>
+          </dl>
+          <ul style="margin-top:1.5rem">
+            <li><strong>Frictionless adoption:</strong> zero workflow disruption — the team continues
+              operating exactly as before while the system builds intelligence in the background.</li>
+            <li><strong>Robotics R&amp;D partnership:</strong> active collaboration on autonomous site
+              robotics, positioning Chase Group at the forefront of construction technology.</li>
+            <li><strong>Institutional knowledge amplification:</strong> years of project history turned
+              into instantly accessible competitive intelligence.</li>
+          </ul>
+        </div>
+
+        <div class="case-foot">
+          <a class="btn btn--primary" href="#contact">
+            Start your project
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+        </div>
+      </article>
+    </div>
+  </section>
+</div>
+
+<!-- ═══════════════════════════ contact ═══════════════════════════ -->
+<div class="band band--dark">
+  <section class="section" id="contact">
+    <div class="bloom" aria-hidden="true"></div>
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <p class="eyebrow">Get in touch</p>
+        <h2>Tell us about your project.</h2>
+      </div>
+
+      <div class="contact-grid">
+        <div data-reveal>
+          <div class="contact-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+            <div>
+              <h4>Email</h4>
+              <p><a href="mailto:grant@doziertechgroup.com">grant@doziertechgroup.com</a></p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a1 1 0 0 1-1.1 1A16 16 0 0 1 4 5.1 1 1 0 0 1 5 4z"/></svg>
+            <div>
+              <h4>Phone</h4>
+              <p><a href="tel:+13374124767">(337) 412-4767</a></p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+            <div>
+              <h4>Based in</h4>
+              <p>Louisiana · working with clients anywhere</p>
+            </div>
+          </div>
+        </div>
+
+        <form class="form" id="contact-form" novalidate data-reveal>
+          <div class="form-row">
+            <div class="field">
+              <label for="name">Name</label>
+              <input type="text" id="name" name="name" autocomplete="name" placeholder="Jane Doe" required>
+              <p class="field-error" id="name-error" aria-live="polite"></p>
+            </div>
+            <div class="field">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" autocomplete="email" placeholder="jane@company.com" required>
+              <p class="field-error" id="email-error" aria-live="polite"></p>
+            </div>
+          </div>
+          <div class="field">
+            <label for="subject">Subject</label>
+            <input type="text" id="subject" name="subject" placeholder="Estimating takes three days">
+          </div>
+          <div class="field">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="5" placeholder="What does the process look like today, and where does it hurt?" required></textarea>
+            <p class="field-error" id="message-error" aria-live="polite"></p>
+          </div>
+
+          <div class="hp" aria-hidden="true">
+            <label for="company">Company</label>
+            <input type="text" id="company" name="company" tabindex="-1" autocomplete="off">
+          </div>
+
+          <p class="form-status" id="form-status" role="status" aria-live="polite" hidden></p>
+
+          <button class="btn btn--primary btn--block" type="submit">
+            Send message
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+</div>
+</main>
+
+<!-- ═══════════════════════════ footer ═══════════════════════════ -->
+<div class="band band--dark">
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a class="brand" href="#top" aria-label="Dozier Tech Group, home">
+            <svg viewBox="0 0 64 72" aria-hidden="true" focusable="false">
+              <g fill="none" stroke="currentColor" stroke-linejoin="miter" stroke-miterlimit="10">
+                <path stroke-width="3.75" d="M32 2.06 L61.6 18.98 L61.6 52.82 L32 69.74 L2.4 52.82 L2.4 18.98 Z"/>
+                <path stroke-width="6.7" stroke-linecap="butt" d="M16.25 23.9 L35.25 23.9 C41.65 23.9 46.85 28.7 46.85 35.9 C46.85 43.1 41.65 48.1 35.25 48.1 L19.6 48.1 L19.6 30.4"/>
+              </g>
+            </svg>
+            <span class="brand-word"><b>DOZIER</b><span>TECH GROUP</span></span>
+          </a>
+          <p>
+            AI-powered intelligence platforms for operationally complex businesses. If a computer
+            can do it, a person shouldn’t have to.
+          </p>
+        </div>
+
+        <div>
+          <h4>Services</h4>
+          <ul>
+            <li><a href="#services">AI enablement</a></li>
+            <li><a href="#services">Ontologies &amp; graphs</a></li>
+            <li><a href="#services">Systems integration</a></li>
+            <li><a href="#services">Workflow automation</a></li>
+            <li><a href="#services">Custom platforms</a></li>
+            <li><a href="#services">Advisory &amp; training</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4>Company</h4>
+          <ul>
+            <li><a href="#process">Our process</a></li>
+            <li><a href="#integrations">Integrations</a></li>
+            <li><a href="#work">Selected work</a></li>
+            <li><a href="#clients">Case studies</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4>Legal</h4>
+          <ul>
+            <li><a href="privacy-policy.html">Privacy policy</a></li>
+            <li><a href="terms-and-conditions.html">Terms of service</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>© <span id="year">2026</span> Dozier Tech Group. All rights reserved.</p>
+        <nav aria-label="Legal">
+          <a href="privacy-policy.html">Privacy</a>
+          <a href="terms-and-conditions.html">Terms</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+<script src="js/site.js" defer></script>
 </body>
 </html>
