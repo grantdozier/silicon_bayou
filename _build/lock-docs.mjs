@@ -98,6 +98,35 @@ if (!/^proposal-[a-z0-9-]+$/.test(folder)) {
 const b64 = (b) => b.toString('base64');
 const page = PAGE({ salt: b64(salt), iv: b64(iv), ct: b64(ct), iterations: ITERATIONS });
 
+/* The ciphertext is safe by construction. The rest of the page is hand-written,
+   and a stray comment once shipped a client's name to the public site. Everything
+   outside the CT blob is checked here.
+
+   The words to forbid are themselves confidential, so they come from the
+   environment rather than living in this repo:
+
+     DOC_FORBID='Acme,acme-login' node _build/lock-docs.mjs ...
+
+   Names in the source filenames are checked automatically. */
+const readable = page.replace(/CT = "[^"]+"/, 'CT = ""');
+
+// Ordinary document vocabulary. Whatever is left in a filename after removing
+// these is, in practice, the client's name. Without the list, "System" from
+// System-Design.html matches "-apple-system" in the font stack.
+const VOCAB = /^(dozier|tech|group|dtg|and|the|for|proposal|statement|work|sow|master|services|agreement|msa|system|design|rate|sheet|conference|sprint|package|draft|final|docs?|documents?|v\d+)$/i;
+
+const auto = [...new Set(htmlFiles.flatMap((f) => f.replace(/\.[a-z]+$/i, '').split(/[^A-Za-z0-9]+/)))]
+  .filter((w) => w.length > 2 && !VOCAB.test(w));
+const extra = (process.env.DOC_FORBID || '').split(',').map((s) => s.trim()).filter(Boolean);
+
+const words = [...new Set([...auto, ...extra])];
+const leaked = words.filter((w) => new RegExp(`\\b${w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'i').test(readable));
+if (leaked.length) {
+  console.error(`refusing to write: the readable page contains ${leaked.map((w) => JSON.stringify(w)).join(', ')}`);
+  console.error('the ciphertext is fine; something in the template or a comment names the client.');
+  process.exit(1);
+}
+
 const outDir = path.join(SITE, folder);
 fs.mkdirSync(outDir, { recursive: true });
 fs.writeFileSync(path.join(outDir, 'index.html'), page);
@@ -144,10 +173,10 @@ function PAGE({ salt, iv, ct, iterations }) {
   .msg { min-height:1.4em; margin:16px 0 0; font-size:.88rem; color:#ff9b9b; }
 
   /* ---- unlocked ----
-     One strip: the mark, then the documents. Every document already carries
-     "Dozier Tech Group x Cox Research" on its own cover, so a wordmark up here
-     was saying it twice. The chrome is monochrome white on navy: the only blue
-     anywhere in the package belongs to the client's mark. */
+     One strip: the mark, then the documents. Every document already carries the
+     co-branded lockup on its own cover, so a wordmark up here was saying it
+     twice. The chrome is monochrome white on navy: the only blue anywhere in
+     the package belongs to the client's mark. */
   .shell { display:none; height:100%; grid-template-rows:auto 1fr; }
   body.open .gate { display:none; }
   body.open .shell { display:grid; }
