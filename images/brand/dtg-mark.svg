@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 72" role="img" aria-label="Dozier Tech Group">
+  <title>Dozier Tech Group</title>
+  <!--
+    Redrawn as vector from Dozier_Tech_Group_Logo_Packet (the packet ships raster
+    only; its README says "recreate the selected final marks as SVG/AI").
+    Fitted to icon_outline_transparent_4x.png at 2.1% pixel disagreement.
+    Inherits colour from `currentColor` so one file serves navy and reverse use.
+    The gap in the D's stem, below the top arm, is intentional — it is the mark.
+  -->
+  <g fill="none" stroke="currentColor" stroke-linejoin="miter" stroke-miterlimit="10">
+    <path stroke-width="3.75"
+          d="M32 2.06 L61.6 18.98 L61.6 52.82 L32 69.74 L2.4 52.82 L2.4 18.98 Z"/>
+    <path stroke-width="6.7" stroke-linecap="butt"
+          d="M16.25 23.9 L35.25 23.9
+             C41.65 23.9 46.85 28.7 46.85 35.9
+             C46.85 43.1 41.65 48.1 35.25 48.1
+             L19.6 48.1 L19.6 30.4"/>
+  </g>
+</svg>
