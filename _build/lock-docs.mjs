@@ -96,7 +96,9 @@ if (!/^proposal-[a-z0-9-]+$/.test(folder)) {
 }
 
 const b64 = (b) => b.toString('base64');
-const page = PAGE({ salt: b64(salt), iv: b64(iv), ct: b64(ct), iterations: ITERATIONS });
+// The count is not a secret and it sets expectations at the gate: the reader
+// knows a package is waiting, not a single file.
+const page = PAGE({ salt: b64(salt), iv: b64(iv), ct: b64(ct), iterations: ITERATIONS, count: docs.length });
 
 const outDir = path.join(SITE, folder);
 fs.mkdirSync(outDir, { recursive: true });
@@ -113,7 +115,7 @@ console.log('Give them the password by text or a call, not in the same email as 
 
 /* ---------- the page ---------- */
 
-function PAGE({ salt, iv, ct, iterations }) {
+function PAGE({ salt, iv, ct, iterations, count }) {
   return `<!doctype html>
 <html lang="en">
 <head>
@@ -143,24 +145,49 @@ function PAGE({ salt, iv, ct, iterations }) {
   button:disabled { opacity:.55; cursor:default; }
   .msg { min-height:1.4em; margin:16px 0 0; font-size:.88rem; color:#ff9b9b; }
 
-  /* ---- unlocked ---- */
+  /* ---- unlocked ----
+     The bar is two rows on purpose. One row of quiet text labels read as
+     decoration; nobody clicked them. A labelled strip of numbered tabs with a
+     live underline reads as "there are four of these, pick one". */
   .shell { display:none; height:100%; grid-template-rows:auto 1fr; }
   body.open .gate { display:none; }
   body.open .shell { display:grid; }
-  header { display:flex; align-items:center; gap:18px; padding:12px 20px;
-           background:var(--navy-900); border-bottom:1px solid rgba(255,255,255,.1); }
-  header .mark { width:26px; height:26px; margin:0; flex:none; }
-  nav { display:flex; gap:4px; flex-wrap:wrap; flex:1; }
-  nav button { background:transparent; color:rgba(255,255,255,.6); font-weight:500;
-               font-size:.88rem; padding:7px 12px; border-radius:7px; }
-  nav button:hover { color:#fff; background:rgba(255,255,255,.07); }
-  nav button[aria-current="true"] { color:#fff; background:rgba(255,255,255,.12); }
-  .badge { font-size:.62rem; letter-spacing:.06em; text-transform:uppercase;
-           color:var(--navy-400); margin-left:7px; }
+  header { background:var(--navy-900); border-bottom:1px solid rgba(255,255,255,.1); }
+
+  .bar { display:flex; align-items:center; gap:13px; padding:11px 20px 9px; }
+  .bar .mark { width:24px; height:24px; margin:0; flex:none; }
+  .bar .wm { font-size:11px; letter-spacing:.15em; text-transform:uppercase;
+             color:rgba(255,255,255,.6); font-weight:600; }
+  .bar .spacer { flex:1; }
+
+  nav { display:flex; align-items:stretch; gap:2px; padding:0 12px; overflow-x:auto;
+        border-top:1px solid rgba(255,255,255,.07); }
+  nav .lbl { align-self:center; font-size:10px; letter-spacing:.14em; text-transform:uppercase;
+             color:rgba(255,255,255,.38); padding:0 10px 0 8px; white-space:nowrap; }
+  nav button { display:flex; align-items:center; gap:9px; white-space:nowrap;
+               background:transparent; color:rgba(255,255,255,.62); font-weight:500;
+               font-size:.87rem; padding:11px 13px 9px; border-radius:0;
+               border-bottom:2px solid transparent; }
+  nav button .n { font-size:.66rem; font-weight:700; letter-spacing:.07em;
+                  color:var(--navy-400); opacity:.7; }
+  nav button:hover { color:#fff; background:rgba(255,255,255,.06); }
+  nav button[aria-current="true"] { color:#fff; background:rgba(255,255,255,.07);
+                                    border-bottom-color:var(--navy-400); }
+  nav button[aria-current="true"] .n { opacity:1; }
+
+  .badge { font-size:.6rem; letter-spacing:.06em; text-transform:uppercase; font-weight:700;
+           color:var(--navy-400); border:1px solid rgba(111,166,222,.4);
+           border-radius:3px; padding:1px 5px; }
   .dl { font-size:.82rem; color:var(--navy-400); background:transparent; padding:7px 12px;
         border:1px solid rgba(255,255,255,.16); border-radius:7px; font-weight:500; }
+  .dl:hover { border-color:var(--navy-400); background:rgba(111,166,222,.08); }
   .dl[hidden] { display:none; }
   iframe { width:100%; height:100%; border:0; background:#fff; }
+
+  @media (max-width:560px) {
+    .bar .wm { display:none; }
+    nav .lbl { display:none; }
+  }
 </style>
 </head>
 <body>
@@ -177,7 +204,7 @@ function PAGE({ salt, iv, ct, iterations }) {
 <div class="gate">
   <div class="card">
     <div id="gate-mark"></div>
-    <h1>Confidential documents</h1>
+    <h1>${count} confidential documents</h1>
     <p class="sub">Prepared by Dozier Tech Group. Enter the password you were given.</p>
     <form id="f">
       <input id="pw" type="password" autocomplete="current-password"
@@ -190,9 +217,15 @@ function PAGE({ salt, iv, ct, iterations }) {
 
 <div class="shell">
   <header>
-    <div id="head-mark"></div>
-    <nav id="tabs"></nav>
-    <button class="dl" id="dl" hidden>Download .docx</button>
+    <div class="bar">
+      <div id="head-mark"></div>
+      <span class="wm">Dozier Tech Group</span>
+      <span class="spacer"></span>
+      <button class="dl" id="dl" hidden>Download .docx</button>
+    </div>
+    <nav id="tabs" role="tablist" aria-label="Documents in this package">
+      <span class="lbl" id="tabs-label">${count} documents</span>
+    </nav>
   </header>
   <iframe id="view" sandbox="allow-same-origin allow-popups allow-modals" title="Document"></iframe>
 </div>
@@ -267,14 +300,20 @@ function PAGE({ salt, iv, ct, iterations }) {
     var tabs = document.getElementById('tabs'),
         view = document.getElementById('view'),
         dl   = document.getElementById('dl'),
+        buttons = [],
         current = null;
 
     var show = function (i) {
       current = docs[i];
-      Array.prototype.forEach.call(tabs.children, function (b, n) {
+      // Track the buttons directly: the label is also a child of <nav>, so
+      // indexing tabs.children would be off by one.
+      buttons.forEach(function (b, n) {
         b.setAttribute('aria-current', String(n === i));
+        b.setAttribute('aria-selected', String(n === i));
+        b.tabIndex = n === i ? 0 : -1;
       });
       view.srcdoc = current.html;
+      view.setAttribute('title', current.title);
       dl.hidden = !current.docx;
       dl.textContent = current.sign ? 'Download to sign' : 'Download .docx';
     };
@@ -282,7 +321,14 @@ function PAGE({ salt, iv, ct, iterations }) {
     docs.forEach(function (d, i) {
       var b = document.createElement('button');
       b.type = 'button';
-      b.textContent = d.title;
+      b.setAttribute('role', 'tab');
+
+      var n = document.createElement('span');
+      n.className = 'n';
+      n.textContent = (i + 1 < 10 ? '0' : '') + (i + 1);
+      b.appendChild(n);
+      b.appendChild(document.createTextNode(d.title));
+
       if (d.sign) {
         var s = document.createElement('span');
         s.className = 'badge';
@@ -290,6 +336,15 @@ function PAGE({ salt, iv, ct, iterations }) {
         b.appendChild(s);
       }
       b.addEventListener('click', function () { show(i); });
+      b.addEventListener('keydown', function (e) {
+        var step = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+        if (!step) return;
+        e.preventDefault();
+        var next = (i + step + docs.length) % docs.length;
+        show(next);
+        buttons[next].focus();
+      });
+      buttons.push(b);
       tabs.appendChild(b);
     });
 
