@@ -363,45 +363,134 @@ p { text-wrap: pretty; }
 }
 .card-icon svg { width: 19px; height: 19px; }
 
-/* ---------- services ----------
-   Hairlines live on the cards, not as a background showing through 1px gaps.
-   Ten cards in a four-column grid leave two empty cells, and the gap colour was
-   painting them as a tinted rectangle. */
-.services { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
-.service {
-  background: var(--panel); padding: clamp(1.6rem, 2.4vw, 2.1rem);
-  display: flex; flex-direction: column; position: relative;
-  border-right: 1px solid var(--line-soft);
-  border-bottom: 1px solid var(--line-soft);
+/* ---------- services rail ----------
+   A scroll-snap rail, not an auto-rotating carousel. It scrolls natively with a
+   trackpad, a touch swipe, or the arrow keys when focused; the buttons and dots
+   are progressive enhancement and stay hidden until JS un-hides them. Nothing
+   moves on its own — a marketing page should not steal the reader's attention. */
+.svc-carousel { position: relative; }
+
+.svc-railhead {
+  display: flex; align-items: flex-end; justify-content: space-between;
+  gap: 1rem; margin-bottom: 1.5rem;
+}
+.svc-count { font-size: 0.8rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-faint); }
+.svc-count strong { color: var(--accent); font-weight: 700; }
+
+/* An author "display" declaration beats the UA's [hidden]{display:none}, so it
+   has to be re-asserted. The controls ship hidden and JS reveals them: without
+   JS the rail still scrolls natively, and dead buttons never appear. */
+.svc-nav[hidden], .svc-dots[hidden] { display: none; }
+
+.svc-nav { display: flex; gap: 0.5rem; }
+.svc-arrow {
+  width: 44px; height: 44px; border-radius: 50%;
+  border: 1px solid var(--line-strong); background: transparent;
+  color: var(--text-muted); display: grid; place-items: center; cursor: pointer;
+  transition: color 0.2s var(--ease), border-color 0.2s var(--ease), opacity 0.2s var(--ease);
+}
+.svc-arrow svg { width: 18px; height: 18px; }
+.svc-arrow:hover:not(:disabled) { color: var(--accent); border-color: var(--accent); }
+.svc-arrow:disabled { opacity: 0.3; cursor: default; }
+
+.svc-rail {
+  display: flex; gap: 1px;
+  overflow-x: auto; overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  background: var(--line-soft);
+  border: 1px solid var(--line-soft);
+  scrollbar-width: none; -ms-overflow-style: none;
+}
+.svc-rail::-webkit-scrollbar { display: none; }
+
+.svc-card {
+  position: relative;
+  flex: 0 0 clamp(238px, 26%, 300px);
+  scroll-snap-align: start;
+  background: var(--panel);
+  padding: clamp(1.5rem, 2.2vw, 1.9rem);
+  display: flex; flex-direction: column;
+  min-height: 288px;
   transition: background 0.3s var(--ease);
 }
-.service:hover { background: var(--panel-hi); }
-.service:hover .service-num { color: var(--accent); }
-.service-num {
+.svc-card:hover { background: var(--panel-hi); }
+.svc-card:hover .svc-num { color: var(--accent); }
+
+.svc-num {
   font-size: 0.7rem; font-weight: 600; letter-spacing: 0.2em;
-  color: var(--text-faint); margin-bottom: 1.1rem;
-  transition: color 0.3s var(--ease); font-variant-numeric: tabular-nums;
+  color: var(--text-faint); font-variant-numeric: tabular-nums;
+  margin-bottom: 1.4rem; transition: color 0.3s var(--ease);
 }
-/* Reserve two lines so a one-line and a two-line title still leave the body copy
-   on a common baseline across the row. */
-.service h3 { font-size: 1.05rem; margin-bottom: 0.65rem; min-height: 2.24em; }
-/* The description grows, pushing the bullet list to the card's foot. The number
-   is also a <p>, so it has to be pinned — otherwise it absorbs the leftover
-   space and every title in the row lands at a different height. */
-.service p { font-size: 0.88rem; color: var(--text-dim); flex: 1; }
-.service p.service-num { flex: 0 0 auto; }
-.service ul { list-style: none; padding: 0; margin-top: 1.1rem; display: grid; gap: 0.45rem; }
-.service li { font-size: 0.8rem; color: var(--text-faint); display: flex; gap: 0.6rem; line-height: 1.5; }
-.service li::before {
-  content: ''; flex: none; width: 4px; height: 4px; margin-top: 0.6em;
-  border-radius: 50%; background: var(--accent); opacity: 0.7;
+/* Reserve three lines so every card's one-liner starts on the same baseline. */
+.svc-title { font-size: 1.05rem; margin-bottom: 0.7rem; min-height: 2.24em; }
+.svc-short { font-size: 0.88rem; color: var(--text-dim); flex: 1; }
+
+.svc-link {
+  margin-top: 1.5rem; font-size: 0.82rem; font-weight: 600;
+  color: var(--accent); display: inline-flex; align-items: center; gap: 0.45rem;
 }
-.service-badge {
-  position: absolute; top: 1.2rem; right: 1.2rem;
-  font-size: 0.6rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
-  color: var(--accent); border: 1px solid var(--accent); border-radius: 100px;
-  padding: 0.25rem 0.6rem; opacity: 0.85;
+.svc-link svg { width: 14px; height: 14px; transition: transform 0.2s var(--ease); }
+.svc-card:hover .svc-link svg { transform: translateX(3px); }
+/* Stretch the link over the whole card so the card is the click target. */
+.svc-link::after { content: ''; position: absolute; inset: 0; }
+
+.svc-dots { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; list-style: none; padding: 0; margin-top: 1.75rem; }
+.svc-dots button {
+  width: 28px; height: 4px; border: 0; border-radius: 100px; padding: 0;
+  background: var(--line-strong); cursor: pointer;
+  transition: background 0.25s var(--ease);
 }
+.svc-dots button[aria-current='true'] { background: var(--accent); }
+
+.nowrap { white-space: nowrap; }
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+/* ---------- service pages ---------- */
+.page-hero { padding-block: calc(var(--nav-h) + clamp(3rem, 6vw, 5rem)) clamp(3.5rem, 7vw, 6rem); }
+.page-hero h1 { font-size: clamp(2rem, 4.4vw, 3.2rem); letter-spacing: -0.03em; max-width: 20ch; }
+.page-hero .lede { margin-top: 1.5rem; }
+.page-hero .hero-actions { margin-top: 2.25rem; }
+
+.crumbs { display: flex; align-items: center; gap: 0.6rem; font-size: 0.78rem; color: var(--text-faint); margin-bottom: 2rem; flex-wrap: wrap; }
+.crumbs a:hover { color: var(--accent); }
+
+.split { display: grid; grid-template-columns: 1.15fr 1fr; gap: clamp(2.5rem, 6vw, 5rem); align-items: start; }
+.split h2 { font-size: clamp(1.4rem, 2.2vw, 1.8rem); margin-bottom: 1.5rem; }
+.prose { max-width: 64ch; }
+.prose p { color: var(--text-muted); font-size: 0.98rem; }
+.prose p + p { margin-top: 1.1rem; }
+
+.steps { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1px; background: var(--line-soft); border: 1px solid var(--line-soft); }
+.step { background: var(--panel); padding: clamp(1.5rem, 2.2vw, 2rem); }
+.step-num { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.2em; color: var(--accent); display: block; margin-bottom: 1.2rem; }
+.step h3 { font-size: 1rem; margin-bottom: 0.6rem; }
+.step p { font-size: 0.875rem; color: var(--text-dim); }
+
+.practice { max-width: 72ch; }
+.practice h2 { font-size: clamp(1.5rem, 2.6vw, 2rem); margin-bottom: 1.25rem; }
+.practice .case-metrics { margin-top: 2rem; }
+
+.pager { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.pager-link {
+  border: 1px solid var(--line); border-radius: var(--radius);
+  padding: 1.4rem 1.6rem; background: var(--panel);
+  transition: border-color 0.25s var(--ease), background 0.25s var(--ease);
+}
+.pager-link:hover { border-color: var(--accent); background: var(--panel-hi); }
+.pager-link span { display: block; font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-faint); margin-bottom: 0.5rem; }
+.pager-link strong { font-size: 0.95rem; font-weight: 600; color: var(--text-strong); }
+.pager-link--next { text-align: right; }
+
+.cta-strip {
+  margin-top: clamp(3rem, 6vw, 4.5rem); padding-top: clamp(3rem, 6vw, 4.5rem);
+  border-top: 1px solid var(--line-soft);
+  display: flex; align-items: center; justify-content: space-between; gap: 2rem; flex-wrap: wrap;
+}
+.cta-strip h2 { font-size: clamp(1.5rem, 2.8vw, 2.1rem); }
 
 /* ---------- feature rows ---------- */
 .feature { display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: clamp(2.5rem, 6vw, 6rem); }
@@ -592,7 +681,7 @@ blockquote footer strong { color: var(--text-strong); font-weight: 600; }
 /* ---------- scroll reveal ---------- */
 [data-reveal] {
   opacity: 0; transform: translateY(22px);
-  transition: opacity 0.8s var(--ease), transform 0.8s var(--ease);
+  transition: opacity 0.55s var(--ease), transform 0.55s var(--ease);
   transition-delay: var(--reveal-delay, 0ms);
 }
 [data-reveal].is-visible { opacity: 1; transform: none; }
@@ -624,7 +713,7 @@ blockquote footer strong { color: var(--text-strong); font-weight: 600; }
   .services { grid-template-columns: repeat(2, 1fr); }
 }
 @media (max-width: 980px) {
-  .feature, .contact-grid { grid-template-columns: 1fr; }
+  .feature, .contact-grid, .split { grid-template-columns: 1fr; }
   .feature--flip .feature-text { order: 0; }
   .feature-visual { order: 1; }
   .grid--3 { grid-template-columns: repeat(2, 1fr); }
@@ -646,7 +735,13 @@ blockquote footer strong { color: var(--text-strong); font-weight: 600; }
   .nav-links a { display: block; padding: 0.9rem 0; border-bottom: 1px solid rgba(255, 255, 255, 0.06); font-size: 1rem; }
   .nav .btn { display: none; }
 
-  .grid--3, .grid--2, .services { grid-template-columns: 1fr; }
+  .grid--3, .grid--2 { grid-template-columns: 1fr; }
+  .pager { grid-template-columns: 1fr; }
+  .pager-link--next { text-align: left; }
+  .svc-card { flex-basis: 78vw; }
+  /* One dot per card on mobile: ten 28px pills would overrun the rail. */
+  .svc-dots { gap: 0.375rem; }
+  .svc-dots button { width: 18px; }
   .form-row { grid-template-columns: 1fr; }
   .hero { min-height: auto; padding-block: calc(var(--nav-h) + 3rem) 4rem; }
   .hero-proof { grid-template-columns: 1fr; gap: 1.5rem; }

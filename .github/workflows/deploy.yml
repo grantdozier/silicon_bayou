@@ -21,7 +21,9 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p dist
-          for d in css js images; do
+          # `services/` is generated from _build/services.data.mjs and committed.
+          # _build/ itself is never published.
+          for d in css js images services; do
             [ -d "$d" ] && cp -r "$d" dist/
           done
           # Original client artwork with baked-in backgrounds. Kept in git as the

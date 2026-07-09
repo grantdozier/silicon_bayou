@@ -54,7 +54,7 @@
           io.unobserve(entry.target);
         });
       },
-      { rootMargin: '0px 0px -12% 0px', threshold: 0.05 }
+      { rootMargin: '0px 0px -6% 0px', threshold: 0.02 }
     );
     targets.forEach(function (el) { io.observe(el); });
 
@@ -93,6 +93,81 @@
       { threshold: 0.6 }
     );
     counters.forEach(function (el) { cio.observe(el); });
+  }
+
+  /* ---------- services rail ----------
+     A scroll-snap rail, not a carousel: nothing rotates on its own. The rail is
+     a native scroll container, so a trackpad, a swipe, or the arrow keys work
+     with JS switched off. The buttons and dots ship `hidden` and are revealed
+     here, so a broken script never leaves dead controls on the page. */
+  var rail = document.getElementById('svc-rail');
+  if (rail) {
+    var railNav = document.querySelector('.svc-nav');
+    var dots = document.querySelector('.svc-dots');
+    var cards = rail.querySelectorAll('.svc-card');
+    var arrows = railNav.querySelectorAll('.svc-arrow');
+    var behavior = reduced ? 'auto' : 'smooth';
+
+    // One "page" is however many whole cards currently fit.
+    var metrics = function () {
+      var card = cards[0].getBoundingClientRect().width + 1; // +1px rail gap
+      var per = Math.max(1, Math.floor((rail.clientWidth + 1) / card));
+      return { card: card, per: per, page: card * per };
+    };
+
+    var sync = function () {
+      var m = metrics();
+      var max = rail.scrollWidth - rail.clientWidth;
+      arrows[0].disabled = rail.scrollLeft <= 1;
+      arrows[1].disabled = rail.scrollLeft >= max - 1;
+      var active = max <= 1 ? 0 : Math.round(rail.scrollLeft / m.page);
+      dots.querySelectorAll('button').forEach(function (b, i) {
+        b.setAttribute('aria-current', String(i === active));
+      });
+    };
+
+    var buildDots = function () {
+      var m = metrics();
+      var pages = Math.max(1, Math.ceil(cards.length / m.per));
+      dots.innerHTML = '';
+      for (var i = 0; i < pages; i++) {
+        var li = document.createElement('li');
+        var b = document.createElement('button');
+        b.type = 'button';
+        b.setAttribute('aria-label', 'Show services starting at number ' + (i * m.per + 1));
+        b.dataset.page = String(i);
+        b.addEventListener('click', function () {
+          rail.scrollTo({ left: Number(this.dataset.page) * metrics().page, behavior: behavior });
+        });
+        li.appendChild(b);
+        dots.appendChild(li);
+      }
+      // With everything visible at once there is nothing to page through.
+      dots.hidden = pages < 2;
+      railNav.hidden = pages < 2;
+    };
+
+    arrows.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        rail.scrollBy({ left: Number(btn.dataset.dir) * metrics().page, behavior: behavior });
+      });
+    });
+
+    var ticking = false;
+    rail.addEventListener('scroll', function () {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(function () { ticking = false; sync(); });
+    }, { passive: true });
+
+    var resizeTimer;
+    window.addEventListener('resize', function () {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(function () { buildDots(); sync(); }, 150);
+    });
+
+    buildDots();
+    sync();
   }
 
   /* ---------- contact form ----------
