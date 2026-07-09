@@ -96,9 +96,7 @@ if (!/^proposal-[a-z0-9-]+$/.test(folder)) {
 }
 
 const b64 = (b) => b.toString('base64');
-// The count is not a secret and it sets expectations at the gate: the reader
-// knows a package is waiting, not a single file.
-const page = PAGE({ salt: b64(salt), iv: b64(iv), ct: b64(ct), iterations: ITERATIONS, count: docs.length });
+const page = PAGE({ salt: b64(salt), iv: b64(iv), ct: b64(ct), iterations: ITERATIONS });
 
 const outDir = path.join(SITE, folder);
 fs.mkdirSync(outDir, { recursive: true });
@@ -115,7 +113,7 @@ console.log('Give them the password by text or a call, not in the same email as 
 
 /* ---------- the page ---------- */
 
-function PAGE({ salt, iv, ct, iterations, count }) {
+function PAGE({ salt, iv, ct, iterations }) {
   return `<!doctype html>
 <html lang="en">
 <head>
@@ -146,48 +144,43 @@ function PAGE({ salt, iv, ct, iterations, count }) {
   .msg { min-height:1.4em; margin:16px 0 0; font-size:.88rem; color:#ff9b9b; }
 
   /* ---- unlocked ----
-     The bar is two rows on purpose. One row of quiet text labels read as
-     decoration; nobody clicked them. A labelled strip of numbered tabs with a
-     live underline reads as "there are four of these, pick one". */
+     One strip: the mark, then the documents. Every document already carries
+     "Dozier Tech Group x Cox Research" on its own cover, so a wordmark up here
+     was saying it twice. The chrome is monochrome white on navy: the only blue
+     anywhere in the package belongs to the client's mark. */
   .shell { display:none; height:100%; grid-template-rows:auto 1fr; }
   body.open .gate { display:none; }
   body.open .shell { display:grid; }
   header { background:var(--navy-900); border-bottom:1px solid rgba(255,255,255,.1); }
 
-  .bar { display:flex; align-items:center; gap:13px; padding:11px 20px 9px; }
-  .bar .mark { width:24px; height:24px; margin:0; flex:none; }
-  .bar .wm { font-size:11px; letter-spacing:.15em; text-transform:uppercase;
-             color:rgba(255,255,255,.6); font-weight:600; }
-  .bar .spacer { flex:1; }
-
-  nav { display:flex; align-items:stretch; gap:2px; padding:0 12px; overflow-x:auto;
-        border-top:1px solid rgba(255,255,255,.07); }
-  nav .lbl { align-self:center; font-size:10px; letter-spacing:.14em; text-transform:uppercase;
-             color:rgba(255,255,255,.38); padding:0 10px 0 8px; white-space:nowrap; }
+  nav { display:flex; align-items:stretch; gap:2px; padding:0 14px; overflow-x:auto; }
+  nav #head-mark { display:flex; align-items:center; flex:none; }
+  nav .mark { width:25px; height:25px; margin:0 16px 0 2px; flex:none; color:#fff; }
   nav button { display:flex; align-items:center; gap:9px; white-space:nowrap;
-               background:transparent; color:rgba(255,255,255,.62); font-weight:500;
-               font-size:.87rem; padding:11px 13px 9px; border-radius:0;
+               background:transparent; color:rgba(255,255,255,.62); font-weight:600;
+               font-size:.87rem; padding:12px 13px 10px; border-radius:0;
                border-bottom:2px solid transparent; }
   nav button .n { font-size:.66rem; font-weight:700; letter-spacing:.07em;
-                  color:var(--navy-400); opacity:.7; }
+                  color:rgba(255,255,255,.38); }
   nav button:hover { color:#fff; background:rgba(255,255,255,.06); }
+  nav button:hover .n { color:rgba(255,255,255,.6); }
   nav button[aria-current="true"] { color:#fff; background:rgba(255,255,255,.07);
-                                    border-bottom-color:var(--navy-400); }
-  nav button[aria-current="true"] .n { opacity:1; }
+                                    border-bottom-color:#fff; }
+  nav button[aria-current="true"] .n { color:rgba(255,255,255,.75); }
 
   .badge { font-size:.6rem; letter-spacing:.06em; text-transform:uppercase; font-weight:700;
-           color:var(--navy-400); border:1px solid rgba(111,166,222,.4);
+           color:rgba(255,255,255,.72); border:1px solid rgba(255,255,255,.26);
            border-radius:3px; padding:1px 5px; }
-  .dl { font-size:.82rem; color:var(--navy-400); background:transparent; padding:7px 12px;
-        border:1px solid rgba(255,255,255,.16); border-radius:7px; font-weight:500; }
-  .dl:hover { border-color:var(--navy-400); background:rgba(111,166,222,.08); }
-  .dl[hidden] { display:none; }
-  iframe { width:100%; height:100%; border:0; background:#fff; }
 
-  @media (max-width:560px) {
-    .bar .wm { display:none; }
-    nav .lbl { display:none; }
-  }
+  /* Under the documents, not above them. Collapses when a document has no
+     Word copy, so there is never an empty strip. */
+  .actions { display:flex; justify-content:flex-end; padding:9px 20px;
+             border-top:1px solid rgba(255,255,255,.07); }
+  .actions[hidden] { display:none; }
+  .dl { font-size:.82rem; color:#fff; background:transparent; padding:7px 13px;
+        border:1px solid rgba(255,255,255,.22); border-radius:7px; font-weight:500; }
+  .dl:hover { border-color:rgba(255,255,255,.45); background:rgba(255,255,255,.08); }
+  iframe { width:100%; height:100%; border:0; background:#fff; }
 </style>
 </head>
 <body>
@@ -204,7 +197,7 @@ function PAGE({ salt, iv, ct, iterations, count }) {
 <div class="gate">
   <div class="card">
     <div id="gate-mark"></div>
-    <h1>${count} confidential documents</h1>
+    <h1>Confidential documents</h1>
     <p class="sub">Prepared by Dozier Tech Group. Enter the password you were given.</p>
     <form id="f">
       <input id="pw" type="password" autocomplete="current-password"
@@ -217,15 +210,12 @@ function PAGE({ salt, iv, ct, iterations, count }) {
 
 <div class="shell">
   <header>
-    <div class="bar">
-      <div id="head-mark"></div>
-      <span class="wm">Dozier Tech Group</span>
-      <span class="spacer"></span>
-      <button class="dl" id="dl" hidden>Download .docx</button>
-    </div>
     <nav id="tabs" role="tablist" aria-label="Documents in this package">
-      <span class="lbl" id="tabs-label">${count} documents</span>
+      <div id="head-mark"></div>
     </nav>
+    <div class="actions" id="actions" hidden>
+      <button class="dl" id="dl">Download .docx</button>
+    </div>
   </header>
   <iframe id="view" sandbox="allow-same-origin allow-popups allow-modals" title="Document"></iframe>
 </div>
@@ -300,12 +290,13 @@ function PAGE({ salt, iv, ct, iterations, count }) {
     var tabs = document.getElementById('tabs'),
         view = document.getElementById('view'),
         dl   = document.getElementById('dl'),
+        actions = document.getElementById('actions'),
         buttons = [],
         current = null;
 
     var show = function (i) {
       current = docs[i];
-      // Track the buttons directly: the label is also a child of <nav>, so
+      // Track the buttons directly: the mark is also a child of <nav>, so
       // indexing tabs.children would be off by one.
       buttons.forEach(function (b, n) {
         b.setAttribute('aria-current', String(n === i));
@@ -314,7 +305,9 @@ function PAGE({ salt, iv, ct, iterations, count }) {
       });
       view.srcdoc = current.html;
       view.setAttribute('title', current.title);
-      dl.hidden = !current.docx;
+      // Hide the whole row, not just the button, or a document with no Word
+      // copy leaves an empty strip under the tabs.
+      actions.hidden = !current.docx;
       dl.textContent = current.sign ? 'Download to sign' : 'Download .docx';
     };
 
