@@ -1,6 +1,5 @@
 /* ============================================================================
-   Diagrams — ported from the Metvero site's framer-motion components to
-   dependency-free SVG + CSS.
+   Diagrams — dependency-free SVG + CSS.
 
    framer  ->  vanilla
    ------------------------------------------------------------------
@@ -9,6 +8,12 @@
    scale w/ origin     ->  transform-box: fill-box + transform-origin
    repeat + repeatDelay->  one long keyframe with the idle gap baked in
    repeatType reverse  ->  animation-direction: alternate
+
+   No diagram hard-codes a colour. Ink comes from rgba(var(--dgm-ink), a), and
+   the emphasis mark of each graphic from var(--dgm-accent). The band (.band--dark
+   or .band--light) supplies both, which is how one stylesheet renders every
+   diagram on a near-black surface and on off-white. SVG presentation attributes
+   cannot take var(), so colours live in inline style declarations or in here.
 
    Nothing animates until the diagram's root gains .is-visible, so no work
    happens off-screen. Every diagram forces a complete, legible final state
@@ -23,7 +28,7 @@
 
 /* ---- Faint background grid ---- */
 .dgm--discovery-map .dm-gridline {
-  stroke: rgba(255, 255, 255, 0.03);
+  stroke: rgba(var(--dgm-ink), 0.03);
   stroke-width: 0.2;
   opacity: 0;
 }
@@ -42,14 +47,14 @@
 
 /* ---- Connection lines ---- */
 .dgm--discovery-map .dm-conn {
-  stroke: rgba(255, 255, 255, 0.1);
+  stroke: rgba(var(--dgm-ink), 0.1);
   stroke-width: 0.25;
   stroke-dasharray: 1;
   stroke-dashoffset: 1;
   opacity: 0;
 }
 .dgm--discovery-map .dm-conn--bridge {
-  stroke: rgba(255, 255, 255, 0.25);
+  stroke: rgba(var(--dgm-ink), 0.25);
   stroke-width: 0.4;
 }
 .dgm--discovery-map.is-visible .dm-conn {
@@ -58,14 +63,14 @@
 
 /* ---- Node dots ---- */
 .dgm--discovery-map .dm-node {
-  fill: rgba(255, 255, 255, 0.35);
+  fill: rgba(var(--dgm-ink), 0.35);
   transform-box: fill-box;
   transform-origin: center;
   transform: scale(0);
   opacity: 0;
 }
 .dgm--discovery-map .dm-node--key {
-  fill: rgba(255, 255, 255, 0.9);
+  fill: var(--dgm-accent);
 }
 .dgm--discovery-map.is-visible .dm-node {
   animation: discovery-map-pop 0.6s var(--ease) var(--d) both;
@@ -74,7 +79,7 @@
 /* ---- Key-node outer glow rings (pulse forever) ---- */
 .dgm--discovery-map .dm-glow {
   fill: none;
-  stroke: rgba(255, 255, 255, 0.15);
+  stroke: var(--dgm-accent);
   stroke-width: 0.3;
   transform-box: fill-box;
   transform-origin: center;
@@ -135,138 +140,162 @@
   .dgm--discovery-map .dm-glow     { opacity: 0.3; transform: scale(1); }
 }
 
-/* ── unification-map ─────────────────────────────────────────────── */
-/* ============================================================
-   Unification Map  —  slug: unification-map
-   Ported from the source UnificationDiagram (framer-motion) to
-   dependency-free SVG + CSS. viewBox 0 0 100 100.
-   Nothing animates until the root gains .is-visible.
-   ============================================================ */
+/* ── connected-systems ─────────────────────────────────────────────── */
+/* connected-systems — named production integrations orbiting the DTG mark.
+   Colour comes from --dgm-ink / --dgm-accent, set by the band, so this renders
+   on the dark and the light surface without a second stylesheet. */
 
-.dgm--unification-map {
-  overflow: visible;            /* source set style overflow:visible */
+.dgm--connected-systems {
+  width: 100%;
+  height: auto;
+  overflow: visible;
+  font-family: 'Poppins', system-ui, sans-serif;
 }
 
-/* ---- Connection paths: resting = framer initial (undrawn) ---- */
-.dgm--unification-map .conn {
+/* ── orbits ───────────────────────────────────────────────────────────── */
+.dgm--connected-systems .cs-orbit {
   fill: none;
+  stroke: rgba(var(--dgm-ink), 0.09);
+  stroke-width: 0.18;
   stroke-dasharray: 1;
   stroke-dashoffset: 1;
   opacity: 0;
 }
-.dgm--unification-map .conn-hub {
-  stroke: rgba(255, 255, 255, 0.1);
-  stroke-width: 0.35;
+.dgm--connected-systems.is-visible .cs-orbit {
+  animation: cs-draw 1.6s var(--ease) both;
+  animation-delay: var(--d);
 }
-.dgm--unification-map .conn-cross {
-  stroke: rgba(255, 255, 255, 0.05);
+
+/* ── connectors ───────────────────────────────────────────────────────── */
+.dgm--connected-systems .cs-link {
+  fill: none;
+  stroke-linecap: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  opacity: 0;
+}
+.dgm--connected-systems .cs-link--a { stroke: rgba(var(--dgm-ink), 0.22); stroke-width: 0.28; }
+.dgm--connected-systems .cs-link--b { stroke: rgba(var(--dgm-ink), 0.13); stroke-width: 0.22; }
+.dgm--connected-systems.is-visible .cs-link {
+  animation: cs-draw 0.9s var(--ease) both;
+  animation-delay: var(--d);
+}
+
+/* ── particles ────────────────────────────────────────────────────────── */
+.dgm--connected-systems .cs-particle { fill: var(--dgm-accent); opacity: 0; }
+
+/* ── hub ──────────────────────────────────────────────────────────────── */
+.dgm--connected-systems .cs-hub-halo {
+  fill: rgba(var(--dgm-ink), 0.03);
+  stroke: none;
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.dgm--connected-systems .cs-hub-ring {
+  fill: none;
+  stroke: var(--dgm-accent);
+  stroke-width: 0.3;
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.dgm--connected-systems .cs-hub-pulse {
+  fill: none;
+  stroke: var(--dgm-accent);
   stroke-width: 0.25;
-}
-
-.dgm--unification-map.is-visible .conn {
-  animation: unification-map-draw 1s var(--ease, cubic-bezier(.22,1,.36,1)) both;
-}
-
-/* per-connection stagger (source: allConnections index order) */
-.dgm--unification-map.is-visible .delay0  { animation-delay: 2.40s; }
-.dgm--unification-map.is-visible .delay1  { animation-delay: 2.46s; }
-.dgm--unification-map.is-visible .delay2  { animation-delay: 2.52s; }
-.dgm--unification-map.is-visible .delay3  { animation-delay: 2.58s; }
-.dgm--unification-map.is-visible .delay4  { animation-delay: 2.64s; }
-.dgm--unification-map.is-visible .delay5  { animation-delay: 2.70s; }
-.dgm--unification-map.is-visible .delay6  { animation-delay: 2.76s; }
-.dgm--unification-map.is-visible .delay7  { animation-delay: 2.82s; }
-.dgm--unification-map.is-visible .delay8  { animation-delay: 2.88s; }
-.dgm--unification-map.is-visible .delay9  { animation-delay: 2.94s; }
-.dgm--unification-map.is-visible .delay10 { animation-delay: 2.40s; }
-.dgm--unification-map.is-visible .delay11 { animation-delay: 2.48s; }
-.dgm--unification-map.is-visible .delay12 { animation-delay: 2.56s; }
-.dgm--unification-map.is-visible .delay13 { animation-delay: 2.64s; }
-.dgm--unification-map.is-visible .delay14 { animation-delay: 2.72s; }
-.dgm--unification-map.is-visible .delay15 { animation-delay: 2.80s; }
-.dgm--unification-map.is-visible .delay16 { animation-delay: 2.88s; }
-.dgm--unification-map.is-visible .delay17 { animation-delay: 2.96s; }
-
-@keyframes unification-map-draw {
-  from { stroke-dashoffset: 1; opacity: 0; }
-  30%  { opacity: 1; }               /* opacity fade done ~0.3s of the 1s */
-  to   { stroke-dashoffset: 0; opacity: 1; }
-}
-
-/* ---- Data particles: hidden until visible; SMIL runs regardless ---- */
-.dgm--unification-map .particles { visibility: hidden; }
-.dgm--unification-map.is-visible .particles { visibility: visible; }
-
-/* ---- System blocks: fly in from off-canvas ---- */
-/* per-system translate delta (startX-x, startY-y) and stagger delay */
-.dgm--unification-map .sys-a { --tx: -6px; --ty: -6px; --sd: 0.20s; }
-.dgm--unification-map .sys-b { --tx:  0px; --ty: -6px; --sd: 0.28s; }
-.dgm--unification-map .sys-c { --tx:  6px; --ty: -6px; --sd: 0.36s; }
-.dgm--unification-map .sys-d { --tx:  8px; --ty:  0px; --sd: 0.44s; }
-.dgm--unification-map .sys-e { --tx:  6px; --ty:  6px; --sd: 0.52s; }
-.dgm--unification-map .sys-f { --tx:  0px; --ty:  6px; --sd: 0.60s; }
-.dgm--unification-map .sys-g { --tx: -6px; --ty:  6px; --sd: 0.68s; }
-.dgm--unification-map .sys-h { --tx: -8px; --ty:  0px; --sd: 0.76s; }
-
-.dgm--unification-map .sys {
   opacity: 0;
-  transform: translate(var(--tx), var(--ty));   /* framer initial */
+  transform-box: fill-box;
+  transform-origin: center;
 }
-.dgm--unification-map.is-visible .sys {
-  animation: unification-map-fly 1.2s var(--ease, cubic-bezier(.22,1,.36,1)) both;
-  animation-delay: var(--sd);
+.dgm--connected-systems .cs-mark { overflow: visible; opacity: 0; }
+.dgm--connected-systems .cs-mark-hex,
+.dgm--connected-systems .cs-mark-d {
+  fill: none;
+  stroke: var(--dgm-accent);
+  stroke-linejoin: miter;
+  stroke-miterlimit: 10;
+  stroke-linecap: butt;
 }
-/* implicit 0% is taken from the resting translate above */
-@keyframes unification-map-fly {
-  to { opacity: 1; transform: translate(0, 0); }
-}
+.dgm--connected-systems .cs-mark-hex { stroke-width: 3.75; }
+.dgm--connected-systems .cs-mark-d { stroke-width: 6.7; }
 
-/* ---- Central hub: scale up about its own centre (50,50) ---- */
-.dgm--unification-map .hub {
+.dgm--connected-systems.is-visible .cs-hub-halo { animation: cs-fade 0.9s var(--ease) 0.35s both; }
+.dgm--connected-systems.is-visible .cs-hub-ring { animation: cs-pop 0.8s var(--ease) 0.35s both; }
+.dgm--connected-systems.is-visible .cs-mark { animation: cs-pop 0.8s var(--ease) 0.55s both; }
+/* breathe forever: 2.2s of pulse, then a 4.3s rest, baked into one 6.5s cycle */
+.dgm--connected-systems.is-visible .cs-hub-pulse { animation: cs-breathe 6.5s var(--ease) 2.6s infinite both; }
+
+/* ── chips ────────────────────────────────────────────────────────────── */
+.dgm--connected-systems .cs-chip {
   opacity: 0;
-  transform: scale(0.8);
-  transform-box: fill-box;          /* origin relative to hub group bbox */
-  transform-origin: center;         /* = (50,50) in user space */
+  transform-box: fill-box;
+  transform-origin: center;
 }
-.dgm--unification-map.is-visible .hub {
-  animation: unification-map-hub 1s var(--ease, cubic-bezier(.22,1,.36,1)) both;
-  animation-delay: 0.6s;
+.dgm--connected-systems .cs-chip rect {
+  fill: rgba(var(--dgm-ink), 0.045);
+  stroke: rgba(var(--dgm-ink), 0.14);
+  stroke-width: 0.16;
+  transition: fill 0.25s var(--ease), stroke 0.25s var(--ease);
 }
-@keyframes unification-map-hub {
-  to { opacity: 1; transform: scale(1); }
+.dgm--connected-systems .cs-chip text {
+  font-size: 2.5px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  fill: rgba(var(--dgm-ink), 0.72);
+  transition: fill 0.25s var(--ease);
 }
-
-/* ---- Hub outline pulse: loops forever ----
-   source: opacity [0,0.5,0], dur 2.5s, delay 4s, repeatDelay 3.5s.
-   Baked as a 6s cycle (2.5 pulse + 3.5 idle); pulse fills first 41.67%. */
-.dgm--unification-map .hub-pulse { opacity: 0; }
-.dgm--unification-map.is-visible .hub-pulse {
-  animation: unification-map-pulse 6s linear 4s infinite both;
-}
-@keyframes unification-map-pulse {
-  0%     { opacity: 0; }
-  20.83% { opacity: 0.5; }
-  41.67% { opacity: 0; }
-  100%   { opacity: 0; }
+.dgm--connected-systems .cs-chip:hover rect { fill: rgba(var(--dgm-ink), 0.1); stroke: var(--dgm-accent); }
+.dgm--connected-systems .cs-chip:hover text { fill: rgb(var(--dgm-ink)); }
+.dgm--connected-systems.is-visible .cs-chip {
+  animation: cs-chip-in 0.7s var(--ease) both;
+  animation-delay: var(--d);
 }
 
-/* ---- Reduced motion: force full, legible, static final state ---- */
+.dgm--connected-systems .cs-more {
+  font-size: 2.5px;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  fill: rgba(var(--dgm-ink), var(--dgm-a-dim, 0.34));
+  opacity: 0;
+}
+.dgm--connected-systems.is-visible .cs-more { animation: cs-fade 0.9s var(--ease) 2.2s both; }
+
+/* ── keyframes ────────────────────────────────────────────────────────── */
+@keyframes cs-draw {
+  0% { opacity: 0; stroke-dashoffset: 1; }
+  25% { opacity: 1; }
+  100% { opacity: 1; stroke-dashoffset: 0; }
+}
+@keyframes cs-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes cs-pop {
+  0% { opacity: 0; transform: scale(0.82); }
+  100% { opacity: 1; transform: scale(1); }
+}
+@keyframes cs-chip-in {
+  0% { opacity: 0; transform: scale(0.9); }
+  100% { opacity: 1; transform: scale(1); }
+}
+@keyframes cs-breathe {
+  0% { opacity: 0; transform: scale(1); }
+  12% { opacity: 0.55; }
+  34% { opacity: 0; transform: scale(1.55); }
+  100% { opacity: 0; transform: scale(1.55); }
+}
+
+/* ── reduced motion: fully drawn, nothing moves ───────────────────────── */
 @media (prefers-reduced-motion: reduce) {
-  .dgm--unification-map * { animation: none !important; }
-  .dgm--unification-map .conn {
-    stroke-dashoffset: 0 !important;
-    opacity: 1 !important;
-  }
-  .dgm--unification-map .sys {
-    opacity: 1 !important;
-    transform: translate(0, 0) !important;
-  }
-  .dgm--unification-map .hub {
-    opacity: 1 !important;
-    transform: none !important;
-  }
-  .dgm--unification-map .hub-pulse { opacity: 0 !important; }
-  .dgm--unification-map .particles { display: none !important; }
+  .dgm--connected-systems * { animation: none !important; transition: none !important; }
+  .dgm--connected-systems .cs-orbit,
+  .dgm--connected-systems .cs-link { opacity: 1; stroke-dashoffset: 0; }
+  .dgm--connected-systems .cs-chip,
+  .dgm--connected-systems .cs-hub-halo,
+  .dgm--connected-systems .cs-hub-ring,
+  .dgm--connected-systems .cs-mark,
+  .dgm--connected-systems .cs-more { opacity: 1; transform: none; }
+  .dgm--connected-systems .cs-hub-pulse,
+  .dgm--connected-systems .cs-particle { opacity: 0; }
 }
 
 /* ── blueprint ─────────────────────────────────────────────── */
@@ -662,15 +691,15 @@
   /* restyle hooks for the page */
   --ptl-tile-size: 72px;
   --ptl-tile-radius: 16px;
-  --ptl-tile-bg: rgba(255, 255, 255, 0.02);
-  --ptl-tile-border: rgba(255, 255, 255, 0.08);
+  --ptl-tile-bg: rgba(var(--dgm-ink), 0.02);
+  --ptl-tile-border: rgba(var(--dgm-ink), 0.08);
   --ptl-icon-size: 44px;
   /* shared easing token (fallback if the page's global --ease is absent) */
   --ease: cubic-bezier(.22, 1, .36, 1);
 
   width: 100%;
   font-family: 'Poppins', system-ui, -apple-system, sans-serif;
-  color: rgba(255, 255, 255, 0.85);
+  color: rgba(var(--dgm-ink), 0.85);
 }
 .dgm--process-timeline *,
 .dgm--process-timeline *::before,
@@ -720,7 +749,7 @@
   font-size: 10px;
   letter-spacing: .25em;
   font-weight: 500;
-  color: rgba(255, 255, 255, 0.2);
+  color: rgba(var(--dgm-ink), var(--dgm-a-faint, 0.2));
   margin-bottom: 12px;
 }
 .dgm--process-timeline .ptl-tile {
@@ -745,14 +774,14 @@
   font-size: 15px;
   font-weight: 600;
   letter-spacing: -0.01em;
-  color: rgba(255, 255, 255, 0.85);
+  color: rgba(var(--dgm-ink), 0.85);
   margin: 0 0 8px;
 }
 .dgm--process-timeline .ptl-desc {
   grid-area: desc;
   font-size: 13px;
   line-height: 1.6;
-  color: rgba(255, 255, 255, 0.35);
+  color: rgba(var(--dgm-ink), var(--dgm-a-dim, 0.35));
   margin: 0;
   max-width: 200px;
 }
