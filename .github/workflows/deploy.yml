@@ -23,8 +23,16 @@ jobs:
           mkdir -p dist
           # `services/` is generated from _build/services.data.mjs and committed.
           # _build/ itself is never published.
-          for d in css js images services; do
-            [ -d "$d" ] && cp -r "$d" dist/
+          #
+          # proposal-* holds client packages built by _build/lock-docs.mjs. Their
+          # contents are AES-GCM ciphertext, not documents — that is the only
+          # reason they may be published from a repo this public. Never place a
+          # readable document there.
+          #
+          # `[ -d "$d" ] && cp` would return 1 under `set -e` when the glob finds
+          # nothing and stays literal. Use an if.
+          for d in css js images services proposal-*; do
+            if [ -d "$d" ]; then cp -r "$d" dist/; fi
           done
           # Original client artwork with baked-in backgrounds. Kept in git as the
           # only copies, but never served — the transparent re-cuts in
@@ -49,6 +57,20 @@ jobs:
             echo "::error::Staged file contains rate-sheet language. Aborting."
             exit 1
           fi
+          # A proposal-* folder is only safe here because its contents are
+          # ciphertext. Prove it: exactly one index.html, and it must carry the
+          # AES-GCM envelope. A stray readable document fails the build.
+          for d in dist/proposal-*; do
+            [ -d "$d" ] || continue
+            if [ "$(find "$d" -type f | wc -l)" -ne 1 ] || [ ! -f "$d/index.html" ]; then
+              echo "::error::$d must contain exactly one file: index.html. Aborting."
+              exit 1
+            fi
+            if ! grep -q 'AES-GCM' "$d/index.html"; then
+              echo "::error::$d/index.html is not an encrypted package. Aborting."
+              exit 1
+            fi
+          done
           echo "Guard passed. Staged:"
           find dist -mindepth 1 -maxdepth 1 | sort
 
