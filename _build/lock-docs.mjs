@@ -60,6 +60,54 @@ const titleOf = (name) => {
   return name.replace(/\.[a-z]+$/i, '');
 };
 
+/* The documents are laid out for paper: a fixed 8.5in page, or a 1100px sheet,
+   with only @media print to vary it. Inside a phone-width iframe that overflows
+   sideways and the reader is unusable. Rather than edit the documents, the
+   reader injects a screen-only stylesheet as it packs them. Nothing here names
+   a client; these are the class names a printable document uses. */
+const MOBILE_PATCH = `
+<style>
+@media screen and (max-width: 820px) {
+  html { -webkit-text-size-adjust: 100%; }
+  body { margin: 0 !important; }
+  /* the paper metaphor stops paying for itself on a phone */
+  .sheet, .page {
+    width: auto !important; max-width: 100% !important; min-height: 0 !important;
+    margin: 0 !important; box-shadow: none !important; border-radius: 0 !important;
+  }
+  .page { padding: 26px 18px !important; }
+  .body { padding: 18px 16px !important; }
+  .running-head { display: none !important; }
+
+  .cover { padding: 44px 22px !important; }
+  .cover h1 { font-size: 30px !important; line-height: 1.14 !important; max-width: none !important; }
+  .cover .subtitle { font-size: 16px !important; max-width: none !important; }
+  .cover-mark { flex-wrap: wrap !important; gap: 10px !important; }
+  /* once the lockup wraps, the x is left dangling at the end of the first line */
+  .cover-mark .lock-x { display: none !important; }
+  .cover-meta { grid-template-columns: 1fr !important; gap: 16px 0 !important; }
+
+  /* rows of boxes become stacks; the arrows between them turn to point down */
+  .flow, .phases, .stat-row, .stack, .team { display: flex !important; flex-direction: column !important; gap: 10px !important; }
+  .stack { display: grid !important; grid-template-columns: 1fr !important; }
+  .arrow { flex-basis: auto !important; height: 22px; transform: rotate(90deg); }
+
+  /* wide things scroll rather than squeeze */
+  table { display: block; width: 100% !important; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .band { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .dgm { min-width: 680px; }
+  img, svg { max-width: 100%; height: auto; }
+  h1 { font-size: 26px !important; }
+  h2, h2.section { font-size: 20px !important; }
+}
+</style>`;
+
+const withMobile = (html) => {
+  const i = html.toLowerCase().lastIndexOf('</head>');
+  if (i === -1) return html;   // no head: leave it alone rather than corrupt it
+  return html.slice(0, i) + MOBILE_PATCH + html.slice(i);
+};
+
 const files = fs.readdirSync(srcArg);
 const htmlFiles = files.filter((f) => /\.html$/i.test(f)).sort((a, b) => rank(a) - rank(b));
 if (!htmlFiles.length) {
@@ -74,7 +122,7 @@ const docs = htmlFiles.map((f) => {
     title: titleOf(f),
     // The MSA and the SOW are the two they sign.
     sign: /msa|sow/i.test(f),
-    html: fs.readFileSync(path.join(srcArg, f), 'utf8'),
+    html: withMobile(fs.readFileSync(path.join(srcArg, f), 'utf8')),
     docxName: docx || null,
     docx: docx ? fs.readFileSync(path.join(srcArg, docx)).toString('base64') : null,
   };
@@ -150,11 +198,34 @@ function PAGE({ salt, iv, ct, iterations }) {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
 <title>Dozier Tech Group | Confidential</title>
+
+<!-- Icons and the link-preview card. This link gets texted, so what a phone
+     shows for it matters: a navy tile with the mark, and no hint of who the
+     documents are for. noindex keeps crawlers away; iMessage still reads these. -->
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="apple-touch-icon" href="/images/brand/apple-touch-icon.png">
+<meta name="theme-color" content="#0d1b3d">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Dozier Tech Group">
+<meta property="og:title" content="Dozier Tech Group">
+<meta property="og:description" content="Confidential documents. A password is required.">
+<meta property="og:image" content="https://www.doziertechgroup.com/images/brand/og-mark-navy.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Dozier Tech Group">
+<meta name="twitter:description" content="Confidential documents. A password is required.">
+<meta name="twitter:image" content="https://www.doziertechgroup.com/images/brand/og-mark-navy.png">
 <style>
   :root { --navy-900:#0d1b3d; --navy-700:#1f4a86; --navy-400:#6fa6de; --bg:#0b1220; }
   * { box-sizing: border-box; }
-  html, body { height: 100%; }
-  body { margin:0; background:var(--bg); color:#fff;
+  /* 100% of <html> is the layout viewport, which on iOS is taller than what you
+     can see once the browser chrome is drawn: the bottom of the reader ends up
+     under the toolbar. dvh tracks the visible box. vh first, for iOS < 15.4. */
+  html, body { height: 100vh; height: 100dvh; }
+  body { margin:0; background:var(--bg); color:#fff; overflow:hidden;
+         -webkit-text-size-adjust:100%;
          font:16px/1.6 -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
 
   .gate { min-height:100%; display:grid; place-items:center; padding:24px; }
@@ -177,13 +248,21 @@ function PAGE({ salt, iv, ct, iterations }) {
      co-branded lockup on its own cover, so a wordmark up here was saying it
      twice. The chrome is monochrome white on navy: the only blue anywhere in
      the package belongs to the client's mark. */
-  .shell { display:none; height:100%; grid-template-rows:auto 1fr; }
+  /* minmax(0,1fr), not the implicit auto column: an auto column sizes to
+     max-content, so the horizontally scrollable tab strip stretches the grid to
+     the width of all four tabs and drags the iframe off the side of a phone. */
+  .shell { display:none; height:100%; min-height:0;
+           grid-template-rows:auto 1fr; grid-template-columns:minmax(0,1fr); }
   body.open .gate { display:none; }
   body.open .shell { display:grid; }
-  header { background:var(--navy-900); border-bottom:1px solid rgba(255,255,255,.1); }
+  header { background:var(--navy-900); border-bottom:1px solid rgba(255,255,255,.1);
+           min-width:0; }
 
-  nav { display:flex; align-items:stretch; gap:2px; padding:0 14px; overflow-x:auto; }
+  nav { display:flex; align-items:stretch; gap:2px; padding:0 14px;
+        overflow-x:auto; -webkit-overflow-scrolling:touch; scrollbar-width:none; }
+  nav::-webkit-scrollbar { display:none; }
   nav #head-mark { display:flex; align-items:center; flex:none; }
+  nav #head-mark a { display:flex; align-items:center; }
   nav .mark { width:25px; height:25px; margin:0 16px 0 2px; flex:none; color:#fff; }
   nav button { display:flex; align-items:center; gap:9px; white-space:nowrap;
                background:transparent; color:rgba(255,255,255,.62); font-weight:600;
@@ -209,7 +288,23 @@ function PAGE({ salt, iv, ct, iterations }) {
   .dl { font-size:.82rem; color:#fff; background:transparent; padding:7px 13px;
         border:1px solid rgba(255,255,255,.22); border-radius:7px; font-weight:500; }
   .dl:hover { border-color:rgba(255,255,255,.45); background:rgba(255,255,255,.08); }
-  iframe { width:100%; height:100%; border:0; background:#fff; }
+  /* min-height:0 lets the 1fr grid row actually shrink; without it the iframe's
+     intrinsic height wins and the reader runs off the bottom of a phone. */
+  iframe { width:100%; height:100%; min-height:0; border:0; background:#fff; display:block; }
+
+  @media (max-width:640px) {
+    nav { padding:0 8px; }
+    nav .mark { width:22px; height:22px; margin:0 10px 0 2px; }
+    nav button { font-size:.8rem; padding:11px 9px 9px; gap:7px; }
+    nav button .n { font-size:.6rem; }
+    .badge { display:none; }          /* the tab label already says MSA / SOW */
+    .actions { padding:8px 12px; }
+    .dl { font-size:.78rem; padding:6px 11px; }
+    .card { width:100%; }
+    h1 { font-size:1.25rem; }
+    form { flex-direction:column; }
+    button[type="submit"] { width:100%; }
+  }
 </style>
 </head>
 <body>
@@ -240,7 +335,9 @@ function PAGE({ salt, iv, ct, iterations }) {
 <div class="shell">
   <header>
     <nav id="tabs" role="tablist" aria-label="Documents in this package">
-      <div id="head-mark"></div>
+      <div id="head-mark">
+        <a href="https://www.doziertechgroup.com/" aria-label="Dozier Tech Group, home"></a>
+      </div>
     </nav>
     <div class="actions" id="actions" hidden>
       <button class="dl" id="dl">Download .docx</button>
@@ -254,11 +351,11 @@ function PAGE({ salt, iv, ct, iterations }) {
   'use strict';
   var SALT = "${salt}", IV = "${iv}", CT = "${ct}", ITER = ${iterations};
 
-  // The mark twice, from one template.
-  [ 'gate-mark', 'head-mark' ].forEach(function (id) {
-    document.getElementById(id).appendChild(
-      document.getElementById('mark').content.cloneNode(true));
-  });
+  // The mark twice, from one template. In the header it goes inside the anchor
+  // home, not beside it, or the link has nothing to click.
+  var tpl = document.getElementById('mark');
+  document.getElementById('gate-mark').appendChild(tpl.content.cloneNode(true));
+  document.querySelector('#head-mark a').appendChild(tpl.content.cloneNode(true));
 
   var b64 = function (s) {
     var bin = atob(s), out = new Uint8Array(bin.length);
