@@ -686,6 +686,23 @@
    Nothing animates until the root gains .is-visible (shared IntersectionObserver).
    ========================================================================== */
 
+/* ---- Process as a dark spotlight ----
+   #process carries band--dark, so every token flips for its subtree. This
+   deepens the surface below the surrounding light bands, lifts the faint
+   diagram alphas so structure reads on the darker ground, and turns each icon
+   tile into a small accent-lit box. */
+#process { --bg: var(--dark-bg-deep); --dgm-a-faint: 0.34; --dgm-a-dim: 0.5; }
+#process .dgm--process-timeline {
+  --ptl-tile-bg: rgba(var(--dgm-accent-rgb), 0.06);
+  --ptl-tile-border: rgba(var(--dgm-accent-rgb), 0.24);
+}
+#process .ptl-tile {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    inset 0 0 22px rgba(var(--dgm-accent-rgb), 0.10),
+    0 6px 22px rgba(0, 0, 0, 0.35);
+}
+
 .dgm--process-timeline {
   /* restyle hooks for the page */
   --ptl-tile-size: 72px;
