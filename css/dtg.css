@@ -84,6 +84,10 @@
   --dgm-ink: 255, 255, 255;
   --dgm-accent: var(--navy-400);
   --dgm-accent-soft: var(--navy-600);
+  /* navy-400 as an r,g,b triple, so diagram elements can draw the accent at any
+     opacity with rgba(var(--dgm-accent-rgb), a). --dgm-accent is a full colour
+     and cannot go inside rgba(). */
+  --dgm-accent-rgb: 111, 166, 222;
   --dgm-a-faint: 0.2;
   --dgm-a-dim: 0.35;
 
@@ -117,6 +121,7 @@
   --dgm-ink: 13, 27, 61;
   --dgm-accent: var(--navy-700);
   --dgm-accent-soft: var(--navy-600);
+  --dgm-accent-rgb: 31, 74, 134;
   /* Diagram alphas were tuned for white ink on near-black. Navy ink on off-white
      needs more of it to reach the same perceived contrast. */
   --dgm-a-faint: 0.42;
