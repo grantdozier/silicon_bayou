@@ -31,7 +31,7 @@ jobs:
           #
           # `[ -d "$d" ] && cp` would return 1 under `set -e` when the glob finds
           # nothing and stays literal. Use an if.
-          for d in css js images services proposal-*; do
+          for d in css js images services resumes proposal-*; do
             if [ -d "$d" ]; then cp -r "$d" dist/; fi
           done
           # Original client artwork with baked-in backgrounds. Kept in git as the
